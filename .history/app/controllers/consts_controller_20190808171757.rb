@@ -1,0 +1,2 @@
+class ConstsController < ApplicationController
+end

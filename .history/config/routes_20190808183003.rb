@@ -28,3 +28,4 @@ Rails.application.routes.draw do
 
   resouces :consts, only: [:edit, :update]
 end
+end

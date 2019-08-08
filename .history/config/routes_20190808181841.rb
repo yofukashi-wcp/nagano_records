@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   devise_for :admins
 
-  get 'accounts' => 'accounts#index'
+  get 'users' => 'users#index'
 
   get 'users/unsubscribes/edit' => 'unsubscribes#edit'
 
@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   resouces :adresses, only: [:new, :create, :edit, :update]
 
   resouces :consts, only: [:edit, :update]
+end
 end
