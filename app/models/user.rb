@@ -15,6 +15,6 @@ class User < ApplicationRecord
   validates :first_name_ruby, presence: true
   validates :last_name_ruby, presence: true
   validates :phone_number, presence: true, length: { minimum: 10, maximum: 11 }
-  validates :zip_code, presence: true, length: 7
+  validates :zip_code, presence: true, length: { is: 7 }
   validates :address, presence: true
 end
