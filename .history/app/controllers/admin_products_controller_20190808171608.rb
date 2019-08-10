@@ -1,0 +1,2 @@
+class AdminProductsController < ApplicationController
+end

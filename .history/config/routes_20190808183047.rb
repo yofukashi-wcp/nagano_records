@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_for :admins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'products#index'
-  devise_for :users do
-    get '/' => '#index'
-  end
-
+  devise_for :users
   devise_for :admins
 
   get 'accounts' => 'accounts#index'
