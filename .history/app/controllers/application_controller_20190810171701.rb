@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-    before_action :configure_permitted_parameters, if: :devise_controller?
 
     protected
 
@@ -9,14 +8,17 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-        products_path
+      flash[:notice] = "Welcome! You have signed up successfully."
+      user_path(@user)
     end
 
     def after_log_in_path_for(resource)
-        products_path
+      flash[:notice] = "Signed in successfully."
+      user_path(@user)
     end
 
     def after_sign_out_path_for(resource)
-        root_path
+      flash[:notice] = "Signed out successfully."
+      root_path
     end
 end
