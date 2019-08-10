@@ -1,0 +1,9 @@
+header {
+    width: 720px;
+    height: 100px;
+}
+
+.header-text {
+    text-align: center;
+    color: white
+}
