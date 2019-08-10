@@ -26,18 +26,16 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <% if user_signed_in? %>
-              <li class="nav-item"><% link_to "ユーザー", products_path, class:"fas fa-user" %></li>
-              <li class="nav-item"><% link_to "ログアウト", destroy_user_session_path, :method => :delete, class:"fas fa-sign-out-alt" %></li>
-              <li class="nav-item"><% link_to "カート", carts_path, class:"fas fa-shopping-cart" %></li>
+              <li class="nav-item"><% link_to "ユーザー", path, class:"fas fa-user" %></li>
+              <li class="nav-item"><% link_to "ログアウト", path, class:"fas fa-sihn-out-alt" %></li>
+              <li class="nav-item"><% link_to "カート", path, class:"fas fa-shopping-cart" %></li>
               <% else %>
-              <li class="nav-item"><% link_to "サインイン", new_user_registration_path, class:"fas fa-user-plus" %></li>
-              <li class="nav-item"><% link_to "ログイン", new_user_registration_path, class:"fas fa-sign-in-alt" %></li>
-              <% end %>
+              <li class="nav-item"><% link_to "サインイン", path, class:"fas fa-user-plus" %></li>
+              <li class="nav-item"><% link_to "ログイン", path, class:"fas fa-sign-in-alt" %></li>
             </ul>
           </div>
         </div>
       </nav>
     <%= yield %>
-    <footer><p>&copy; NAGANO RECORDS</p></footer>
   </body>
 </html>

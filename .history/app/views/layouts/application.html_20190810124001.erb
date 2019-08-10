@@ -32,12 +32,10 @@
               <% else %>
               <li class="nav-item"><% link_to "サインイン", new_user_registration_path, class:"fas fa-user-plus" %></li>
               <li class="nav-item"><% link_to "ログイン", new_user_registration_path, class:"fas fa-sign-in-alt" %></li>
-              <% end %>
             </ul>
           </div>
         </div>
       </nav>
     <%= yield %>
-    <footer><p>&copy; NAGANO RECORDS</p></footer>
   </body>
 </html>
