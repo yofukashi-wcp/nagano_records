@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
   devise_for :admins
 
-  get 'accounts' => 'accounts#index'
-
   get 'users/unsubscribes/edit' => 'unsubscribes#edit'
 
   get 'users/unsubscribes' => 'unsubscribes#update'
