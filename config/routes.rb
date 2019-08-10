@@ -1,19 +1,15 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'products#index'
-  devise_for :users do
-    get '/' => '#index'
+
+  devise_for :users
+  namespace :users do
+    get 'index'
+    get 'unsubscribes/edit'
+    get 'unsubscribes'
   end
 
   devise_for :admins
-
-  get 'accounts' => 'accounts#index'
-
-  get 'users/unsubscribes/edit' => 'unsubscribes#edit'
-
-  get 'users/unsubscribes' => 'unsubscribes#update'
-
-  get 'orders/check' => 'orders#check'
 
   resources :admin_users, only: [:index, :show, :edit, :update]
 
@@ -24,6 +20,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:index, :create, :update, :destroy]
 
   resources :orders, only: [:index, :new, :update]
+  get 'orders/check'
 
   resources :admin_orders, only: [:index, :show, :update]
 
