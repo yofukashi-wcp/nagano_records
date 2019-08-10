@@ -3,10 +3,8 @@ Rails.application.routes.draw do
   root 'products#index'
 
   devise_for :users
-  namespace :users do
-    get 'index'
-    get 'unsubscribes/edit'
-    get 'unsubscribes'
+  resources :users, only: [:index] do
+    resource :unsubscribes, only: [:edit, :update]
   end
 
   devise_for :admins
