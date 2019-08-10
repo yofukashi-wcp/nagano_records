@@ -12,7 +12,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container">
-          <%= link_to image_tag("header.png", width: '50', alt: "NAGANO RECORDS"), root_path %>
+          <%= link_to image_tag("header.jpg", width: '300', alt: "NAGANO RECORDS"), root_path %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar bar1"></span>
             <span class="navbar-toggler-bar bar2"></span>
@@ -45,6 +45,6 @@
         </div>
       </nav>
     <%= yield %>
-<nav class="navbar navbar-light bg-default footer"><p>&copy; NAGANO RECORDS</p></nav>
+    <footer style= "background-color: default"><p class= "footer-text">&copy; NAGANO RECORDS</p></footer>
   </body>
 </html>

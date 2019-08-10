@@ -16,3 +16,13 @@
  @import "font-awesome";
  @import "now-ui-kit";
  @import "*";
+
+ header {
+    width: 720px;
+    height: 100px;
+}
+
+.header-text {
+    text-align: center;
+    color: white
+}
