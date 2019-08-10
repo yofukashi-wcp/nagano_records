@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_050250) do
+ActiveRecord::Schema.define(version: 2019_08_10_074530) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_050250) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "firtst_name", null: false
+    t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "first_name_ruby", null: false
     t.string "last_name_ruby", null: false
@@ -142,8 +142,8 @@ ActiveRecord::Schema.define(version: 2019_08_08_050250) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["first_name"], name: "index_users_on_first_name"
     t.index ["first_name_ruby"], name: "index_users_on_first_name_ruby"
-    t.index ["firtst_name"], name: "index_users_on_firtst_name"
     t.index ["last_name"], name: "index_users_on_last_name"
     t.index ["last_name_ruby"], name: "index_users_on_last_name_ruby"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
