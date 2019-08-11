@@ -19,14 +19,13 @@
             <span class="navbar-toggler-bar bar2"></span>
             <span class="navbar-toggler-bar bar3"></span>
           </button>
-          <form class="form-inline text-center" data-background-color>
+          <form class="form-inline ml-auto" data-background-color>
                 <div class="form-group has-white">
-                  <input type="text" class="col-auto form-control search", style="width: 400px;", placeholder="商品やアーティスト名などで検索">
-                  <button type="submit" class="btn btn-primary">検索</button>
+                  <input type="text" class="form-control search" placeholder="Search">
                 </div>
           </form>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul class="navbar-nav  ml-auto">
+              <ul class="navbar-right mr-auto mt-2 mt-lg-0">
                 <% if user_signed_in? %>
                 <li class="nav-item"><%= link_to "ユーザー", products_path, class:"fas fa-user nav-link" %></li>
                 <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
