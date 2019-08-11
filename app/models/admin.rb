@@ -5,5 +5,5 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   validates :email, presence: true
-  validates :encrypted_password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }
 end
