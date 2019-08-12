@@ -1,25 +1,36 @@
 class AdminProductsController < ApplicationController
-    def index
+  def index
 
-    end
+  end
 
-    def show
+  def show
+    # @product = Product.find(params[:id])
+    @product = {
+      id: 1,
+      name: "時空の水",
+      artist: { name: "平沢進" },
+      label: { name: "ケイオスユニオン" },
+      genre: { name: "ニューエイジ・ミュージック" },
+      price: 1200,
+      stock: 24,
+      jacket_image: "",
+      summary: "ふっ！"
+    }
+  end
 
-    end
+  def new
 
-    def new
+  end
 
-    end
+  def edit
 
-    def edit
+  end
 
-    end
+  def update
 
-    def update
+  end
 
-    end
+  def destroy
 
-    def destroy
-
-    end
+  end
 end
