@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>商品詳細</h2>
+    </div>
+    <div class="col-md-6 text-right">
+      <%= link_to "編集", admin_product_path(product), class: "btn btn-success" %>
+      <%= link_to "削除", admin_product_path(product), method: :delete, class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= attachment_image_tag product, :jacket_image, size: "160x160", fallback: "no_image.png" %>
+    </div>
+    <div class="col-md-5">
+      <table>
+        <caption><%= product.name %></caption>
+        <tbody>
+          <tr>
+            <th>アーティスト</th>
+            <td><%= product.artist.name %></td>
+          </tr>
+          <tr>
+            <th>レーベル</th>
+            <td><%= product.label.name %></td>
+          </tr>
+          <tr>
+            <th>ジャンル</th>
+            <td><%= product.genre.name %></td>
+          </tr>
+          <tr>
+            <th>在庫</th>
+            <td><=% product.stock %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <p>¥ <%= product.price %></p>
+      <%= link_to "カート追加", carts_path %>
+    </div>
+  </div>
+</div>
