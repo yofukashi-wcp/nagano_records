@@ -5,10 +5,10 @@
       <h2>商品詳細</h2>
     </div>
     <div class="col text-right">
-      <%# if admin_signed_in? %>
+      <% if admin_signed_in? %>
         <%= link_to "編集", edit_admin_product_path(product), class: "btn btn-success" %>
         <%= link_to "削除", admin_product_path(product), method: :delete, class: "btn btn-danger" %>
-      <%# end %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -17,13 +17,13 @@
 <div class="container">
   <div class="row">
     <div class="col-3">
-      <a href="#!" data-toggle="modal" data-target="#jaketView">
+      <a href="#!" data-toggle="modal" data-target="#jacketView">
         <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "img-thumbnail" %>
       </a>
     </div>
     <div class="col-5">
       <h3><%= product.name %></h3>
-      <table>
+      <table class="mb-3">
         <tbody>
           <tr>
             <th>アーティスト　</th>
@@ -39,17 +39,20 @@
           </tr>
         </tbody>
       </table>
+      <% if !admin_signed_in? %>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<%= product.name %>｜NAGANO RECORDS"></a>
+      <% end %>
     </div>
     <div class="col-4">
       <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
       <p class="lead">在庫　<%= product.stock %></p>
-      <%# if user_signed_in? %>
+      <% if user_signed_in? %>
         <%= form_with url: carts_path, class: "form-inline align-items-center" do |f| %>
           <%= f.label :quantity, "数量" %>
           <%= f.text_field :quantity, class: "ml-1 mr-2 form-control", type: "number", min: "1", max: "99", value: "1" %>
           <%= f.submit "カート追加", class: "btn btn-primary" %>
         <% end %>
-      <%# end %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -84,8 +87,8 @@
   <div class="bg-light"><%= product.summary %></div>
 </div>
 
-<!-- Jaket View Modal -->
-<div class="modal fade" id="jaketView" tabindex="-1" role="dialog" aria-labelledby="jaketViewLabel" aria-hidden="true">
+<!-- Jacket View Modal -->
+<div class="modal fade" id="jacketView" tabindex="-1" role="dialog" aria-labelledby="jacketViewLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -100,3 +103,6 @@
     </div>
   </div>
 </div>
+
+<!-- Twitter Share Buntton Script -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
