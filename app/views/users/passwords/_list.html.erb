@@ -1,0 +1,38 @@
+ <div class="container">
+ <div class="row">
+ 
+ <%= form_with model: user, local: true do |f| %>
+
+  <%
+=begin%>
+ <% if user.errors.any? %>
+         <div class="alert alert-danger">
+         <ul>
+            <li> <%= user.errors.count %>errors prohibited this obj from being saved:</li>
+
+             <% user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+             <% end %>
+         </ul>
+         </div>
+  <% end %>  
+<%
+=end%>
+
+        <div class="form-group">
+            <%= f.label :current_password %>
+            <%= f.password_field :current_password, autoforcus: true, autocomplete: "current-password",  class: "col-auto form-control form-control-lg" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :passwaord %>
+            <%= f.password_field :password, autoforcus: true, class: "col-auto form-control form-control-lg" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :passwaord_confirmation %>
+            <%= f.password_field :passwaord_confirmation, autoforcus: true, class: "col-auto form-control form-control-lg" %>
+        </div>
+        <%= link_to "確定",　index, class: "btn btn-success" %>
+        </div>
+    <% end %>
+</div>
+</div>

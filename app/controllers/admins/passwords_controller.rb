@@ -12,14 +12,17 @@ class Admins::PasswordsController < Devise::PasswordsController
   # end
 
   # GET /resource/password/edit?reset_password_token=abcdef
-  # def edit
-  #   super
-  # end
+  def edit
+    @user = current_admin
+    @index = products_path
+  end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
+  def update
+    @admin = current_admin
+    @admin.update
+    redirect_to products_path
+  end
 
   # protected
 
@@ -31,4 +34,9 @@ class Admins::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+  private
+  def admins_params
+    params.require(:admin).permit(:password)
+  end
+
 end
