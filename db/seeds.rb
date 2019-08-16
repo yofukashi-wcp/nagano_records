@@ -62,9 +62,27 @@
 #      },
 #     ]
 #   )
-Artist.create!([ { id: 1, name: "平沢進" } ])
-Label.create!([ { id: 1, name: "ケイオスユニオン" } ])
-Genre.create!([ { id: 1, name: "ニューエイジ・ミュージック" } ])
+
+Artist.create!(
+  [
+    { id: 1, name: "平沢進" },
+    { id: 2, name: "中野テルヲ" },
+    { id: 3, name: "P-MODEL" }
+  ]
+)
+Label.create!(
+  [
+    { id: 1, name: "ケイオスユニオン" },
+    { id: 2, name: "Beat Sufers" }
+  ]
+)
+Genre.create!(
+  [
+    { id: 1, name: "ニューエイジ・ミュージック" },
+    { id: 2, name: "テクノポップ" }
+  ]
+)
+
 Product.create!(
   [
     {

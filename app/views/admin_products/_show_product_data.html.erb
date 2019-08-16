@@ -6,7 +6,7 @@
     </div>
     <div class="col text-right">
       <%# if admin_signed_in? %>
-        <%= link_to "編集", admin_product_path(product), class: "btn btn-success" %>
+        <%= link_to "編集", edit_admin_product_path(product), class: "btn btn-success" %>
         <%= link_to "削除", admin_product_path(product), method: :delete, class: "btn btn-danger" %>
       <%# end %>
     </div>
@@ -26,15 +26,15 @@
       <table>
         <tbody>
           <tr>
-            <th>アーティスト</th>
+            <th>アーティスト　</th>
             <td><%= product.artist.name %></td>
           </tr>
           <tr>
-            <th>レーベル</th>
+            <th>レーベル　</th>
             <td><%= product.label.name %></td>
           </tr>
           <tr>
-            <th>ジャンル</th>
+            <th>ジャンル　</th>
             <td><%= product.genre.name %></td>
           </tr>
         </tbody>
@@ -81,7 +81,7 @@
 <!-- Product summary -->
 <div class="container my-5">
   <h3>商品の紹介</h3>
-  <div class="bg-light">なし</div>
+  <div class="bg-light"><%= product.summary %></div>
 </div>
 
 <!-- Jaket View Modal -->
@@ -95,7 +95,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "img-thumbnail", data_toggle: "modal", data_target: "#jaketView" %>
+        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png" %>
       </div>
     </div>
   </div>
