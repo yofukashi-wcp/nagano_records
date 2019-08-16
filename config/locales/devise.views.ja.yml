@@ -7,6 +7,13 @@ ja:
         password: "パスワード"
         password_confirmation: "確認用パスワード"
         remember_me: "ログインを記憶"
+        first_name: "名前（姓）"
+        last_name: "名前（名）"
+        first_name_ruby: "名前（セイ）"
+        last_name_ruby: "名前（メイ）"
+        zip_code: "郵便番号"
+        address: "住所"
+        phone_number: "電話番号"
     models:
       user: "ユーザ"
   devise:
