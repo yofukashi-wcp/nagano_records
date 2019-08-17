@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   }
   namespace :users do
     get '' => 'accounts#index'
-    resource :unsubscribes, only: [:edit, :update]
+    resource :unsubscribes, only: [:edit, :destroy]
   end
 
   devise_for :admins, controllers: {
