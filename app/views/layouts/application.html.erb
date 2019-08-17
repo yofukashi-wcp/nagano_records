@@ -12,11 +12,11 @@
 
   <body>
     <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container">
+        <div class="container" style="padding-left: 0px; padding-right: 0px;">
             <% if user_signed_in? %>
-            <%= link_to current_user.first_name+current_user.last_name+"さん",users_path %>
+            <%= link_to current_user.first_name+current_user.last_name+"さん",users_path, style: "font-size: 13px; padding-right: 25px;" %>
             <% end %>
-          <%= link_to image_tag("header.png", width: '50', alt: "NAGANO RECORDS"), root_path %>
+          <%= link_to image_tag("header.png", width: '300', height: '50', alt: "NAGANO RECORDS"), root_path %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar bar1"></span>
             <span class="navbar-toggler-bar bar2"></span>
@@ -45,9 +45,9 @@
                 <% end %>
               </ul>
             </div>
-          </div>
-      </nav>
+        </div>
+    </nav>
     <%= yield %>
-<nav class="navbar navbar-light bg-default footer"><div class="mx-auto">&copy; NAGANO RECORDS</div></nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-default"><div class="mx-auto">&copy; NAGANO RECORDS</div></nav>
   </body>
 </html>
