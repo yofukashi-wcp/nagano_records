@@ -4,6 +4,6 @@ class Users::UnsubscribesController < Devise::UnsubscribesController
     end
 
     def update
-
+        
     end
 end

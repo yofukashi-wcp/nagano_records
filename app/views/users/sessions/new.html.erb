@@ -1,26 +1,32 @@
-<h2>Log in</h2>
+<h3 class="col-6 offset-md-2" , style="padding-left: 200px; padding-top: 20px;">ログイン</h3>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+<div class="mx-auto container">
+	<div class="text-align">
+		<div class="field col-6 offset-md-3">
+			<%= f.label :メールアドレス %><br />
+			<%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-lg-offset-3 form-control
+			form-control-lg w-100" %>
+		</div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+		<div class="field col-6 offset-md-3 mt-md-3">
+			<%= f.label :パスワード %><br />
+			<%= f.password_field :password, autocomplete: "current-password", class: "col-lg-offset-3 form-control
+			form-control-lg w-100" %>
+		</div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+		<% if devise_mapping.rememberable? %>
+		<div class="field text-right col-9">
+			<%= f.check_box :remember_me, class: "wskCheckbox", type: "checkbox" %> <%= f.label :このログインを記憶する %>
+		</div>
+		<% end %>
+	</div>
+	<div class="actions text-right col-9 mt-md-5">
+		<%= f.submit "ログイン", class: "btn btn-success mx-auto btn-lg" %>
+	</div>
+	<% end %>
+	<div class="col-9 mt-md-3 text-right">
+		<%= render "users/shared/links"%>
+	</div>
+</div>
