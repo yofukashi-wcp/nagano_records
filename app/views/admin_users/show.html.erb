@@ -1,1 +1,2 @@
-admin_users show
+<%= render "users/list" user :@user %>
+<%= link_to "ユーザー退会"　admin_users_path, method: :delete, class: "btn btn-danger btn-lg" %>
