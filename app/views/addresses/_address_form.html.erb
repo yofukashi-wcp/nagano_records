@@ -1,3 +1,4 @@
+<%= form_with model: @user, url: edit_address_path, method: :method_name, local:true do |f| %>
 <div class="mx-auto container text-align">
 
     <div class="field col-8 offset-md-2">
@@ -10,3 +11,7 @@
     </div>
     <div style="width: 100%; height: 30px;"></div>
     <div class="text-right col-10">
+        <%= f.submit "submit_btn", class: "btn btn-success mx-auto btn-lg"%>
+    </div>
+    <% end %>
+    </div>
