@@ -47,10 +47,15 @@
       <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
       <p class="lead">在庫　<%= product.stock %></p>
       <% if user_signed_in? %>
-        <%= form_with url: carts_path, class: "form-inline align-items-center" do |f| %>
+        <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
+          <%= f.text_field :product_id, type: "hidden", value: product.id %>
           <%= f.label :quantity, "数量" %>
           <%= f.text_field :quantity, class: "ml-1 mr-2 form-control", type: "number", min: "1", max: "99", value: "1" %>
           <%= f.submit "カート追加", class: "btn btn-primary" %>
+        <% end %>
+      <% else %>
+        <% if !admin_signed_in? %>
+          <%= link_to "ご購入にはログインが必要です", new_user_session_path, class: "btn btn-danger" %>
         <% end %>
       <% end %>
     </div>
