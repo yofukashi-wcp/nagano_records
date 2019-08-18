@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   resources :admin_orders, only: [:index, :show, :update]
 
-  resources :adresses, only: [:new, :create, :edit, :update]
+  resources :addresses, only: [:new, :create, :edit, :update, :destroy]
 
   resources :consts, only: [:edit, :update]
 end

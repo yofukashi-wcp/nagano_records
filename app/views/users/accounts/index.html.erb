@@ -1,0 +1,31 @@
+<div class="container">
+        <div class="row">
+                <div class="mx-auto">
+
+                    <div class="col-md-11">
+                        <%= render "users/list", user: @user %>
+                        <%= link_to "編集", edit_user_registration_path(@user), class: "btn btn-success" %>
+                        <%= link_to "パスワードの変更", edit_user_password_path(@user), class: "btn btn-warning" %>
+                    </div>
+                    <div class="col-md-11">
+                        <table>
+                            <thead>
+                                <th>追加した住所一覧</th>
+                            </thead>
+
+                            <tbody>
+                                <% @user.each do |user| %>
+                                <tr>
+                                    <td>〒</td>
+                                    <td><%= user.zip_code %></td>
+                                    <td><%= user.address %></td>
+                                </tr>
+                                    </tbody>
+                                <% end %>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+        </div>
+</div>
