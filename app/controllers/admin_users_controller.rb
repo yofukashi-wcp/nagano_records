@@ -4,7 +4,7 @@ class AdminUsersController < ApplicationController
     end
 
     def show
-
+        @user = User.find(params[:id])
     end
 
     def edit
@@ -13,6 +13,15 @@ class AdminUsersController < ApplicationController
 
     def update
         @user = User.find(params[:id])
-        @user.update
+        if @user.update(user_params)
+        redirect_to admin_user_path(@user)
+        else
+            render :edit
+        end
     end
+
+    private
+        def user_params
+            params.require(:user).permit(:last_name, :first_name, :last_name_ruby, :first_name_ruby, :zip_code, :address, :phone_number, :email)
+        end
 end

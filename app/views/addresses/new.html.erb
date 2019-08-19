@@ -1,11 +1,3 @@
-<h3 style="padding-left: 365px; padding-top: 20px;">追加</h3>
+<h3 style="padding-left: 365px; padding-top: 20px;">住所追加</h3>
 
-
-<%= form_with model: @user, url: edit_address_path, method: :update, local:true do |f| %>
-
-<%= render "address_form" %>
-
-<%= f.submit '追加', class: "btn btn-success mx-auto btn-lg"%>
-        </div>
-        <% end %>
-    </div>
+<%= render partial: "address_form" %>
