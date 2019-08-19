@@ -1,4 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit User</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -46,22 +46,9 @@
       <%= f.label :メールアドレス %><br />
       <%= f.email_field :email, autocomplete: "email", class: "col-auto form-control form-control-lg" %>
     </div>
-
-    <div class="field">
-      <%= f.label :パスワード %>
-      <% if @minimum_password_length %>
-      （<%= @minimum_password_length %> 文字以上入力してください）
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "col-auto form-control form-control-lg" %>
-    </div>
-
-    <div class="field", style="margin-bottom: 60px;">
-      <%= f.label :パスワード（確認） %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-auto form-control form-control-lg" %>
-    </div>
-
-
+    
     <div class="actions text-right">
-      <%= f.submit "同意して次へ", class: "btn btn-success mx-auto btn-lg" %>
+      <%= f.submit "登録変更", class: "btn btn-success mx-auto btn-lg" %>
     </div>
   </div>
+<% end %>

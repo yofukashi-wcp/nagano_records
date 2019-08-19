@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Admins::PasswordsController < Devise::PasswordsController
+prepend_before_action :require_no_authentication, only: [:new]
+append_before_action :assert_reset_token_passed, only: [:new]
   # GET /resource/password/new
   # def new
   #   super
@@ -14,13 +16,14 @@ class Admins::PasswordsController < Devise::PasswordsController
   # GET /resource/password/edit?reset_password_token=abcdef
   def edit
     @user = current_admin
-    @index = products_path
+    @path = admin_password_path
   end
 
   # PUT /resource/password
   def update
     @admin = current_admin
-    @admin.update
+    @admin.update_with_password(admins_params)
+    sign_in(@admin, bypass: true)
     redirect_to products_path
   end
 
@@ -36,7 +39,7 @@ class Admins::PasswordsController < Devise::PasswordsController
   # end
   private
   def admins_params
-    params.require(:admin).permit(:password)
+    params.require(:admin).permit(:password, :password_confirmation, :current_password)
   end
 
 end

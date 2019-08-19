@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::PasswordsController < Devise::PasswordsController
+class Users::PasswordsController < ApplicationController
   # GET /resource/password/new
   # def new
   #   super
@@ -14,17 +14,15 @@ class Users::PasswordsController < Devise::PasswordsController
   # GET /resource/password/edit?reset_password_token=abcdef
   def edit
     @user = current_user
-    @index = users_path
+    @path = user_password_path
   end
 
   # PUT /resource/password
   def update
     @user = current_user
-    if  @user.update(users_params)
-        redirect_to users_path
-    else
-        render :edit
-    end
+    @user.update(users_params)
+    sign_in(@user, bypass: true)
+    redirect_to users_path
   end
 
   # protected

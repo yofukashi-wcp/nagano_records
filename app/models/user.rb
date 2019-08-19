@@ -9,9 +9,8 @@ class User < ApplicationRecord
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_one :cart, dependent: :destroy
-
-  validates :email, presence: true
   validates :password, presence: true, length: { minimum: 6 }
+  validates :email, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :first_name_ruby, presence: true
