@@ -1,4 +1,11 @@
-Admin.create!([{ email: 'admin@test.com', password: '111111',}])
+Admin.create!(
+   [
+   {
+      email: 'admin@test.com',
+      password: '111111',
+    }
+    ]
+)
 
 User.create!(
    [
@@ -73,6 +80,15 @@ Address.create!(
       name: '藤村忠寿',
       zip_code: '1234567',
       address: '鹿児島県千日町5-8',
+   }
+   ]
+)
+
+Const.create!([
+   {
+      id: '1',
+      name: '送料',
+      value: '500',
    }
    ]
 )

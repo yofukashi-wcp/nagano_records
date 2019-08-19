@@ -6,6 +6,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  def remember_me
+    true
+  end
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_one :cart, dependent: :destroy

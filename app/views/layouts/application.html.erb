@@ -14,19 +14,28 @@
     <div class="wrapper">
       <nav class="navbar navbar-expand-lg bg-primary">
           <div class="container" style="padding-left: 0px; padding-right: 0px;">
-              <% if user_signed_in? %>
-              <% end %>
-            <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
+            <% if user_signed_in? %>
+              <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
+            <% elsif admin_signed_in? %>
+              <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
+            <% end %>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-bar bar1"></span>
               <span class="navbar-toggler-bar bar2"></span>
               <span class="navbar-toggler-bar bar3"></span>
             </button>
             <form class="form-inline text-center" data-background-color>
-                  <div class="form-group has-white">
+                <div class="form-group has-white">
+                  <% if user_signed_in? %>
                     <input type="text" class="col-auto form-control search", style="width: 400px;", placeholder="商品やアーティスト名などで検索">
                     <button type="submit" class="btn btn-neutral btn-round">検索</button>
-                  </div>
+                </div>
+                  <% else %>
+                  <input type="text" class="col-auto form-control search", style="width: 280px;", placeholder="商品やアーティスト名などで検索">
+                  <button type="submit" class="btn btn-neutral btn-round">検索</button>
+                  <% end %>
+            </div>
             </form>
               <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav  ml-auto">
