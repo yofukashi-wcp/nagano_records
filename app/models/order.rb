@@ -6,6 +6,6 @@ class Order < ApplicationRecord
   validates :zip_code, presence: true
   validates :address, presence: true
   validates :phone_number, presence: true
-  validates :postage. presence: true
+  validates :postage, presence: true
   validates :total, presence: true
 end

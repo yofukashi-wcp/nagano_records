@@ -1,9 +1,12 @@
-class Users::UnsubscribesController < Devise::UnsubscribesController
-    def edit
+class Users::UnsubscribesController < ApplicationController
 
+    def edit
+        @user = User.find(current_user.id)
     end
 
-    def update
-
+    def destroy
+        user = User.find(current_user.id)
+        user.destroy
+        redirect_to root_path
     end
 end
