@@ -7,7 +7,7 @@
     <div class="col text-right">
       <% if admin_signed_in? %>
         <%= link_to "編集", edit_admin_product_path(product), class: "btn btn-success" %>
-        <%= link_to "削除", admin_product_path(product), method: :delete, class: "btn btn-danger" %>
+        <a href="#!" class="btn btn-danger" data-toggle="modal" data-target="#deleteAction">削除</a>
       <% end %>
     </div>
   </div>
@@ -48,9 +48,9 @@
       <p class="lead">在庫　<%= product.stock %></p>
       <% if user_signed_in? %>
         <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
-          <%= f.text_field :product_id, type: "hidden", value: product.id %>
+          <%= f.hidden_field :product_id, value: product.id %>
           <%= f.label :quantity, "数量" %>
-          <%= f.text_field :quantity, class: "ml-1 mr-2 form-control", type: "number", min: "1", max: "99", value: "1" %>
+          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: "1", max: "99", value: "1" %>
           <%= f.submit "カート追加", class: "btn btn-primary" %>
         <% end %>
       <% else %>
@@ -97,13 +97,35 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><%= product.name %></h5>
+        <h5 class="modal-title" id="jacketViewLabel"><%= product.name %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Action Modal -->
+<div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-labelledby="deleteActionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="deleteActionLabel"><%= product.name %> を削除</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>商品を本当に削除しますか？<br />
+        （一旦削除すると元に戻せません。）</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+        <%= link_to "削除", admin_product_path(product), method: :delete, class: "btn btn-danger" %>
       </div>
     </div>
   </div>

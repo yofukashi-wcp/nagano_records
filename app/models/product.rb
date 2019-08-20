@@ -13,5 +13,4 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :stock, presence: true
   attachment :jacket_image
-  validates :summary, length: { maximum: 500 }
 end
