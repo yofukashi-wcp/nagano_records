@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   belongs_to :artist
   belongs_to :label
   belongs_to :genre
-  has_one :track, dependent: :destroy
+  has_many :tracks, dependent: :destroy
   has_one :cart, dependent: :destroy
   has_one :order_product
 
@@ -13,5 +13,4 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :stock, presence: true
   attachment :jacket_image
-  validates :summary, length: { maximum: 500 }
 end
