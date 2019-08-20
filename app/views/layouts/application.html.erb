@@ -18,12 +18,16 @@
               <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
             <% elsif admin_signed_in? %>
               <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
+            <% else %>
+            <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
             <% end %>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-bar bar1"></span>
               <span class="navbar-toggler-bar bar2"></span>
               <span class="navbar-toggler-bar bar3"></span>
+              <span class="navbar-toggler-bar bar4"></span>
+              <span class="navbar-toggler-bar bar5"></span>
             </button>
             <form class="form-inline text-center" data-background-color>
                 <div class="form-group has-white">
@@ -49,6 +53,7 @@
                   <li class="nav-item"><%= link_to "ユーザー一覧", admin_users_path, class:"fas fa-user nav-link" %></li>
                   <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
                   <li class="nav-item"><%= link_to "パスワード変更", edit_admin_password_path, class:"fas fa-unlock-alt" %></li>
+                  <li class="nav-item"><%= link_to "設定", consts_edit_path, class:"fas fa-cogs" %></li>
                   <% else %>
                   <li class="nav-item"><%= link_to "サインイン", new_user_registration_path, class:"fas fa-user-plus nav-link" %></li>
                   <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class:"fas fa-sign-in-alt nav-link" %></li>

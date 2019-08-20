@@ -1,7 +1,7 @@
 class ConstsController < ApplicationController
 
     def edit
-        @const = Const.find(params[:id])
+        @const = Const.find(1)
     end
 
     def update
