@@ -8,7 +8,7 @@ Admin.create!(
 )
 
 User.create!(
-   [
+  [
    {
       id: '1',
       email: 'test1@test.com',
@@ -91,4 +91,70 @@ Const.create!([
       value: '500',
    }
    ]
+)
+  ]
+)
+
+Artist.create!(
+  [
+    { id: 1, name: "平沢進" },
+    { id: 2, name: "中野テルヲ" },
+    { id: 3, name: "P-MODEL" }
+  ]
+)
+Label.create!(
+  [
+    { id: 1, name: "ケイオスユニオン" },
+    { id: 2, name: "Beat Sufers" }
+  ]
+)
+Genre.create!(
+  [
+    { id: 1, name: "ニューエイジ・ミュージック" },
+    { id: 2, name: "テクノポップ" }
+  ]
+)
+
+Product.create!(
+  [
+    {
+      id: 1,
+      name: "時空の水",
+      artist_id: 1,
+      label_id: 1,
+      genre_id: 1,
+      price: 1200,
+      stock: 24,
+      jacket_image_id: "",
+      summary: "ふっ！"
+    }
+  ]
+)
+Track.create!(
+  [
+    {
+      id: 1,
+      product_id: 1,
+      disc: 1,
+      number: 1,
+      name: "時空の水",
+      length: "04:00"
+    },
+    {
+      id: 2,
+      product_id: 1,
+      disc: 1,
+      number: 2,
+      name: "バンディリア旅行団",
+      length: "03:20"
+    },
+    {
+      id: 3,
+      product_id: 1,
+      disc: 1,
+      number: 3,
+      name: "ハルディン・ホテル",
+      length: "05:24"
+    }
+  ]
 )
