@@ -92,8 +92,6 @@ Const.create!([
    }
    ]
 )
-  ]
-)
 
 Artist.create!(
   [
