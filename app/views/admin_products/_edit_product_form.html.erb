@@ -3,7 +3,7 @@
     <h2>商品編集</h2>
   </div>
 
-  <%= form_with model: product, url: edit_admin_product_path do |form| %>
+  <%= form_with model: product, url: admin_product_path do |form| %>
     <div class="container">
       <div class="row">
         <div class="col-4">
@@ -26,21 +26,21 @@
       </div>
 
       <div class="form-group">
-        <%= form.fields_for :artist, product.artist do |artist| %>
+        <%= form.fields_for product.artist do |artist| %>
           <%= artist.label :name, "アーティスト" %>
           <%= artist.text_field :name, id: "artist", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group">
-        <%= form.fields_for :label, product.label do |label| %>
+        <%= form.fields_for product.label do |label| %>
           <%= label.label :name, "レーベル" %>
           <%= label.text_field :name, id: "label", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group">
-        <%= form.fields_for :genre, product.genre do |genre| %>
+        <%= form.fields_for product.genre do |genre| %>
           <%= genre.label :name, "ジャンル" %>
           <%= genre.text_field :name, id: "genre", class: "form-control", maxlength: 255 %>
         <% end %>
@@ -93,7 +93,27 @@
     </div>
 
     <div class="mt-5 text-right">
-      <a href="#!" class="btn btn-success" data-toggle="modal" data-target="">内容を登録</a>
+      <a href="#!" class="btn btn-success" data-toggle="modal" data-target="#submitModal">内容を登録</a>
+    </div>
+
+    <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="submitModalLabel">入力内容を登録</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>入力内容を登録しますか？</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+            <%= form.submit "登録", class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div></div></div>
@@ -138,12 +158,8 @@
 
     // トラックを追加
     $('#addTrack').on('click', function() {
-      var index = $('.track-item').length;
       var track_disc = Number($('.track-item:last').find('.track-disc').val());
       var track_number = Number($('.track-item:last').find('.track-number').val()) + 1;
-
-      if (isNaN(track_disc) || track_disc < 0) track_disc = 1;
-      if (isNaN(track_number) || track_number < 0) track_number = 1;
 
       $('#trackRecords').append(''
         + '<tr class="track-item">'
