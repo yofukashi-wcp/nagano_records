@@ -1,25 +1,26 @@
 class AdminProductsController < ApplicationController
-    def index
+  def index
 
-    end
+  end
 
-    def show
+  def show
+    @product = Product.find(params[:id])
+  end
 
-    end
+  def new
 
-    def new
+  end
 
-    end
+  def edit
+    # @product = Product.find(params[:id])
+    @product = Product.find(1)
+  end
 
-    def edit
+  def update
 
-    end
+  end
 
-    def update
+  def destroy
 
-    end
-
-    def destroy
-
-    end
+  end
 end

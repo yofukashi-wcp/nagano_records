@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>商品編集</h2>
+</div>
+
+<%= form_with model: product do |f| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "img-thumbnail", id: "jacketImage" %>
+      </div>
+      <div class="col align-bottom">
+        <%= f.attachment_field :jacket_image, id: "selectImage"%>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(function(){
+    $('#selectImage').attr('accept', 'image/jpg,image/jpeg,image/png,image/gif');
+    $('#selectImage').on('change', function(element) {
+      var reader = new FileReader();
+      reader.onload = function(element) {
+        $("#jacketImage").attr('src', element.target.result);
+      }
+      reader.readAsDataURL(element.target.files[0]);
+    });
+  });
+</script>

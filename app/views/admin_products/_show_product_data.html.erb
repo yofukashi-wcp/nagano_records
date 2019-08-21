@@ -1,0 +1,135 @@
+<!-- Page header -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>商品詳細</h2>
+    </div>
+    <div class="col text-right">
+      <% if admin_signed_in? %>
+        <%= link_to "編集", edit_admin_product_path(product), class: "btn btn-success" %>
+        <a href="#!" class="btn btn-danger" data-toggle="modal" data-target="#deleteAction">削除</a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Product data -->
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <a href="#!" data-toggle="modal" data-target="#jacketView">
+        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "img-thumbnail" %>
+      </a>
+    </div>
+    <div class="col-5">
+      <h3><%= product.name %></h3>
+      <table class="mb-3">
+        <tbody>
+          <tr>
+            <th>アーティスト　</th>
+            <td><%= product.artist.name %></td>
+          </tr>
+          <tr>
+            <th>レーベル　</th>
+            <td><%= product.label.name %></td>
+          </tr>
+          <tr>
+            <th>ジャンル　</th>
+            <td><%= product.genre.name %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% if !admin_signed_in? %>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<%= product.name %>｜NAGANO RECORDS"></a>
+      <% end %>
+    </div>
+    <div class="col-4">
+      <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
+      <p class="lead">在庫　<%= product.stock %></p>
+      <% if user_signed_in? %>
+        <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
+          <%= f.hidden_field :product_id, value: product.id %>
+          <%= f.label :quantity, "数量" %>
+          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: "1", max: "99", value: "1" %>
+          <%= f.submit "カート追加", class: "btn btn-primary" %>
+        <% end %>
+      <% else %>
+        <% if !admin_signed_in? %>
+          <%= link_to "ご購入にはログインが必要です", new_user_session_path, class: "btn btn-danger" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Track data -->
+<div class="container mt-5">
+  <table class="table table-striped">
+    <thead class="bg-primary text-white">
+      <tr>
+        <th>Disc</th>
+        <th>#</th>
+        <th>曲名</th>
+        <th>再生時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% product.tracks.each do |track| %>
+        <tr>
+          <td><%= track.disc %></td>
+          <td><%= track.number %></td>
+          <td><%= track.name %></td>
+          <td><%= track.length %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Product summary -->
+<div class="container my-5">
+  <h3>商品の紹介</h3>
+  <div class="bg-light"><%= product.summary %></div>
+</div>
+
+<!-- Jacket View Modal -->
+<div class="modal fade" id="jacketView" tabindex="-1" role="dialog" aria-labelledby="jacketViewLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="jacketViewLabel"><%= product.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Action Modal -->
+<div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-labelledby="deleteActionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="deleteActionLabel"><%= product.name %> を削除</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>商品を本当に削除しますか？<br />
+        （一旦削除すると元に戻せません。）</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+        <%= link_to "削除", admin_product_path(product), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Twitter Share Buntton Script -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
