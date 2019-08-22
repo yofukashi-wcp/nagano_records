@@ -2,9 +2,10 @@
     <div class="row">
         <div class="col-md-10 mx-auto">
             <h2>全てのユーザー</h2>
-            <%= form_with url: admin_users_path, method: :get, local: true do |f| %>
-            <%= f.text_field :search %>
-            <%= f.submit "Go!" %>
+            <%= form_with url: admin_users_path, method: :get, local: true, class: "form-inline" do |f| %>
+            <%= f.text_field :search, class: "form-control",autoforcus: true, placeholder: "全てのユーザー" %>
+            <%= f.submit "検索",class: "form-control bg-light", autoforcus: true %>
+            </p>
             <% end %>
             <table class="table table-bordered table-hover table-sm table-striped align-middle">
                 <thead class="text-center">
@@ -31,5 +32,6 @@
             <nav aria-label="検索結果ページ">
             <%= paginate @users %>
         </nav>
+        </div>
     </div>
 </div>

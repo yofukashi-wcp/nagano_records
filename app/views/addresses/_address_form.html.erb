@@ -2,8 +2,12 @@
 
     <div class="mx-auto container text-align">
         <div class="field col-8 offset-md-2">
+            <%= f.label :名前 %><br />
+            <%= f.text_field :name, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+        </div>
+        <div class="field col-8 offset-md-2">
             <%= f.label :郵便番号 %><br />
-            <%= f.text_field :zip_code, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+            <%= f.text_field :zip_code, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
         </div>
         <div class="field col-8 offset-md-2">
             <%= f.label :住所 %><br />

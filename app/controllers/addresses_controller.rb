@@ -6,7 +6,10 @@ class AddressesController < ApplicationController
     end
 
     def create
-
+        address = Address.new(address_params)
+        address.user_id = current_user.id
+        address.save!
+        redirect_to root_path
     end
 
     def edit
