@@ -93,6 +93,7 @@ Const.create!([
    ]
 )
 
+
 Artist.create!(
   [
     { id: 1, name: "平沢進" },

@@ -1,62 +1,76 @@
+<div class="box">
 <div class="container">
-    <div class="row no-getters">
-        <div class="col-md-9 mx-auto">
-                    <div class="row no-getters">
-                        <div class="col-md-12">
-                            <div class="bg-dark text-light text-left pl-md-5">
-                                <em><h2>マイページ</h2></em>
-                            </div>
-                                <em><%= render "users/list", user: @user %></em>
-                                <em><%= link_to "パスワードの変更", edit_user_password_path(@user), class: "btn btn-warning h5 float-right" %></em>
-                                <em><%= link_to "編集", edit_user_registration_path(@user), class: "btn btn-success h5 float-right" %></em>
-                                
-                            
-                        </div>
+    <div class="col-md-8 mx-auto border rounded shadow-lg bg-light">
+        <div class="row border">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3 mb-md-n3">
+                        <em><h3>マイページ</h3></em>
                     </div>
-
-                    <div class="row no-getters">
-                        <div class="col-md-12">
-                            <div class="bg-dark text-light pl-md-5 mb-md-n4">
-                                <en><h2>追加した住所一覧</h2></em>
-                            </div>
-                            <table class="table table-hover text-center table-sm ">
-                        
-                                <tbody class="text-left">
-                                <% @user.addresses.each do |address| %> 
-
-                                    <tr>
-                                        <td></td>
-                                        <td>〒　<%= address.zip_code %></td>
-                                        <td style="width:45%"><%= address.address %></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td style="width:35%"><%= link_to "編集", edit_address_path(address.id), class: "btn btn-success btn-lg text-right" %>
-                                            <%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger btn-lg" %>
-                                        </td>
-                                    </tr>
-                                <% end %>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center"><%= link_to "新規追加", new_address_path(@user.id), class: "btn btn-info btn-lg" %></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center"><%= link_to "購入履歴", orders_path, class: "btn btn-primary btn-lg" %></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <em><%= render "users/list", user: @user %></em>
+                        <em><%= link_to "パスワードの変更", edit_user_password_path(@user), class: "btn btn-warning float-right" %></em>
+                        <em><%= link_to "編集", edit_user_registration_path(@user), class: "btn btn-success float-right" %></em>
+                        <em><a class="btn btn-primary btn-md" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        追加した住所一覧
+                        </a></em>
                     </div>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <table class="table table-hover text-center table-sm">
+                            <% @user.addresses.each do |address| %> 
+                            <thead>
+                                <tr>
+                                            <td></td>
+                                            <td><%=address.name %></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td class="align-middle text-left">〒　<%= address.zip_code %></td>
+                                    <td class="align-middle text-left"><%= address.address %></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <%= link_to "編集", edit_address_path(address.id), class: "btn btn-success text-right " %>
+                                        <%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger", data: {confirm: "本当に削除しますか？"}%>
+                                    </td>
+                                </tr>
+                                 <% end %>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><%= link_to "新規追加", new_address_path(@user.id), class: "btn btn-info" %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                 
+                        
+                </div>
+            </div>
+                                
+                    <div class="text-right "><%= link_to "購入履歴", orders_path, class: "btn btn-primary" %>
+                    </div>
+                                
+                    
+            </div>
+        </div>
+        <%= link_to "退会手続きはこちらから", edit_users_unsubscribes_path %>
     </div>
-</div> 
-   
+</div>
+</div>

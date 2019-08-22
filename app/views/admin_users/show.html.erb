@@ -1,2 +1,20 @@
-<%= render "users/list", user: @user %>
-<%= link_to "ユーザー退会", admin_users_path, method: :delete, class: "btn btn-danger btn-lg" %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div class="row">
+                <div class="col-md-mx-auto">
+                    <%= render "users/list", user: @user %>
+                </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col-md-9 text-right pr-5">
+                <%= link_to "ユーザー退会", admin_user_path, method: :delete, class: "btn btn-danger btn-lg", data: {confirm: "本当に削除しますか？"} %>
+                </div>
+            </div>
+            
+        <div>
+    </div>
+</div>

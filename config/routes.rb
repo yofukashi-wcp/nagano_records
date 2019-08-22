@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     registrations: 'admins/registrations'
   }
 
-  resources :admin_users, only: [:index, :show, :edit, :update]
+  resources :admin_users, only: [:index, :show, :edit, :update, :destroy]
 
   resources :products, only: [:index, :show]
 

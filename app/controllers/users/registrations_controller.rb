@@ -39,8 +39,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
    protected
-
-
+  # マイページ編集、更新後のリダイレクト　devise(defaultでroot設定)
+  def
+    after_update_path_for(resource)
+      users_path
+  end
+  # パスワード無しでマイページ更新　devise(registration)はdefaultでパスワード必須
   def update_resource(resource, params)
     resource.update_without_password(params)
   end

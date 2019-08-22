@@ -9,6 +9,15 @@ class User < ApplicationRecord
   def remember_me
     true
   end
+  # ユーザー検索メソッド
+  def User.search(search)
+    if search.present?
+      User.where("first_name like ? OR last_name like ? OR (last_name || first_name) like ? OR (last_name || first_name) like?", "%#{search}%","%#{search}%","%#{search}%","%#{search}%")
+    else 
+      User.all
+    end
+  end
+
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_one :cart, dependent: :destroy
