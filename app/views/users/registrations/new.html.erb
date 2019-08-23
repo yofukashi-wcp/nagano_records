@@ -1,71 +1,66 @@
-<h3 style="padding-left: 200px; padding-top: 20px;">新規登録</h3>
+<h3 style="padding-left: 205px; padding-top: 20px;">新規登録</h3>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
     <div class="mx-auto container">
 
-    <div class="form-group form-inline row">
-      <div class="field col-3">
-        <%= f.label:名前（姓）, class: "float-left" %><br />
-        <%= f.text_field :last_name, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+      <div class="form-group form-inline row">
+        <div class="field col-5 offset-md-1">
+          <%= f.label:名前（姓）, class: "float-left" %><br />
+          <%= f.text_field :last_name, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+        </div>
+
+        <div class="field col-5">
+          <%= f.label :名前（名）, class: "float-left" %><br />
+          <%= f.text_field :first_name, class: "col-auto form-control form-control-lg w-100" %>
+        </div>
       </div>
 
-      <div class="field col-3">
-        <%= f.label :名前（名）, class: "float-left" %><br />
-        <%= f.text_field :first_name, class: "col-auto form-control form-control-lg w-100" %>
+      <div class="form-group form-inline row">
+        <div class="field col-5 offset-md-1">
+          <%= f.label :名前（セイ）, class: "float-left" %><br />
+          <%= f.text_field :last_name_ruby, class: "col-auto form-control form-control-lg w-100" %>
+        </div>
+        <div class="field col-5">
+          <%= f.label :名前（メイ）, class: "float-left" %><br />
+          <%= f.text_field :first_name_ruby, class: "col-auto form-control form-control-lg w-100" %>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group form-inline row">
-      <div class="field col-3">
-        <%= f.label :名前（セイ）, class: "float-left" %><br />
-        <%= f.text_field :last_name_ruby, class: "col-auto form-control form-control-lg w-100" %>
+      <div class="field col-10 offset-md-1">
+        <%= f.label :郵便番号（ハイフン無しで入力して下さい） %><br />
+        <%= f.text_field :zip_code, class: "col-auto form-control form-control-lg w-100" %>
       </div>
-      <div class="field col-3">
-        <%= f.label :名前（メイ）, class: "float-left" %><br />
-        <%= f.text_field :first_name_ruby, class: "col-auto form-control form-control-lg w-100" %>
+
+      <div class="field col-10 offset-md-1">
+        <%= f.label :住所 %><br />
+        <%= f.text_field :address, class: "col-auto form-control form-control-lg w-100" %>
       </div>
-    </div>
 
-    <div class="field col-6">
-      <%= f.label :郵便番号（ハイフン無しで入力して下さい） %><br />
-      <%= f.text_field :zip_code, class: "col-auto form-control form-control-lg w-100" %>
-    </div>
+      <div class="field col-10 offset-md-1">
+        <%= f.label :電話番号（ハイフン無しで入力して下さい） %><br />
+        <%= f.text_field :phone_number, class: "col-auto form-control form-control-lg w-100" %>
+      </div>
 
-    <div class="field col-6">
-      <%= f.label :住所 %><br />
-      <%= f.text_field :address, class: "col-auto form-control form-control-lg w-100" %>
-    </div>
+      <div class="field col-10 offset-md-1">
+        <%= f.label :メールアドレス %><br />
+        <%= f.email_field :email, autocomplete: "email", class: "col-auto form-control form-control-lg w-100" %>
+      </div>
 
-    <div class="field col-6">
-      <%= f.label :電話番号（ハイフン無しで入力して下さい） %><br />
-      <%= f.text_field :phone_number, class: "col-auto form-control form-control-lg w-100" %>
-    </div>
+      <div class="field col-10 offset-md-1">
+        <%= f.label :パスワード %>
+        <% if @minimum_password_length %>
+        （<%= @minimum_password_length %> 文字以上入力してください）
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "col-auto form-control form-control-lg w-100" %>
+      </div>
 
-    <div class="field col-6">
-      <%= f.label :メールアドレス %><br />
-      <%= f.email_field :email, autocomplete: "email", class: "col-auto form-control form-control-lg w-100" %>
-    </div>
-
-    <div class="field col-6">
-      <%= f.label :パスワード %>
-      <% if @minimum_password_length %>
-      （<%= @minimum_password_length %> 文字以上入力してください）
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "col-auto form-control form-control-lg w-100" %>
-    </div>
-
-    <div class="field col-6">
-      <%= f.label :パスワード（確認） %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-auto form-control form-control-lg w-100" %>
-    </div>
-
-
-    <div class="actions text-right col-9">
-      <%= f.submit "同意して次へ", class: "btn btn-success mx-auto btn-lg" %>
-    </div>
-  </div>
-  <div style= "overflow: scroll; border: solid; height: 150px; ">
+      <div class="field col-10 offset-md-1", style="margin-bottom: 50px;">
+        <%= f.label :パスワード（確認） %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-auto form-control form-control-lg w-100" %>
+      </div>
+    <div style="width: 100%; height: 60px; text-align:center; margin-bottom: 35px;"><p>本サービスの利用にあたっては、下記の利用規約が適用されます。<br>事前に内容を確認し、同意の上でご登録ください。</p></div>
+  <div class="rule" style= "overflow: scroll; height: 500px; width: 1110px;">
       利用規約<br>
       この利用規約（以下，「本規約」といいます。）は、NAGANO RECORDS（以下，「当社」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。<br>
 
@@ -147,5 +142,9 @@
       本規約の解釈にあたっては，日本法を準拠法とします。<br>
       本サービスに関して紛争が生じた場合には，当社の本店所在地を管轄する裁判所を専属的合意管轄とします。<br>
       以上
+    </div>
+    <div class="actions text-right col-8 offset-md-3", style="margin-bottom: 60px; margin-top: 60px;">
+        <%= f.submit "同意して次へ", class: "btn btn-success mx-auto btn-lg" %>
+    </div>
     </div>
 <% end %>

@@ -60,6 +60,8 @@ ja:
     sessions:
       new:
         sign_in: "ログイン"
+        email: "メールアドレス"
+        password: "パスワード"
     shared:
       links:
         back: "戻る"

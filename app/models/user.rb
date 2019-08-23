@@ -6,10 +6,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  def remember_me
+    true
+  end
+
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_one :cart, dependent: :destroy
-  validates :password, presence: true, length: { minimum: 6 }
   validates :email, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true

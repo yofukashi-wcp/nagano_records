@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
 class Admins::SessionsController < Devise::SessionsController
+  protect_from_forgery
   # before_action :configure_sign_in_params, only: [:create]
   layout false
 
-  # GET /resource/sign_in
-  def new
-    super
-
-  end
-
-  # POST /resource/sign_in
-  # def create
+  # # GET /resource/sign_in
+  # def new
   #   super
+
   # end
+
+  def create
+    if user_signed_in?
+        sign_out current_user
+    end
+    super
+  end
 
   # DELETE /resource/sign_out
   # def destroy
