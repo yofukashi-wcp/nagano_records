@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-3">
       <a href="#!" data-toggle="modal" data-target="#jacketView">
-        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "img-thumbnail" %>
+        <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "rounded img-raised" %>
       </a>
     </div>
     <div class="col-5">
@@ -26,20 +26,20 @@
       <table class="mb-3">
         <tbody>
           <tr>
-            <th>アーティスト　</th>
+            <th class="pr-2">アーティスト</th>
             <td><%= product.artist.name %></td>
           </tr>
           <tr>
-            <th>レーベル　</th>
+            <th class="pr-2">レーベル</th>
             <td><%= product.label.name %></td>
           </tr>
           <tr>
-            <th>ジャンル　</th>
+            <th class="pr-2">ジャンル</th>
             <td><%= product.genre.name %></td>
           </tr>
         </tbody>
       </table>
-      <% if !admin_signed_in? %>
+      <% unless admin_signed_in? %>
         <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<%= product.name %>｜NAGANO RECORDS"></a>
       <% end %>
     </div>
@@ -50,11 +50,11 @@
         <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
           <%= f.hidden_field :product_id, value: product.id %>
           <%= f.label :quantity, "数量" %>
-          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: "1", max: "99", value: "1" %>
+          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: "1", max: [product.stock, 99].min, value: "1" %>
           <%= f.submit "カート追加", class: "btn btn-primary" %>
         <% end %>
       <% else %>
-        <% if !admin_signed_in? %>
+        <% unless admin_signed_in? %>
           <%= link_to "ご購入にはログインが必要です", new_user_session_path, class: "btn btn-danger" %>
         <% end %>
       <% end %>

@@ -23,7 +23,7 @@ class AdminProductsController < ApplicationController
     
     # トラック追加・更新
     tracks_params.each {|key, value|
-      if product.tracks.select {|n| n['id'] == key} == []
+      if product.tracks.select {|n| n['id'] == key.to_i} == []
         track = Track.new(value)
         track.product_id = product.id
       else
@@ -35,13 +35,40 @@ class AdminProductsController < ApplicationController
 
     # トラック削除
     product.tracks.each {|num|
-      unless tracks_params.key?(num['id']) 
+      unless tracks_params.key?(num['id'].to_s) 
         track = Track.find(num['id'])
         track.destroy
       end
     }
 
+    # 商品入力データ反映
     product.update(products_params)
+
+    # アーティストデータ追加・反映
+    artist = Artist.find_by(name: artist_params['artist']['name'])
+    if artist.nil?
+      artist = Artist.new(artist_params['artist'])
+      artist.save
+    end
+    product.artist_id = artist.id
+
+    # レーベルデータ追加・更新
+    label = Label.find_by(name: label_params['label']['name'])
+    if label.nil?
+      label = Label.new(label_params['label'])
+      label.save
+    end
+    product.label_id = label.id
+
+    # ジャンルデータ追加・更新
+    genre = Genre.find_by(name: genre_params['genre']['name'])
+    if genre.nil?
+      genre = Genre.new(genre_params['artist'])
+      genre.save
+    end
+    product.genre_id = genre.id
+
+    # 商品入力データ保存
     if product.save
       redirect_to admin_product_path(product), notice: "商品の編集内容が反映されました。"
     else

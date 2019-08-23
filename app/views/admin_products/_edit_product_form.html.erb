@@ -3,11 +3,11 @@
     <h2>商品編集</h2>
   </div>
 
-  <%= form_with model: product, url: admin_product_path do |form| %>
+  <%= form_with(model: product, url: admin_product_path) do |form| %>
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "img-thumbnail", id: "jacketImage" %>
+          <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "rounded img-raised", id: "jacketImage" %>
         </div>
         <div class="col">
           <label for="selectImage" class="btn btn-info">
@@ -22,38 +22,38 @@
     <div class="container mt-5">
       <div class="form-group">
         <%= form.label :name, "アルバム名" %>
-        <%= form.text_field :name, class: "form-control", maxlength: 255 %>
+        <%= form.text_field :name, id: "productName", class: "form-control", maxlength: 255 %>
       </div>
 
       <div class="form-group">
         <%= form.fields_for product.artist do |artist| %>
           <%= artist.label :name, "アーティスト" %>
-          <%= artist.text_field :name, id: "artist", class: "form-control", maxlength: 255 %>
+          <%= artist.text_field :name, id: "artistName", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group">
         <%= form.fields_for product.label do |label| %>
           <%= label.label :name, "レーベル" %>
-          <%= label.text_field :name, id: "label", class: "form-control", maxlength: 255 %>
+          <%= label.text_field :name, id: "labelName", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group">
         <%= form.fields_for product.genre do |genre| %>
           <%= genre.label :name, "ジャンル" %>
-          <%= genre.text_field :name, id: "genre", class: "form-control", maxlength: 255 %>
+          <%= genre.text_field :name, id: "genreName", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group row">
         <div class="col">
           <%= form.label :price, "価格" %>
-          <%= form.number_field :price, class: "form-control", min: 0 %>
+          <%= form.number_field :price, id: "productPrice", class: "form-control", min: 0 %>
         </div>
         <div class="col">
           <%= form.label :stock, "在庫数" %>
-          <%= form.number_field :stock, class: "form-control", min: 0 %>
+          <%= form.number_field :stock, id: "productStock", class: "form-control", min: 0 %>
         </div>
       </div>
     </div>
@@ -92,10 +92,37 @@
       <%= form.text_area :summary, class: "form-control" %>
     </div>
 
-    <div class="mt-5 text-right">
-      <a href="#!" class="btn btn-success" data-toggle="modal" data-target="#submitModal">内容を登録</a>
+    <div class="container mt-5"><div class="row">
+      <div class="col">
+        <%= link_to "商品詳細へ戻る", admin_product_path(product), class: "btn btn-secondary" %>
+      </div>
+      <div class="col text-right">
+        <a href="#!" id="submitCheck" class="btn btn-success" data-toggle="modal">内容を登録</a>
+      </div>
+    </div></div>
+
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="alertModalLabel">確認してください</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>入力内容が空欄になっている項目があります。<br/>
+            再度入力内容を確認してください。</p>
+          </div>
+          <div class="modal-footer text-right">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- Submit Modal -->
     <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -119,6 +146,14 @@
 </div></div></div>
 
 <script>
+  // エンターキーによるSubmitを妨害
+  document.onkeypress = enter;
+  function enter(){
+    if( window.event.keyCode == 13 ){
+      return false;
+    }
+  }
+
   $(function(){
     // オートコンプリート設置
     var artists = [
@@ -136,12 +171,18 @@
         '<%= genre.name %>',
       <% end %>
     ];
-    $('#artist').autocomplete({ source: artists });
-    $('#label').autocomplete({ source: labels });
-    $('#genre').autocomplete({ source: genres });
+    $('#artistName').autocomplete({ source: artists });
+    $('#labelName').autocomplete({ source: labels });
+    $('#genreName').autocomplete({ source: genres });
 
     // トラックをソート（最後のレコードのインデックス値取得）
-    var last_index = Number($('.track-item:last').find('.track-disc').attr('id').match(/\d+/)) + 1;
+    var last_item = $('.track-item:last');
+    if (last_item.length > 0) {
+      var last_index = Number(last_item.find('.track-disc').attr('id').match(/\d+/)) + 1;
+    } else {
+      var last_index = 1;
+      add_track();
+    }
     sort_track();
 
     // ファイル制限追加
@@ -157,9 +198,22 @@
     });
 
     // トラックを追加
-    $('#addTrack').on('click', function() {
+    $('#addTrack').on('click', add_track);
+    // トラックを削除
+    $(document).on('click', '.track-delete', function() {
+      $('.track-item').eq($(this).parents('.track-item').index()).remove();
+      if ($('.track-item').length <= 0) add_track();
+    });
+    // トラックをソート（番号変更時）
+    $(document).on('blur', '.track-disc, .track-number', sort_track);
+
+    // トラックの追加
+    function add_track() {
       var track_disc = Number($('.track-item:last').find('.track-disc').val());
       var track_number = Number($('.track-item:last').find('.track-number').val()) + 1;
+
+      if (isNaN(track_disc)) track_disc = 1;
+      if (isNaN(track_number)) track_number = 1;
 
       $('#trackRecords').append(''
         + '<tr class="track-item">'
@@ -182,13 +236,10 @@
         + '</tr>'
       );
       last_index++;
-    });
-    // トラックを削除
-    $(document).on('click', '.track-delete', function() {
-      $('.track-item').eq($(this).parents('.track-item').index()).remove();
-    });
-    // トラックをソート（番号変更時）
-    $(document).on('blur', '.track-disc, .track-number', sort_track);
+    }
+
+    // 内容の確認ボタンが押された
+    $('#submitCheck').on('click', valid_check);
 
     // トラックのソート
     function sort_track() {
@@ -202,5 +253,28 @@
       table.empty();
       table.append(tracks);
     };
+
+    // バリデーションチェック
+    function valid_check() {
+      var error_count = 0;
+      var targets = ['#productName', '#artistName', '#labelName', '#genreName', '#productPrice', '#productStock', '.track-disc', '.track-number', '.track-name', '.track-length'];
+
+      targets.forEach(function(target) {
+        $(target).each(function(index, element) {
+          if ($(element).val() == "") {
+            $(element).addClass("is-invalid");
+            error_count++;
+          } else {
+            $(element).removeClass("is-invalid");
+          }
+        });
+      });
+
+      if (error_count > 0) {
+        $('#submitCheck').attr('data-target', '#alertModal');
+      } else {
+        $('#submitCheck').attr('data-target', '#submitModal');
+      }
+    }
   });
 </script>
