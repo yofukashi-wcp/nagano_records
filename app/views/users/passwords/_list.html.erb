@@ -1,25 +1,24 @@
- <div class="container">
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <%= form_with model: user, url: path, local: true do |f| %>
-
-                <div class="form-group ">
-                    <%= f.label :"現在のパスワード" %>
-                    <%= f.password_field :current_password, autoforcus: true, class: "form-control form-control-lg" %>
+        <div class="container", style="margin-top: 150px;">
+            <div class="row">
+                <div class="col-md-7 mx-auto">
+                    <%= form_with model: user, url: path, local: true do |f| %>
+                        <div class="form-group ">
+                            <%= f.label :"現在のパスワード" %>
+                            <%= f.password_field :current_password, autoforcus: true, class: "form-control form-control-lg" %>
+                        </div>
+                        <div class="form-group">
+                            <%= f.label :"新しいパスワード" %>
+                            <%= f.password_field :password, autoforcus: true, class: "form-control form-control-lg" %>
+                        </div>
+                        <div class="form-group">
+                            <%= f.label :"パスワードの確認" %>
+                            <%= f.password_field :passwaord_confirmation, autoforcus: true, class: "form-control form-control-lg" %>
+                        
+                            <div class="float-right">
+                                <%= f.submit "確定", class: "btn btn-success btn-sm" %>
+                            </div>
+                        </div>
+                    <% end %>
                 </div>
-                <div class="form-group">
-                    <%= f.label :"新しいパスワード" %>
-                    <%= f.password_field :password, autoforcus: true, class: "form-control form-control-lg" %>
-                </div>
-                <div class="form-group">
-                    <%= f.label :"パスワードの確認" %>
-                    <%= f.password_field :passwaord_confirmation, autoforcus: true, class: "form-control form-control-lg" %>
-                </div class="clearfix">
-                    <div class="float-right">
-                        <%= f.submit "確定", class: "btn btn-success btn-sm h5" %>
-                    </div>
-                </div>
-            <% end %>
+            </div>
         </div>
-    </div>
-</div>
