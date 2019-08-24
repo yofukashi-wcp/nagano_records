@@ -65,3 +65,77 @@ User.create!(
     ]
   )
 
+  Order.create!(
+   [
+      { 
+         id: '1',
+         user_id: '3',
+         zip_code: '1111111',
+         address: '神奈川県海老名市上郷5-5-5',
+         phone_number: '11111111111',
+         postage: '500',
+         total: '5000',
+         payment: '0',
+         status: '0',
+
+         }])
+
+Artist.create!(
+  [
+    { id: 1, name: "平沢進" },
+    { id: 2, name: "中野テルヲ" },
+    { id: 3, name: "P-MODEL" }
+  ]
+)
+Label.create!(
+  [
+    { id: 1, name: "ケイオスユニオン" },
+    { id: 2, name: "Beat Sufers" }
+  ]
+)
+Genre.create!(
+  [
+    { id: 1, name: "ニューエイジ・ミュージック" },
+    { id: 2, name: "テクノポップ" }
+  ]
+)
+
+Product.create!(
+  [
+    {
+      id: 1,
+      name: "時空の水",
+      artist_id: 1,
+      label_id: 1,
+      genre_id: 1,
+      price: 1200,
+      stock: 24,
+      jacket_image_id: "",
+      summary: "ふっ！"
+    }
+  ]
+)
+Cart.create!(
+  [
+    {
+      id: 1,
+      user_id: 3,
+      product_id: 1,
+      quantity: 1
+    }
+  ]
+)
+
+OrderProduct.create!(  
+   [
+      { 
+         id: 1,
+         order_id: 1,
+         product_id: 1,
+         quantity: 1,
+         price: '5000',
+         }
+
+      
+      ])
+
