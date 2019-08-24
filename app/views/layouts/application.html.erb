@@ -56,14 +56,13 @@
                 </ul>
               </div>
       </nav>
-      <% if controller.controller_name == "admins/passwords" && controller.action_name == 'update' %>
-        <% if flash[:notice] %>
+        <% if flash[:success] %>
             <div class="container">
-              <%= flash[:notice] %>
+              <%= flash[:success] %>
             </div>
-        <% elsif flash[:alert] %>
+        <% elsif flash[:failure] %>
             <div class="container">
-              <%= flash[:alert] %>
+              <%= flash[:failure] %>
             </div>
         <% end %>
       <% end %>
