@@ -21,4 +21,6 @@ class User < ApplicationRecord
   validates :phone_number, presence: true, length: { minimum: 10, maximum: 11 }
   validates :zip_code, presence: true, length: { is: 7 }
   validates :address, presence: true
+  # 新しいパスワードと確認用パスワードの一致を検証
+  validates :password, confirmation: true
 end

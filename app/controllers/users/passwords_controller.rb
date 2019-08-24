@@ -19,10 +19,14 @@ class Users::PasswordsController < ApplicationController
 
   # PUT /resource/password
   def update
-    @user = current_user
-    @user.update(users_params)
-    sign_in(@user, bypass: true)
-    redirect_to users_path
+        @user = current_user
+    if  @user.update(users_params)
+        sign_in(@user, bypass: true)
+        flash[:success] = "パスワードの更新に成功しました！"
+        redirect_to users_path
+    else
+        falsh[:failure] = "パスワードの更新に失敗しました！"
+        render :edit
   end
 
   # protected

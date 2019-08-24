@@ -26,9 +26,11 @@ append_before_action :assert_reset_token_passed, only: [:new]
     @admin = current_admin
     if  @admin.update_with_password(admins_params)
         sign_in(@admin, bypass: true)
-        redirect_to products_path, notice: 'パスワードの更新に成功しました！'
+        # flash[:notice]にすると表示されず、ログイン後にymlファイルのsigned_in: "サインインしました"が表示される"
+        flash[:success] = "パスワードの更新に成功しました！"
+        redirect_to products_path
     else
-        flash.now[:alert] = 'パスワードの更新に失敗しました！'
+        flash.now[:failure] = 'パスワードの更新に失敗しました！'
         render :edit
     end
   end

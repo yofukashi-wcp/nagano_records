@@ -65,6 +65,9 @@ ja:
       admin:
         signed_in: "サインインしました"
         signed_out: "サインアウトしました"
+      user:
+        signed_in: "サインインしました"
+        signed_out: "サインアウトしました"
     shared:
       links:
         back: "戻る"
