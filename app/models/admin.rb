@@ -9,4 +9,5 @@ class Admin < ApplicationRecord
   end
 
   validates :email, presence: true
+  validates :password, confirmation: true
 end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Admins::PasswordsController < Devise::PasswordsController
+  # ログイン済みはnewアクション以外を実行できる
 prepend_before_action :require_no_authentication, only: [:new]
+# パスワードの更新にreset_token_passedを執拗としない
 append_before_action :assert_reset_token_passed, only: [:new]
   # GET /resource/password/new
   # def new
@@ -22,9 +24,13 @@ append_before_action :assert_reset_token_passed, only: [:new]
   # PUT /resource/password
   def update
     @admin = current_admin
-    @admin.update_with_password(admins_params)
-    sign_in(@admin, bypass: true)
-    redirect_to products_path
+    if  @admin.update_with_password(admins_params)
+        sign_in(@admin, bypass: true)
+        redirect_to products_path, notice: 'パスワードの更新に成功しました！'
+    else
+        flash.now[:alert] = 'パスワードの更新に失敗しました！'
+        render :edit
+    end
   end
 
   # protected

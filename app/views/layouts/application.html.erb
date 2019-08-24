@@ -56,6 +56,17 @@
                 </ul>
               </div>
       </nav>
+      <% if controller.controller_name == "admins/passwords" && controller.action_name == 'update' %>
+        <% if flash[:notice] %>
+            <div class="container">
+              <%= flash[:notice] %>
+            </div>
+        <% elsif flash[:alert] %>
+            <div class="container">
+              <%= flash[:alert] %>
+            </div>
+        <% end %>
+        <% end %>
       <%= yield %>
       <footer>
       <div align="center", style="line-height: 80px;">&copy; NAGANO RECORDS</div>
