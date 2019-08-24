@@ -13,7 +13,7 @@
     
 
     <tbody>
-    <% @orders.each do |order| %>
+    <% orders.each do |order| %>
         <tr>
             <td><%= order.created_at %></td>
             <td>
@@ -24,7 +24,7 @@
             <td><%= order.total %></td>
             <td><%= order.status %></td>
             <td>
-            <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary" %>
+            <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary btn-sm" %>
             </td>
         </tr>
     <% end %>

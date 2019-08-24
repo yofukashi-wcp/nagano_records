@@ -1,17 +1,17 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-      <div class="col">
+      <div class="col ml-5">
         <h2>注文詳細</h2>
       <div>
 
       <div class="col text-center">
-        <%= link_to "出荷準備中", admin_order_path, class: "btn btn-info" %>
-        <%= link_to "出荷済み", admin_order_path, class: "btn btn-success" %>
-        <%= link_to "キャンセル", admin_order_path, class: "btn btn-danger" %>
+        <%= link_to "出荷準備中", admin_order_path(@order.id, params: {status: 0}), method: :put , class: "btn btn-info" %>
+        <%= link_to "出荷済み", admin_order_path(@order.id, params: {status: 1}), method: :put , class: "btn btn-success" %>
+        <%= link_to "キャンセル", admin_order_path(@order.id, params: {status: 3}), method: :put ,class: "btn btn-danger" %>
       </div>
   </div>
 
-　<div class="row">
+　<div class="row m-sm-5">
 　　<div class="col-5">
       <table>
         <tbody>
@@ -51,13 +51,13 @@
 　  </div>
   </div>
 
-  <div class="row border border-secondary mx-auto">
-    <div class="col-3">
+  <div class="row border border-secondary m-5">
+    <div class="col-md-3 m-2">
      <% @order_products.each do |orderproduct| %>
         <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
     </div>
 
-    <div class="col-5">
+    <div class="col-md-5 mt-5">
       <h3><%= orderproduct.product.name %></h3>
       <table>
         <tbody>
@@ -69,7 +69,7 @@
       </table>
       
     </div>
-    <div class="col-3">
+    <div class="col-md-3 mt-5">
       <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
       <p><strong>数量：<%= orderproduct.quantity %></strong></p>
      <% end %>
