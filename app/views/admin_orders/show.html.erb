@@ -53,6 +53,7 @@
 
   <div class="row border border-secondary m-5">
     <div class="col-md-3 m-2">
+
      <% @order_products.each do |orderproduct| %>
         <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
     </div>
@@ -71,7 +72,7 @@
     </div>
     <div class="col-md-3 mt-5">
       <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
-      <p><strong>数量：<%= orderproduct.quantity %></strong></p>
+      <p><strong>数量：<%= orderproduct.quantity %></strong></p> 
      <% end %>
     </div>
 　</div>
