@@ -62,6 +62,9 @@ ja:
         sign_in: "ログイン"
         email: "メールアドレス"
         password: "パスワード"
+      admin:
+        signed_in: "サインインしました"
+        signed_out: "サインアウトしました"
     shared:
       links:
         back: "戻る"
