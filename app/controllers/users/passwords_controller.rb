@@ -29,6 +29,7 @@ class Users::PasswordsController < ApplicationController
     else
         falsh[:failure] = "パスワードの更新に失敗しました！"
         render :edit
+    end
   end
 
   # protected

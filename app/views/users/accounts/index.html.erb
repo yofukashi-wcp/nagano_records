@@ -43,7 +43,7 @@
                                     <td class="align-middle text-left"><%= address.address %></td>
                                     <td></td>
                                     <td></td>
-                                    <td>
+                                    <td class="text-right">
                                         <%= link_to "編集", edit_address_path(address.id), class: "btn btn-success text-right " %>
                                         <%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger", data: {confirm: "本当に削除しますか？"}%>
                                     </td>
@@ -55,7 +55,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><%= link_to "新規追加", new_address_path(@user.id), class: "btn btn-info" %></td>
+                                    <td class="text-right"><%= link_to "新規追加", new_address_path(@user.id), class: "btn btn-info" %></td>
                                 </tr>
                             </tbody>
                         </table>
