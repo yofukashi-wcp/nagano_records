@@ -26,15 +26,15 @@
       <table class="mb-3">
         <tbody>
           <tr>
-            <th class="pr-2">アーティスト</th>
+            <th class="pr-2 text-right">アーティスト</th>
             <td><%= product.artist.name %></td>
           </tr>
           <tr>
-            <th class="pr-2">レーベル</th>
+            <th class="pr-2 text-right">レーベル</th>
             <td><%= product.label.name %></td>
           </tr>
           <tr>
-            <th class="pr-2">ジャンル</th>
+            <th class="pr-2 text-right">ジャンル</th>
             <td><%= product.genre.name %></td>
           </tr>
         </tbody>
@@ -89,7 +89,7 @@
 <!-- Product summary -->
 <div class="container my-5">
   <h3>商品の紹介</h3>
-  <div class="bg-light"><%= product.summary %></div>
+  <div class="bg-light p-3" style="min-height: 10em;"><%= product.summary %></div>
 </div>
 
 <!-- Jacket View Modal -->

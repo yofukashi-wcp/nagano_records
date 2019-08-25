@@ -1,14 +1,68 @@
 class AdminProductsController < ApplicationController
   def index
+    if params[:word].blank?
+      # 全件表示
+      @products = Product.page(params[:page])
+    else
+      case params[:require].to_i
+      when 1  # アーティスト名検索
+        artist = Artist.find_by(name: params[:word])
+        if artist.present?
+          @products = artist.products.page(params[:page])
+        end
+      when 2  # レーベル名検索
+        label = Label.find_by(name: params[:word])
+        if label.present?
+          @products = label.products.page(params[:page])
+        end
+      when 3  # ジャンル名検索
+        genre = Genre.find_by(name: params[:word])
+        if genre.present?
+          @products = genre.products.page(params[:page])
+        end
+      else  # アーティスト名検索（デフォルト）
+        @products = Product.where(name: params[:word]).page(params[:page])
+      end
+    end
 
+    if @product.blank?
+      # 検索結果なし
+      @product = []
+    end
   end
 
   def show
     @product = Product.includes(:tracks).order("tracks.disc").order("tracks.number").find(params[:id])
+    if @product.summary.empty?
+      @product.summary = "※商品紹介はありません"
+    end
   end
 
   def new
+    @product = Product.new
+    @product.artist = Artist.new
+    @product.label  = Label.new
+    @product.genre  = Genre.new
 
+    @artists = Artist.all
+    @labels  = Label.all
+    @genres  = Genre.all
+  end
+
+  def create
+    @product = Product.new(products_params)
+
+    update_info_data(@product)
+    product_save_error = @product.save
+    update_track_data(@product)
+
+    # エラー判別
+    if product_save_error
+      redirect_to admin_product_path(@product), notice: "商品の入力内容が登録されました。"
+    else
+      flash.now[:notice] = "商品の入力内容を登録できませんでした。入力内容を確認してください。"
+      render :new
+    end
   end
 
   def edit
@@ -19,60 +73,17 @@ class AdminProductsController < ApplicationController
   end
 
   def update
-    product = Product.find(params[:id])
+    @product = Product.find(params[:id])
     
-    # トラック追加・更新
-    tracks_params.each {|key, value|
-      if product.tracks.select {|n| n['id'] == key.to_i} == []
-        track = Track.new(value)
-        track.product_id = product.id
-      else
-        track = Track.find(key)
-        track.update(value)
-      end
-      track.save
-    }
-
-    # トラック削除
-    product.tracks.each {|num|
-      unless tracks_params.key?(num['id'].to_s) 
-        track = Track.find(num['id'])
-        track.destroy
-      end
-    }
-
-    # 商品入力データ反映
-    product.update(products_params)
-
-    # アーティストデータ追加・反映
-    artist = Artist.find_by(name: artist_params['artist']['name'])
-    if artist.nil?
-      artist = Artist.new(artist_params['artist'])
-      artist.save
-    end
-    product.artist_id = artist.id
-
-    # レーベルデータ追加・更新
-    label = Label.find_by(name: label_params['label']['name'])
-    if label.nil?
-      label = Label.new(label_params['label'])
-      label.save
-    end
-    product.label_id = label.id
-
-    # ジャンルデータ追加・更新
-    genre = Genre.find_by(name: genre_params['genre']['name'])
-    if genre.nil?
-      genre = Genre.new(genre_params['artist'])
-      genre.save
-    end
-    product.genre_id = genre.id
+    update_info_data(@product)
+    product_save_error = @product.update(products_params)
+    update_track_data(@product)
 
     # 商品入力データ保存
-    if product.save
-      redirect_to admin_product_path(product), notice: "商品の編集内容が反映されました。"
+    if product_save_error
+      redirect_to admin_product_path(@product), notice: "商品の入力内容が登録されました。"
     else
-      flash.now[:notice] = "商品の編集内容を登録できませんでした。入力内容を確認してください。"
+      flash.now[:notice] = "商品の入力内容を登録できませんでした。入力内容を確認してください。"
       render :edit
     end
   end
@@ -99,5 +110,55 @@ class AdminProductsController < ApplicationController
   end
   def tracks_params
     params.require(:product).permit(tracks: [:disc, :number, :name, :length])[:tracks]
+  end
+
+  # トラック更新
+  def update_track_data(product)
+    # 既存トラック削除
+    product.tracks.each {|num|
+      unless tracks_params.key?(num['id'].to_s) 
+        track = Track.find(num['id'])
+        track.destroy
+      end
+    }
+
+    # トラック追加・変更
+    tracks_params.each {|key, value|
+      if product.tracks.find_by(key).nil?
+        track = Track.new(value)
+        track.product_id = product.id
+        track.save
+      else
+        track = Track.find(key)
+        track.update(value)
+      end
+    }
+  end
+
+  # 商品情報更新
+  def update_info_data(product)
+    # アーティストデータ追加・反映
+    artist = Artist.find_by(name: artist_params['artist']['name'])
+    if artist.nil?
+      artist = Artist.new(artist_params['artist'])
+      artist.save
+    end
+    product.artist_id = artist.id
+
+    # レーベルデータ追加・更新
+    label = Label.find_by(name: label_params['label']['name'])
+    if label.nil?
+      label = Label.new(label_params['label'])
+      label.save
+    end
+    product.label_id = label.id
+
+    # ジャンルデータ追加・更新
+    genre = Genre.find_by(name: genre_params['genre']['name'])
+    if genre.nil?
+      genre = Genre.new(genre_params['genre'])
+      genre.save
+    end
+    product.genre_id = genre.id
   end
 end

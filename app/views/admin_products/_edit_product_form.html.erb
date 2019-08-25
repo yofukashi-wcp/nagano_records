@@ -1,9 +1,9 @@
 <div class="container"><div class="row"><div class="col-lg-9 mx-auto">
   <div class="container">
-    <h2>商品編集</h2>
+    <h2><%= page_title %></h2>
   </div>
 
-  <%= form_with(model: product, url: admin_product_path) do |form| %>
+  <%= form_with(model: product, url: post_uri) do |form| %>
     <div class="container">
       <div class="row">
         <div class="col-4">
@@ -89,12 +89,14 @@
 
     <div class="container mt-5">
       <%= form.label :summary, "商品紹介" %>
-      <%= form.text_area :summary, class: "form-control" %>
+      <%= form.text_area :summary, class: "form-control", style: "min-height: 10em;" %>
     </div>
 
     <div class="container mt-5"><div class="row">
       <div class="col">
-        <%= link_to "商品詳細へ戻る", admin_product_path(product), class: "btn btn-secondary" %>
+        <% if controller.action_name == "edit" %>
+          <%= link_to "商品詳細へ戻る", admin_product_path(product), class: "btn btn-secondary" %>
+        <% end %>
       </div>
       <div class="col text-right">
         <a href="#!" id="submitCheck" class="btn btn-success" data-toggle="modal">内容を登録</a>
