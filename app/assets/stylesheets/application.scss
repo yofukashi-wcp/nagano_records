@@ -15,7 +15,14 @@
  @import "bootstrap";
  @import "font-awesome";
  @import "now-ui-kit";
- @import "*";
+ @import "jquery-ui";
+ @import "jquery-ui.structure";
+ @import "jquery-ui.theme";
+
+ @font-face {
+   font-family: 'Nucleo Outline';
+   src: font-url('nucleo-outline.woff2') ;
+ }
 
 
  * {
