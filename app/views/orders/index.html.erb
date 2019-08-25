@@ -1,88 +1,89 @@
 <div class="container-fluid">
- <div class="row">
-    <div class="col ml-5">
-        <h2>購入履歴</h2>
-    </div>
- </div>
-
-              <% @orders.each do |order| %>
- <div class="row border border-secondary rounded bg-info m-sm-5">
   <div class="row">
-　　<div class="col-5">
-      <table>
-        <tbody>
-        　
-          <tr>
-            <th>注文日：　</th>
-            <td><%= order.created_at %></td>
-          </tr>
-          <tr>
-            <th>購入者：　</th>
-            <td><%= order.user.first_name %><%= order.user.last_name %></td>
-          </tr>
-          <tr>
-            <th>合計：　</th>
-            <td><%= order.total %></td>
-          <tr>
-            <th>支払方法：　</th>
-            <td><%= order.payment %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-5">
-    　<table>
-        <tbody>
-          <tr>
-            <th>ステータス：　</th>
-            <td><%= order.status %></td>
-          </tr>
-          <tr>
-            <th>送付先：　</th>
-            <td><%= order.zip_code %></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td><%= order.address %></td>
-          </tr>
-        </tbody>
-      </table>
-　  </div>
-
- <div class="row border border-secondary bg-light m-5">
-    <div class="col-md-3 m-2">
-     <% order.order_products.each do |orderproduct| %>
-        <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
-    </div>
-
-    <div class="col-md-5 mt-5">
-      <h3><%= orderproduct.product.name %></h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>アーティスト　</th>
-            <td><%= orderproduct.product.artist.name %></td>
-          </tr>
-        </tbody>
-      </table>
-      
-    </div>
-    <div class="col-md-3 mt-5">
-      <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
-      <p><strong>数量：<%= orderproduct.quantity %></strong></p>
-     <% end %>
-    </div>
- </div>
-
-  <div class="col mr-5 text-right">
-    <%= link_to "キャンセル",order_path(order.id, params: {status: 2}), method: :put , class: 'btn btn-danger' %>
-
+      <div class="col ml-5">
+          <h2>購入履歴</h2>
+      </div>
   </div>
-          <% end %>
+
+  <% @orders.each do |order| %>
+    <div class="row border border-secondary rounded bg-info shadow-lg m-sm-5">
+
+      <div class="col-5">
+      　<table>
+          <tbody>
+            <tr>
+              <th>注文日：　</th>
+              <td><%= order.created_at %></td>
+            </tr>
+            <tr>
+              <th>購入者：　</th>
+              <td><%= order.user.first_name %><%= order.user.last_name %></td>
+            </tr>
+            <tr>
+              <th>合計：　</th>
+              <td><%= order.total %></td>
+            <tr>
+              <th>支払方法：　</th>
+              <td><%= order.payment %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+           
+      <div class="col-5">
+      　<table>
+          <tbody>
+            <tr>
+              <th>ステータス：　</th>
+              <td><%= order.status %></td>
+            </tr>
+            <tr>
+              <th>送付先：　</th>
+              <td><%= order.zip_code %></td>
+            </tr>
+            <tr>
+              <th></th>
+              <td><%= order.address %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <% order.order_products.each do |orderproduct| %>
+        <div class="row border border-secondary bg-light m-5">
+          <div class="col-md-3 m-2">
+          
+              <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
+          </div>
+
+          <div class="col-md-5 mt-5">
+            <h3><%= orderproduct.product.name %></h3>
+            <table>
+              <tbody>
+                <tr>
+                  <th>アーティスト　</th>
+                  <td><%= orderproduct.product.artist.name %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-3 mt-5">
+            <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
+            <p><strong>数量：<%= orderproduct.quantity %></strong></p>
+          </div>
+        </div>
+      <% end %>
+
+      <% if order.status == 2 %>
+        <div class="col mr-5 text-right">
+          <%= link_to "キャンセル",order_path(order.id, params: {status: 2}), method: :put , class: 'btn btn-danger' %>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
   <%= paginate @orders, class: "paginate" %>
 </div>
-          
-
-
 
 

@@ -113,8 +113,7 @@ Genre.create!(
   ]
 )
 
-<<<<<<< HEAD
-  Order.create!(
+Order.create!(
    [
       { 
          id: '1',
@@ -129,28 +128,20 @@ Genre.create!(
 
          }])
 
-Artist.create!(
-  [
-    { id: 1, name: "平沢進" },
-    { id: 2, name: "中野テルヲ" },
-    { id: 3, name: "P-MODEL" }
-  ]
-)
-Label.create!(
-  [
-    { id: 1, name: "ケイオスユニオン" },
-    { id: 2, name: "Beat Sufers" }
-  ]
-)
-Genre.create!(
-  [
-    { id: 1, name: "ニューエイジ・ミュージック" },
-    { id: 2, name: "テクノポップ" }
-  ]
-)
+         Order.create!(
+   [
+      { 
+         user_id: '2',
+         zip_code: '1111111',
+         address: '神奈川県海老名市上郷5-5-5',
+         phone_number: '11111111111',
+         postage: '500',
+         total: '5000',
+         payment: '0',
+         status: '0',
 
-=======
->>>>>>> 851bb357c9f74a92f8ebaa99380d9adac63fcf42
+         }])
+
 Product.create!(
   [
     {
@@ -166,7 +157,6 @@ Product.create!(
     }
   ]
 )
-<<<<<<< HEAD
 Cart.create!(
   [
     {
@@ -191,7 +181,18 @@ OrderProduct.create!(
       
       ])
 
-=======
+OrderProduct.create!(  
+   [
+      { 
+         order_id: 2,
+         product_id: 1,
+         quantity: 5,
+         price: '5000',
+         }
+
+      
+      ])
+
 Track.create!(
   [
     {
@@ -220,4 +221,3 @@ Track.create!(
     }
   ]
 )
->>>>>>> 851bb357c9f74a92f8ebaa99380d9adac63fcf42

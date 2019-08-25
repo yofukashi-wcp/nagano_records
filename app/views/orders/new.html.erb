@@ -1,0 +1,31 @@
+<div class="container-fluid">
+ <div class="row">
+    <div class="col ml-5">
+        <h2>注文内容の確認</h2>
+    </div>
+ </div>
+
+ <div class="row border border-secondary m-5">
+    <div class="col-md-3 m-2">
+     <% carts.each do |orderproduct| %>
+        <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
+    </div>
+
+    <div class="col-md-5 mt-5">
+      <h3><%= orderproduct.product.name %></h3>
+      <table>
+        <tbody>
+          <tr>
+            <th>アーティスト　</th>
+            <td><%= orderproduct.product.artist.name %></td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div>
+    <div class="col-md-3 mt-5">
+      <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
+      <p><strong>数量：<%= orderproduct.quantity %></strong></p>
+     <% end %>
+    </div>
+ </div>

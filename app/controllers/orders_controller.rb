@@ -1,18 +1,25 @@
 class OrdersController < ApplicationController
 
     def index
-        @orders = Order.includes(:order_products).page(params[:page]).reverse_order
+        @orders = Order.where(user_id: current_user).includes(:order_products).page(params[:page]).reverse_order
 
     end
 
     def new
+        @carts = Carts.all
 
     end
 
-    def check
-        @order = Order.last
-
+    def create
+        @order = Order.new(order_params)
+        @order.save
+        render 'check'
     end
+
+    # def check 
+    #     @order
+
+    # end
 
     def update
         order = Order.find(params[:id])
