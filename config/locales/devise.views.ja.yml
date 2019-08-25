@@ -15,7 +15,8 @@ ja:
         address: "住所"
         phone_number: "電話番号"
     models:
-      user: "ユーザ"
+      user: "ユーザー"
+      admin: "管理者"
   devise:
     confirmations:
       new:
@@ -60,6 +61,8 @@ ja:
     sessions:
       new:
         sign_in: "ログイン"
+        signed_in: "管理者側で既にサインインされています。"
+        signed_out: "管理者側のサインアウトを確認しました"
         email: "メールアドレス"
         password: "パスワード"
     shared:

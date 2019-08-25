@@ -15,48 +15,53 @@
 
   <body>
     <div class="wrapper">
-      <nav class="navbar navbar-expand-lg bg-primary">
-          <div class="container" style="padding-left: 0px; padding-right: 0px;">
-            <% if user_signed_in? %>
-              <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
-            <% elsif admin_signed_in? %>
-              <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path, class: "fas fa-user-cog", style: "font-size: 30px;" %>
-            <% else %>
-              <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
-            <% end %>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-bar bar1"></span>
-              <span class="navbar-toggler-bar bar2"></span>
-              <span class="navbar-toggler-bar bar3"></span>
-            </button>
-            <form class="form-inline mx-auto" data-background-color>
-              <div class="form-group has-white">
-                <% if admin_signed_in? %>
-                <% else %>
-                  <input type="text" class="col-auto form-control search", style="width: 350px;", placeholder="商品やアーティスト名などで検索">
-                  <button type="submit" class="btn btn-neutral btn-round">検索</button>
-              </div>
-                <% end %>
-            </form>
-              <ul class="navbar-nav">
-                  <% if user_signed_in? %>
-                    <li class="nav-item"><%= link_to "　"+current_user.last_name+current_user.first_name+"さん", users_path, class:"fas fa-user nav-link", style: "padding-right: 25px;" %></li>
-                    <li class="nav-item"><%= link_to "　"+"カート", carts_path, class:"fas fa-shopping-cart nav-link" %></li>
-                    <li class="nav-item"><%= link_to "　"+"ログアウト", destroy_user_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
-                  <% elsif admin_signed_in? %>
-                    <li class="nav-item "><%= link_to "  "+"商品一覧", admin_products_path, class:"fas fa-compact-disc nav-link" %></li>
-                    <li class="nav-item"><%= link_to "　"+"注文状況", admin_orders_path, class:"fas fa-truck-moving nav-link" %></li>
-                    <li class="nav-item"><%= link_to "　"+"ユーザー一覧", admin_users_path, class:"fas fa-user nav-link" %></li>
-                    <li class="nav-item"><%= link_to "　"+"パスワード変更", edit_admin_password_path, class:"fas fa-unlock-alt nav-link" %></li>
-                    <li class="nav-item"><%= link_to "　"+"設定", consts_edit_path, class:"fas fa-cog nav-link" %></li>
-                    <li class="nav-item"><%= link_to "　"+"ログアウト", destroy_admin_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
+      <div class="bd-example sidebar-collapse" data-example-id >
+        <nav class="navbar navbar-expand-lg bg-primary">
+            <div class="container" style="padding-left: 0px; padding-right: 0px;">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                  </button>
+
+              <% if user_signed_in? %>
+                <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
+              <% elsif admin_signed_in? %>
+                <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path, class: "fas fa-user-cog", style: "font-size: 30px;" %>
+              <% else %>
+                <%= link_to image_tag("header.png", width: '270', height: '50', alt: "NAGANO RECORDS"), root_path %>
+              <% end %>
+              <form class="form-inline mx-auto" data-background-color>
+                <div class="form-group has-white ml-5">
+                  <% if admin_signed_in? %>
                   <% else %>
-                      <li class="nav-item"><%= link_to "　"+"サインイン", new_user_registration_path, class:"fas fa-user-plus nav-link" %></li>
-                      <li class="nav-item"><%= link_to "　"+"ログイン", new_user_session_path, class:"fas fa-sign-in-alt nav-link" %></li>
+                    <input type="text" class="col-auto form-control search", style="width: 350px;", placeholder="商品やアーティスト名などで検索">
+                    <button type="submit" class="btn btn-neutral btn-round">検索</button>
+                </div>
                   <% end %>
-                </ul>
+              </form>
+              <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <% if user_signed_in? %>
+                      <li class="nav-item"><%= link_to "　"+current_user.last_name+current_user.first_name+"さん", users_path, class:"fas fa-user nav-link", style: "padding-right: 25px;" %></li>
+                      <li class="nav-item"><%= link_to "　"+"カート", carts_path, class:"fas fa-shopping-cart nav-link" %></li>
+                      <li class="nav-item"><%= link_to "　"+"ログアウト", destroy_user_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
+                    <% elsif admin_signed_in? %>
+                      <li class="nav-item "><%= link_to "  "+"商品一覧", admin_products_path, class:"fas fa-compact-disc nav-link" %></li>
+                      <li class="nav-item"><%= link_to "　"+"注文状況", admin_orders_path, class:"fas fa-truck-moving nav-link" %></li>
+                      <li class="nav-item"><%= link_to "　"+"ユーザー一覧", admin_users_path, class:"fas fa-user nav-link" %></li>
+                      <li class="nav-item"><%= link_to "　"+"パスワード変更", edit_admin_password_path, class:"fas fa-unlock-alt nav-link" %></li>
+                      <li class="nav-item"><%= link_to "　"+"設定", consts_edit_path, class:"fas fa-cog nav-link" %></li>
+                      <li class="nav-item"><%= link_to "　"+"ログアウト", destroy_admin_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
+                    <% else %>
+                        <li class="nav-item"><%= link_to "　"+"サインイン", new_user_registration_path, class:"fas fa-user-plus nav-link" %></li>
+                        <li class="nav-item"><%= link_to "　"+"ログイン", new_user_session_path, class:"fas fa-sign-in-alt nav-link" %></li>
+                    <% end %>
+                  </ul>
               </div>
+            </div>
       </nav>
+    </div>
       <%= yield %>
       <footer>
       <div align="center", style="line-height: 80px;">&copy; NAGANO RECORDS</div>
