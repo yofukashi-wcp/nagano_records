@@ -7,7 +7,7 @@
             <%= f.submit "検索",class: "form-control bg-light", autoforcus: true %>
             </p>
             <% end %>
-            <table class="table table-bordered table-hover table-sm table-striped align-middle">
+            <table class="table table-bordered table-hover table-sm table-striped">
                 <thead class="text-center">
                     <tr>
                         <th>会員番号</th>
@@ -29,9 +29,11 @@
                 </tbody>
             <% end %>
             </table>
-            <nav aria-label="検索結果ページ">
-            <%= paginate @users %>
-        </nav>
+            <div class="row">
+                <div class="col-md-2 mx-auto">
+                    <%= paginate @users%>
+                </div>
+            </div>
         </div>
     </div>
 </div>
