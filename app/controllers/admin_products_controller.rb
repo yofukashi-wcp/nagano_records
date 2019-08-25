@@ -1,4 +1,6 @@
 class AdminProductsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     if params[:word].blank?
       # 全件表示

@@ -2,26 +2,26 @@ class ProductsController < ApplicationController
   def index
     if params[:word].blank?
       # 全件表示
-      @products = Product.all
+      @products = Product.all.page(params[:page])
     else
       case params[:require].to_i
       when 1  # アーティスト名検索
         artist = Artist.find_by(name: params[:word])
         if artist.present?
-          @products = artist.products
+          @products = artist.products.page(params[:page])
         end
       when 2  # レーベル名検索
         label = Label.find_by(name: params[:word])
         if label.present?
-          @products = label.products
+          @products = label.products.page(params[:page])
         end
       when 3  # ジャンル名検索
         genre = Genre.find_by(name: params[:word])
         if genre.present?
-          @products = genre.products
+          @products = genre.products.page(params[:page])
         end
       else  # アーティスト名検索（デフォルト）
-        @products = Product.where(name: params[:word])
+        @products = Product.where(name: params[:word]).page(params[:page])
       end
     end
 
