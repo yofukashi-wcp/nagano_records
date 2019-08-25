@@ -114,6 +114,21 @@ Genre.create!(
   ]
 )
 
+Order.create!(
+   [
+      { 
+         id: '1',
+         user_id: '3',
+         zip_code: '1111111',
+         address: '神奈川県海老名市上郷5-5-5',
+         phone_number: '11111111111',
+         postage: '500',
+         total: '5000',
+         payment: '0',
+         status: '0',
+
+         }])
+         
 Product.create!(
   [
     {
@@ -129,6 +144,20 @@ Product.create!(
     }
   ]
 )
+
+OrderProduct.create!(  
+   [
+      { 
+         id: 1,
+         order_id: 1,
+         product_id: 1,
+         quantity: 1,
+         price: '5000',
+         }
+
+      
+      ])
+
 Track.create!(
   [
     {
