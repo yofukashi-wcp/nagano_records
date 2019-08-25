@@ -1,9 +1,17 @@
 <div class="container mt-4">
   <% products.each do |product| %>
-    <div class="row no-gutters mb-4 p-3 img-raised">
+    <% if controller.controller_name == "products" %>
+      <% url_path = product_path(product) %>
+    <% else %>
+      <% url_path = admin_product_path(product) %>
+    <% end %>
+
+    <div class="row no-gutters mb-4 p-3 img-raised rounded">
       <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "col-2 rounded", id: "jacketImage" %>
       <div class="col-6 pl-3">
-        <h3><%= product.name %></h3>
+        <%= link_to url_path do %>
+          <h3><%= product.name %></h3>
+        <% end %>
         <table>
           <tbody>
             <tr>
