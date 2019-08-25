@@ -1,34 +1,30 @@
-<div class="container mt-5">
-    <table class="table table-bordered">
-	    <thead class="bg-success text-white">
-		    <tr>
-    		    <th>購入日</th>
-	    		<th>購入者</th>
-		    	<th>購入枚数</th>
-                <th>小計（税込）</th>
-                <th>配送状況</th>
-                <th>詳細</th>
-            </tr>
-        </thead>
-    
-
+<table class="table table-bordered table-striped text-center">
+    <thead class="bg-success text-white">
+        <tr>
+            <th>購入日</th>
+            <th>購入者</th>
+            <th>購入枚数</th>
+            <th>小計（税込）</th>
+            <th>配送状況</th>
+            <th>詳細</th>
+        </tr>
+    </thead>
     <tbody>
     <% orders.each do |order| %>
         <tr>
-            <td><%= order.created_at %></td>
-            <td>
-             <%= order.user.first_name %>
-             <%= order.user.last_name %>
+            <td class="align-middle"><%= simple_time(order.created_at) %></td>
+            <td class="align-middle">
+            <%= order.user.last_name %>
+            <%= order.user.first_name %>
             </td>
-            <td><%= sum_quantity(order.order_products) %></td>
-            <td><%= order.total %></td>
-            <td><%= order.status %></td>
-            <td>
+            <td class="align-middle"><%= sum_quantity(order.order_products) %></td>
+            <td class="align-middle"><%= order.total %></td>
+            <td class="align-middle"><%= order.status %></td>
+            <td class="align-middle">
             <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary btn-sm" %>
             </td>
         </tr>
     <% end %>
-    <%= paginate orders, class: "paginate" %>
     </tbody>
 </table>
-</div>
+<%= paginate orders, class: "paginate" %>

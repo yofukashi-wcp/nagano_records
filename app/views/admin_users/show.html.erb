@@ -1,18 +1,19 @@
 <div class="container">
    <div class="row">
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-10 mx-auto">
+
             <div class="row">
                 <div class="col border rounded shadow-lg">
-                    <h3>ユーザー詳細</h3>
+                    <h2 class="pt-md-3">ユーザー詳細</h2>
                     <%= render "users/list", user: @user %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col border rounded bg-light">
-                    <h3>購入履歴</h3>
+                    <h2 class="pt-md-3">購入履歴</h2>
+                    <%= render "admin_orders/order_list", orders: @orders%>
                 </div>
-                <%= paginate @user %>
             </div>
 
             <div class="row">

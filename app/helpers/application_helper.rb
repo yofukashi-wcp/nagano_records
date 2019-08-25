@@ -16,4 +16,8 @@ module ApplicationHelper
         end
         html.html_safe
       end
+      
+      def simple_time(time)
+        time.strftime("%Y-%D")
+      end
 end

@@ -127,6 +127,17 @@ Order.create!(
          payment: '0',
          status: '0',
 
+         },
+         {
+          id: '2',
+         user_id: '3',
+         zip_code: '2420007',
+         address: '神奈川県横浜市青葉区元石川町5420-1',
+         phone_number: '08059385150',
+         postage: '500',
+         total: '7000',
+         payment: '0',
+         status: '1',
          }])
          
 Product.create!(

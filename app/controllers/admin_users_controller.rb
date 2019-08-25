@@ -6,6 +6,7 @@ class AdminUsersController < ApplicationController
 # ユーザー詳細
     def show
         @user = User.find(params[:id])
+        @orders = @user.orders.order(created_at: :desc).page(params[:page]).per(2)
     end
 # ユーザー情報編集
     def edit
