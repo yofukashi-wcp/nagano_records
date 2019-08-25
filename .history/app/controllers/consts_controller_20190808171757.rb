@@ -1,2 +1,0 @@
-class ConstsController < ApplicationController
-end

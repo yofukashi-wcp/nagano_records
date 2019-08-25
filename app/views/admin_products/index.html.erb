@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8 mx-auto">
+      <%= form_with url: admin_products_path, method: :get, local: true, class: "row" do |form| %>
+        <%= form.select :require, {"商品名": 0, "アーティスト名": 1, "レーベル名": 2, "ジャンル名": 3}, {}, id: "searchSelect", class: "col-3 form-control mx-auto" %>
+        <%= form.text_field :word, id: "searchInput", class: "col-6 form-control form-control-lg mx-auto" %>
+        <%= form.submit "検索", class: "col-2 btn btn-primary mx-auto", style: "margin: 0;" %>
+      <% end %>
+    </div>
+    <div class="col-2 text-right">
+      <%= link_to "商品追加", new_admin_product_path, class: "btn btn-info", style: "margin: 0;" %>
+    </div>
+  </div>
+</div>
+
+<%= render 'admin_products/index_products', products: @products, cart: @cart %>
+
+<script>
+  // フォームの初期値を反映
+  require_param = getParam('require');
+  if (!require_param) require_param = 0;
+  $('#searchSelect').val(require_param);
+  $('#searchInput').val(getParam('word'));
+
+  // クエリパラメータ取得関数
+  function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)")
+    var results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+</script>
