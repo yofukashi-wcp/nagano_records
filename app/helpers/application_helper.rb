@@ -16,8 +16,8 @@ module ApplicationHelper
         end
         html.html_safe
       end
-      
+      # 購入日表示の変更メソッド
       def simple_time(time)
-        time.strftime("%Y-%D")
+        time.strftime("%Y-%m-%d")
       end
 end
