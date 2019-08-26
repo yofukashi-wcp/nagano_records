@@ -1,0 +1,55 @@
+<div class="table-responsive">
+            <table class="table table-hover" style="table-layout:fixed;">
+                <th></th>
+                <th></th>
+                <th></th>
+                <tr>
+                    <td class="col-4 text-center">
+                        <%= attachment_image_tag @cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 100px; height: 100px; margin-top: 30px;"%>
+                    </td>
+                    <td class="col-4">
+                        <h4><%= @cart.product.name %></h4><br>
+                        <h5><%= @cart.product.artist.name %></h5>
+                    </td>
+                    <td class="col-4">
+                        <h4>¥ <%= @cart.product.price.to_s %></h4><br>
+                        <div class="form-inline"><%= f.number_field :quantity, class: "form-control col-2" %>点
+                            
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+ <div class="row">
+ <div class="col-md-12">
+    <h3>新しい住所</h3>
+    <%= form_with model: @user, url: orders_check_path, local: true do |f| %>
+    <%= f.label :"名前(宛名)"%><br />
+    <%= f.text_field :name, class: "form-control"%>
+    <%= f.label :"郵便番号" %><br />
+    <%= f.text_field :zip_code, class: "form-control"%>
+    <%= f.label :"住所" %><br />
+    <%= f.text_field :address, class: "form-control"%>
+
+
+
+    <h3>支払い方法の設定</h3>
+<div class="form-check form-check-radio form-check-inline">
+    <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+        <span class="form-check-sign">銀行振込</span>
+    </label>
+    <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <span class="form-check-sign">代金引換</span>
+    </label>
+    <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+        <span class="form-check-sign">クレジットカード</span>
+    </label>
+</div>
+
+
+  
+<% end %>
+</div>
