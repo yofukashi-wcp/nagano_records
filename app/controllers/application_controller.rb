@@ -22,6 +22,15 @@ class ApplicationController < ActionController::Base
         else
           root_path
         end
-      end
+    end
+
+    def current_cart
+      Cart.find(session[:cart_id])
+
+      reacue Activerecord::RecordNotFound
+        cart = Cart.create
+        session[:cart_id] = cart.def index
+        cart
+    end
 
 end
