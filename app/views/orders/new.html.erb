@@ -1,29 +1,69 @@
-<div class="table-responsive">
+<h3>ショッピングカート</h3>
+
+    <%= form_with model: Cart, url: orders_check_path, local: true do |f| %>
+    <div class="container">
+        <div class="table-responsive">
             <table class="table table-hover" style="table-layout:fixed;">
                 <th></th>
                 <th></th>
                 <th></th>
+                <% @carts.each do |cart| %>
                 <tr>
                     <td class="col-4 text-center">
-                        <%= attachment_image_tag @cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 100px; height: 100px; margin-top: 30px;"%>
+                        <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 100px; height: 100px; margin-top: 30px;"%>
                     </td>
                     <td class="col-4">
-                        <h4><%= @cart.product.name %></h4><br>
-                        <h5><%= @cart.product.artist.name %></h5>
+                        <h4><%= cart.product.name %></h4><br>
+                        <h5><%= cart.product.artist.name %></h5>
                     </td>
                     <td class="col-4">
-                        <h4>¥ <%= @cart.product.price.to_s %></h4><br>
-                        <div class="form-inline"><%= f.number_field :quantity, class: "form-control col-2" %>点
-                            
+                        <h4>¥ <%= cart.product.price.to_s %></h4><br>
+                        <div class="form-inline"><%= f.number_field :quantity, value:cart.quantity, class: "form-control col-2" %>点
+                            <div style= "width: 100px;"></div>
+                            <div class="text-center form-inline">
+                                
+                            </div>
                         </div>
                     </td>
                 </tr>
+            <% end %>
             </table>
         </div>
+        <div style="text-align: right;"><h4>小計:<%= @cart_total_price %>円</h4></div>
+        <%= f.submit "購入手続きへ", class:"btn btn-success btn-lg" %>
+        <% end %>
+    </div>
+```
+
+
+
+
+<table>
+<tr>
+  <td>数量の合計(点)</td>
+  <td>小計(税込)</td>
+  <td>送料 :</td>
+  <td>合計 :<td>
+</tr>
+</table>
+<div class="dropdown">
+  <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    送り先の指定
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <% @carts.each do |address| %>
+    <a class="dropdown-item" href="#"><%= address %></a>
+    <a class="dropdown-item" href="#"><%= address %></a>
+    <a class="dropdown-item" href="#"><%= address %></a>
+  <% end %>
+  </div>
+</div>
+ <%
+=begin%>
  <div class="row">
  <div class="col-md-12">
     <h3>新しい住所</h3>
-    <%= form_with model: @user, url: orders_check_path, local: true do |f| %>
+    <%= form_with model: @address, url: orders_check_path, local: true do |f| %>
     <%= f.label :"名前(宛名)"%><br />
     <%= f.text_field :name, class: "form-control"%>
     <%= f.label :"郵便番号" %><br />
@@ -52,4 +92,6 @@
 
   
 <% end %>
-</div>
+</div> 
+<%
+=end%>
