@@ -1,82 +1,89 @@
 <div class="container-fluid">
-  <div class="row">
-      <div class="col ml-5">
-        <h2>注文詳細</h2>
-      <div>
-
-      <div class="col text-center">
-        <%= link_to "出荷準備中", admin_order_path(@order.id, params: {status: 0}), method: :put , class: "btn btn-info" %>
-        <%= link_to "出荷済み", admin_order_path(@order.id, params: {status: 1}), method: :put , class: "btn btn-success" %>
-        <%= link_to "キャンセル", admin_order_path(@order.id, params: {status: 3}), method: :put ,class: "btn btn-danger" %>
+      <div class="row">
+        <div class="col ml-5">
+          <h2>注文詳細</h2>
+        </div>
       </div>
-  </div>
+    <%= form_for(@order, url: admin_order_path) do |f| %>
+      <div class="row">
+          <div class="col text-center">
+            <label class="btn btn-info"><%= f.radio_button :status, 0 %>出荷準備中</label>
+            <label class="btn btn-success"><%= f.radio_button :status, 1 %>出荷済み</label>
+            <label class="btn btn-danger"><%= f.radio_button :status, 3 %>キャンセル</label>
+          </div>
+      </div>
 
-　<div class="row m-sm-5">
-　　<div class="col-5">
-      <table>
-        <tbody>
-          <tr>
-            <th>注文日：　</th>
-            <td><%= @order.created_at %></td>
-          </tr>
-          <tr>
-            <th>購入者：　</th>
-            <td><%= @order.user.first_name %><%= @order.user.last_name %></td>
-          </tr>
-          <tr>
-            <th>合計：　</th>
-            <td>￥ <%= @order.total %></td>
-          </tr>
-          <tr>
-            <th>支払方法：　</th>
-            <td><%= @order.payment %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-5">
-    　<table>
-        <tbody>
-          <tr>
-            <th>ステータス：　</th>
-            <td><%= @order.status %></td>
-          </tr>
-          <tr>
-            <th>送付先：　</th>
-            <td><%= @order.zip_code %></td>
-            <td><%= @order.address %></td>
-          </tr>
-        </tbody>
-      </table>
-　  </div>
-  </div>
+      　<div class="row m-sm-2">
+      　　<div class="col-md-5">
+            <table>
+              <tbody>
+                <tr>
+                  <th>注文日：　</th>
+                  <td><%= @order.created_at %></td>
+                </tr>
+                <tr>
+                  <th>購入者：　</th>
+                  <td><%= @order.user.last_name %><%= @order.user.first_name %></td>
+                </tr>
+                <tr>
+                  <th>合計：　</th>
+                  <td>￥ <%= @order.total %></td>
+                </tr>
+                <tr>
+                  <th>支払方法：　</th>
+                  <td><%= @order.payment %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-5">
+          　<table>
+              <tbody>
+                <tr>
+                  <th>ステータス：　</th>
+                  <td><%= @order.status %></td>
+                </tr>
+                <tr>
+                  <th>送付先：　</th>
+                  <td><%= @order.zip_code %></td>
+                  <td><%= @order.address %></td>
+                </tr>
+              </tbody>
+            </table>
+      　  </div>
+        </div>
 
-  <div class="row border border-secondary m-5">
-    <div class="col-md-3 m-2">
 
-     <% @order_products.each do |orderproduct| %>
-        <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
-    </div>
+      <% @order_products.each do |orderproduct| %>
+        <div class="row shadow-lg border border-secondary m-5">
+          <div class="col-md-3 m-2">
+            <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
+          </div>
 
-    <div class="col-md-5 mt-5">
-      <h3><%= orderproduct.product.name %></h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>アーティスト　</th>
-            <td><%= orderproduct.product.artist.name %></td>
-          </tr>
-        </tbody>
-      </table>
-      
-    </div>
-    <div class="col-md-3 mt-5">
-      <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
-      <p><strong>数量：<%= orderproduct.quantity %></strong></p> 
-     <% end %>
-    </div>
-　</div>
+          <div class="col-md-5 mt-5">
+            <h3><%= orderproduct.product.name %></h3>
+            <table>
+              <tbody>
+                <tr>
+                  <th>アーティスト　</th>
+                  <td><%= orderproduct.product.artist.name %></td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+          <div class="col-md-3 mt-5">
+            <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
+            <%= f.fields_for :order_products do |opf| %>
+              <p><strong>数量：<%= opf.number_field :quantity, :value => orderproduct.quantity, min:0,max:10,step:1 %></strong></p>
+            <% end %>
+          </div>
+      　</div>
+      <% end %>
+      <div class="row">
+        <div class="col mr-5 text-right">
+          <%= f.submit "変更確定" , class: "btn btn-success" %>
+        </div>
+      </div>
+    <% end %>
 </div>
-
-
-
