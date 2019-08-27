@@ -45,7 +45,13 @@
     </div>
     <div class="col-4">
       <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
-      <p class="lead">在庫　<%= product.stock %></p>
+      <p class="lead">
+        <% if product.stock > 1 %>
+          <%= "在庫 " + product.stock.to_s %>
+        <% else %>
+          <span class="text-danger"><%= "在庫がありません" %></span>
+        <% end %>
+      </p>
       <% if user_signed_in? %>
         <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
           <%= f.hidden_field :product_id, value: product.id %>
