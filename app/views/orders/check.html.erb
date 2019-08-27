@@ -29,6 +29,7 @@
       <p><strong>数量：<%= orderproduct.quantity %></strong></p>
      <% end %>
     </div>
+  </div>
 
   <div class="row">
       <div class="col ml-5">
@@ -60,13 +61,13 @@
         </tbody>
       </table>
     </div>
+  </div>
 
 
   <div class="row m-5">
    <div class="col mr-5 text-right">
     <table>
-        <tbody>
-        　
+        <tbody>        　
           <tr>
             <th>数量の合計：　</th>
             <td><%= sum_quantity(@order.order_products) %></td>
@@ -87,7 +88,7 @@
             <td><%= @order.payment %></td>
           </tr>
         </tbody>
-      </table>
+    </table>
    </div>
   </div>
   <div class="col mr-5 text-right">
