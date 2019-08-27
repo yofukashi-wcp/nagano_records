@@ -8,7 +8,7 @@
 
   <div class="row border border-secondary bg-light m-5">
     <div class="col-md-3 m-2">
-     <% order.order_products.each do |orderproduct| %>
+     <% @order.order_products.each do |orderproduct| %>
         <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
     </div>
 
@@ -45,7 +45,7 @@
         　
           <tr>
             <th>氏名：　</th>
-            <td><%= @order.user.first_name %><%= order.user.last_name %></td>
+            <td><%= @order.user.last_name %><%= @order.user.first_name %></td>
           </tr>
           <tr>
             <th>郵便番号：　</th>
@@ -92,7 +92,7 @@
    </div>
   </div>
   <div class="col mr-5 text-right">
-  　<%= link_to "購入履歴",orders_path, class: 'btn btn-primary' >
+  　<%= link_to "購入履歴",orders_path, class: 'btn btn-primary' %>
   </div>
 
 </div>

@@ -11,15 +11,13 @@ class OrdersController < ApplicationController
     end
 
     def create
-        @order = Order.new(order_params)
-        @order.save
-        render 'check'
+
     end
 
-    # def check 
-    #     @order
+    def check 
+        @order = current_user.orders.order(created_at: "DESC").last
 
-    # end
+    end
 
     def update
         order = Order.find(params[:id])
