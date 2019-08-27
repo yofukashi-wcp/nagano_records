@@ -48,7 +48,7 @@ class AdminProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    
+
     update_info_data(@product)
     product_save_error = @product.update(products_params)
     update_track_data(@product)
@@ -90,7 +90,7 @@ class AdminProductsController < ApplicationController
   def update_track_data(product)
     # 既存トラック削除
     product.tracks.each {|num|
-      unless tracks_params.key?(num['id'].to_s) 
+      unless tracks_params.key?(num['id'].to_s)
         track = Track.find(num['id'])
         track.destroy
       end

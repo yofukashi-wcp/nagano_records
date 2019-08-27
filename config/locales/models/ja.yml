@@ -1,5 +1,6 @@
 ja:
   users:
+  admin:
     confirmations:
       confirmed: 'アカウントを登録しました。'
       send_instructions: 'アカウントの有効化について数分以内にメールでご連絡します。'
