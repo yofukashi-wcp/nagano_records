@@ -6,7 +6,7 @@
   </div>
 
   <% @orders.each do |order| %>
-    <div class="row border border-secondary rounded bg-info shadow-lg m-sm-5">
+    <div class="row rounded bg-info shadow-lg m-sm-5">
 
       <div class="col-5">
       　<table>
@@ -17,11 +17,11 @@
             </tr>
             <tr>
               <th>購入者：　</th>
-              <td><%= order.user.first_name %><%= order.user.last_name %></td>
+              <td><%= order.user.last_name %><%= order.user.first_name %></td>
             </tr>
             <tr>
               <th>合計：　</th>
-              <td><%= order.total %></td>
+              <td>￥ <%= order.total %></td>
             <tr>
               <th>支払方法：　</th>
               <td><%= order.payment %></td>
@@ -50,7 +50,7 @@
       </div>
 
       <% order.order_products.each do |orderproduct| %>
-        <div class="row border border-secondary bg-light m-5">
+        <div class="row bg-light m-5">
           <div class="col-md-3 m-2">
           
               <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
@@ -70,7 +70,7 @@
 
           <div class="col-md-3 mt-5">
             <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
-            <p><strong>数量：<%= orderproduct.quantity %></strong></p>
+            <p><strong>数量：  <%= orderproduct.quantity %></strong></p>
           </div>
         </div>
       <% end %>

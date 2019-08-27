@@ -2,50 +2,21 @@
 
   <div class="row">
       <div class="col ml-5">
-        <h3>注文内容</h3>
+        <h2>注文内容</h2>
       </div>
   </div>
 
-  <div class="row border border-secondary bg-light m-5">
-    <div class="col-md-3 m-2">
-     <% @order.order_products.each do |orderproduct| %>
-        <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
-    </div>
-
-    <div class="col-md-5 mt-5">
-      <h3><%= orderproduct.product.name %></h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>アーティスト　</th>
-            <td><%= orderproduct.product.artist.name %></td>
-          </tr>
-        </tbody>
-      </table>
-      
-    </div>
-    <div class="col-md-3 mt-5">
-      <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
-      <p><strong>数量：<%= orderproduct.quantity %></strong></p>
-     <% end %>
-    </div>
-  </div>
+ <%= render 'orders/order_product_list', order: @order %>
 
   <div class="row">
-      <div class="col ml-5">
-        <h3>送り先</h3>
-      </div>
-  </div>
 
-
-  <div class="row">
-　　<div class="col-5">
+  　<div class="col ml-5">
+      <h4>送り先</h4>
       <table>
-        <tbody>
-        　
+        <tbody>        　
           <tr>
             <th>氏名：　</th>
-            <td><%= @order.user.last_name %><%= @order.user.first_name %></td>
+            <td><%= @order.user.last_name %> <%= @order.user.first_name %></td>
           </tr>
           <tr>
             <th>郵便番号：　</th>
@@ -61,38 +32,44 @@
         </tbody>
       </table>
     </div>
-  </div>
 
-
-  <div class="row m-5">
-   <div class="col mr-5 text-right">
-    <table>
+    <div class="col ml-5">
+      <h4>詳細</h4>
+      <table>
         <tbody>        　
           <tr>
             <th>数量の合計：　</th>
-            <td><%= sum_quantity(@order.order_products) %></td>
+            <td>　 <%= sum_quantity(@order.order_products) %></td>
           </tr>
           <tr>
             <th>小計：　</th>
-            <td><%= sum_price(@order.order_products) %></td>
+            <td>￥ <%= sum_price(@order.order_products) %></td>
           </tr>
           <tr>
             <th>送料：　</th>
-            <td><%= @order.postage %></td>
+            <td>￥ <%= @order.postage %></td>
           <tr>
             <th>合計：　</th>
-            <td><%= @order.total %></td>
+            <td>￥ <%= @order.total %></td>
           </tr>
           <tr>
             <th>支払方法：　</th>
             <td><%= @order.payment %></td>
           </tr>
         </tbody>
-    </table>
+    　</table>
+    </div>　　
+
+  </div>
+
+
+  <div class="row m-5">
+   <div class="col mr-5 text-right">
+    
    </div>
   </div>
   <div class="col mr-5 text-right">
-  　<%= link_to "購入履歴",orders_path, class: 'btn btn-primary' %>
+  　<%= link_to "購入履歴",orders_path, class: 'btn btn-primary btn-lg' %>
   </div>
 
 </div>
