@@ -3,7 +3,7 @@
     <h2><%= page_title %></h2>
   </div>
 
-  <%= form_with(model: product, url: post_uri) do |form| %>
+  <%= form_with model: product, url: post_uri do |product_f| %>
     <div class="container">
       <div class="row">
         <div class="col-4">
@@ -12,7 +12,7 @@
         <div class="col">
           <label for="selectImage" class="btn btn-info">
             ジャケット画像を選択
-            <%= form.attachment_field :jacket_image, id: "selectImage", class: "d-none" %>
+            <%= product_f.attachment_field :jacket_image, id: "selectImage", class: "d-none" %>
           </label>
           <p id="selectImageName" class="ml-2"></p>
         </div>
@@ -21,39 +21,39 @@
 
     <div class="container mt-5">
       <div class="form-group">
-        <%= form.label :name, "アルバム名" %>
-        <%= form.text_field :name, id: "productName", class: "form-control", maxlength: 255 %>
+        <%= product_f.label :name, "アルバム名" %>
+        <%= product_f.text_field :name, id: "productName", class: "form-control", maxlength: 255 %>
       </div>
 
       <div class="form-group">
-        <%= form.fields_for product.artist do |artist| %>
-          <%= artist.label :name, "アーティスト" %>
-          <%= artist.text_field :name, id: "artistName", class: "form-control", maxlength: 255 %>
+        <%= product_f.fields_for product.artist do |artist_f| %>
+          <%= artist_f.label :name, "アーティスト" %>
+          <%= artist_f.text_field :name, id: "artistName", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group">
-        <%= form.fields_for product.label do |label| %>
-          <%= label.label :name, "レーベル" %>
-          <%= label.text_field :name, id: "labelName", class: "form-control", maxlength: 255 %>
+        <%= product_f.fields_for product.label do |label_f| %>
+          <%= label_f.label :name, "レーベル" %>
+          <%= label_f.text_field :name, id: "labelName", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group">
-        <%= form.fields_for product.genre do |genre| %>
-          <%= genre.label :name, "ジャンル" %>
-          <%= genre.text_field :name, id: "genreName", class: "form-control", maxlength: 255 %>
+        <%= product_f.fields_for product.genre do |genre_f| %>
+          <%= genre_f.label :name, "ジャンル" %>
+          <%= genre_f.text_field :name, id: "genreName", class: "form-control", maxlength: 255 %>
         <% end %>
       </div>
 
       <div class="form-group row">
         <div class="col">
-          <%= form.label :price, "価格" %>
-          <%= form.number_field :price, id: "productPrice", class: "form-control", min: 0 %>
+          <%= product_f.label :price, "価格" %>
+          <%= product_f.number_field :price, id: "productPrice", class: "form-control", min: 0 %>
         </div>
         <div class="col">
-          <%= form.label :stock, "在庫数" %>
-          <%= form.number_field :stock, id: "productStock", class: "form-control", min: 0 %>
+          <%= product_f.label :stock, "在庫数" %>
+          <%= product_f.number_field :stock, id: "productStock", class: "form-control", min: 0 %>
         </div>
       </div>
     </div>
@@ -73,12 +73,12 @@
         <tbody id="trackRecords">
           <% product.tracks.each do |track| %>
             <tr class="track-item">
-              <%= form.fields_for "tracks[]", track do |t| %>
+              <%= product_f.fields_for "tracks[]", track do |track_f| %>
                 <td></td>
-                <td class="align-middle"><%= t.number_field :disc, class: "form-control track-disc", min: 0, max: 99, placeholder: "Disc" %></td>
-                <td class="align-middle"><%= t.number_field :number, class: "form-control track-number", min: 0, max: 99, placeholder: "No." %></td>
-                <td class="align-middle"><%= t.text_field :name, class: "form-control track-name", placeholder: "曲名" %></td>
-                <td class="align-middle"><%= t.text_field :length, class: "form-control track-length", maxlength: 10, placeholder: "再生時間" %></td>
+                <td class="align-middle"><%= track_f.number_field :disc, class: "form-control track-disc", min: 0, max: 99, placeholder: "Disc" %></td>
+                <td class="align-middle"><%= track_f.number_field :number, class: "form-control track-number", min: 0, max: 99, placeholder: "No." %></td>
+                <td class="align-middle"><%= track_f.text_field :name, class: "form-control track-name", placeholder: "曲名" %></td>
+                <td class="align-middle"><%= track_f.text_field :length, class: "form-control track-length", maxlength: 10, placeholder: "再生時間" %></td>
                 <td class="align-middle"><a class="btn btn-danger text-white track-delete">削除</a></td>
               <% end %>
             </tr>
@@ -88,8 +88,8 @@
     </div>
 
     <div class="container mt-5">
-      <%= form.label :summary, "商品紹介" %>
-      <%= form.text_area :summary, class: "form-control", style: "min-height: 10em;" %>
+      <%= product_f.label :summary, "商品紹介" %>
+      <%= product_f.text_area :summary, class: "form-control", style: "min-height: 10em;" %>
     </div>
 
     <div class="container mt-5"><div class="row">
@@ -139,7 +139,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
-            <%= form.submit "登録", class: "btn btn-success" %>
+            <%= product_f.submit "登録", class: "btn btn-success" %>
           </div>
         </div>
       </div>
