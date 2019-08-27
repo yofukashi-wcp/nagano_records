@@ -19,7 +19,7 @@ class AdminOrdersController < ApplicationController
             orderproduct.update(price: orderproduct.quantity * orderproduct.product.price)
             order_total += orderproduct.price
         end
-        order.update(total: order_total)
+        order.update(total: order_total += order.postage)
     	redirect_to admin_order_path(order.id)
     end
     

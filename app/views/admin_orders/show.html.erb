@@ -9,6 +9,7 @@
           <div class="col text-center">
             <label class="btn btn-info"><%= f.radio_button :status, 0 %>出荷準備中</label>
             <label class="btn btn-success"><%= f.radio_button :status, 1 %>出荷済み</label>
+            <label class="btn btn-warning"><%= f.radio_button :status, 2 %>キャンセル待ち</label>
             <label class="btn btn-danger"><%= f.radio_button :status, 3 %>キャンセル</label>
           </div>
       </div>
@@ -26,7 +27,7 @@
                   <td><%= @order.user.last_name %><%= @order.user.first_name %></td>
                 </tr>
                 <tr>
-                  <th>合計：　</th>
+                  <th>合計（送料込）：　</th>
                   <td>￥ <%= @order.total %></td>
                 </tr>
                 <tr>
@@ -71,8 +72,7 @@
               </tbody>
             </table>
             
-          </d
-          iv>
+          </div>
           <div class="col-md-3 mt-5">
             <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
             <%= f.fields_for :order_products do |opf| %>
