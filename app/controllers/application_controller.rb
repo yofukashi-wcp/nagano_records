@@ -61,22 +61,25 @@ class ApplicationController < ActionController::Base
           cross = []
 
           # 全条件で検索
-          artists = Artist.find_by(name: params[:word])
+          artists = Artist.where("name like ?", "%" + params[:word] + "%")
           if artists.present?
-            artists = artists.products
-            cross += artists
+            artists.each {|artist|
+              cross += artist.products
+            }
           end
-          labels = Label.find_by(name: params[:word])
+          labels = Label.where("name like ?", "%" + params[:word] + "%")
           if labels.present?
-            labels = labels.products
-            cross += labels
+            labels.each {|label|
+              cross += label.products
+            }
           end
-          genres = Genre.find_by(name: params[:word])
+          genres = Genre.where("name like ?", "%" + params[:word] + "%")
           if genres.present?
-            genres = genres.products
-            cross += genres
+            genres.each {|genre|
+              cross += genre.products
+            }
           end
-          products = Product.where(name: params[:word])
+          products = Product.where("name like ?", "%" + params[:word] + "%")
           if products.present?
             cross += products
           end
