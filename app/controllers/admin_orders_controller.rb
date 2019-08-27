@@ -13,6 +13,13 @@ class AdminOrdersController < ApplicationController
     def update
         order = Order.find(params[:id])
         order.update(order_params)
+        orderproducts = order.order_products
+        order_total = 0
+        orderproducts.each do |orderproduct|
+            orderproduct.update(price: orderproduct.quantity * orderproduct.product.price)
+            order_total += orderproduct.price
+        end
+        order.update(total: order_total)
     	redirect_to admin_order_path(order.id)
     end
     
