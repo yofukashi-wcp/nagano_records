@@ -56,8 +56,8 @@
         <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
           <%= f.hidden_field :product_id, value: product.id %>
           <%= f.label :quantity, "数量" %>
-          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: "1", max: [product.stock, 99].min, value: "1" %>
-          <%= f.submit "カート追加", class: "btn btn-primary" %>
+          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: 0, max: [product.stock, 99].min, value: [product.stock, 1].min %>
+          <%= f.submit "カート追加", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#cartSubmitModal" %>
         <% end %>
       <% else %>
         <% unless admin_signed_in? %>
@@ -110,6 +110,27 @@
       </div>
       <div class="modal-body">
         <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Submit Cart Modal -->
+<div class="modal fade" id="cartSubmitModal" tabindex="-1" role="dialog" aria-labelledby="cartSubmitModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartSubmitModalLabel">カートに商品を追加しました。</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><%= product.name %> をカートに追加しました。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <%= link_to "カートを見る", carts_path, class: "btn btn-primary" %>
       </div>
     </div>
   </div>
