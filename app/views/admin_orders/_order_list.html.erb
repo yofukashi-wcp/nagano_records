@@ -20,9 +20,17 @@
              <%= order.user.last_name %>
              <%= order.user.first_name %>
             </td>
-            <td><%= sum_quantity(order.order_products) %></td>
+            <td>￥　<%= sum_quantity(order.order_products) %></td>
             <td><%= order.total %></td>
-            <td><%= order.status %></td>
+            <% if order.status == 0 %>
+                <td>出荷準備中</td>
+            <% elsif order.status == 1 %>
+                <td>出荷済み</td>
+            <% elsif order.status == 2 %>
+                <td>キャンセル待ち</td>
+            <% else %>
+                <td>キャンセル済み</td>
+            <% end %>
             <td>
             <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary btn-sm" %>
             </td>

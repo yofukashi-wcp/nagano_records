@@ -32,7 +32,13 @@
                 </tr>
                 <tr>
                   <th>支払方法：　</th>
-                  <td><%= @order.payment %></td>
+                  <% if @order.payment == 0 %>
+                    <td>銀行振込</td>
+                  <% elsif @order.paymemt == 1 %>
+                    <td>代金引換</td>
+                  <% else %>
+                    <td>クレジットカード</td>
+                  <% end %>                  
                 </tr>
               </tbody>
             </table>
@@ -42,11 +48,22 @@
               <tbody>
                 <tr>
                   <th>ステータス：　</th>
-                  <td><%= @order.status %></td>
+                  <% if @order.status == 0 %>
+                    <td>出荷準備中</td>
+                  <% elsif @order.status == 1 %>
+                    <td>出荷済み</td>
+                  <% elsif @order.status == 2 %>
+                    <td>キャンセル待ち</td>
+                  <% else %>
+                    <td>キャンセル済み</td>
+                  <% end %>
                 </tr>
                 <tr>
                   <th>送付先：　</th>
                   <td><%= @order.zip_code %></td>
+                </tr>
+                <tr>
+                  <th></th>
                   <td><%= @order.address %></td>
                 </tr>
               </tbody>
