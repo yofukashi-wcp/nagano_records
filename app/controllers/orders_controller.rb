@@ -64,11 +64,6 @@ class OrdersController < ApplicationController
         
     end
 
-    def create
-
-
-    end
-
     def check 
         @order = current_user.orders.order(created_at: "DESC").last
     end
@@ -80,14 +75,9 @@ class OrdersController < ApplicationController
     end
 
     private
-    def order_params
-        params.require(:order).permit(:status)
-    end
-
-    private
 
     def order_params
-        params.require(:order).permit(:address, :zip_code, :name, :payment)
+        params.require(:order).permit(:address, :zip_code, :name, :payment, :status)
     end
     def cart_total_price(carts)
         @cart_total_price = 0
