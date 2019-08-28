@@ -43,14 +43,14 @@
           </tr>
           <tr>
             <th>小計：　</th>
-            <td>￥ <%= sum_price(@order.order_products) %></td>
+            <td>￥ <%= sum_price(@order.order_products).to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
           </tr>
           <tr>
             <th>送料：　</th>
-            <td>￥ <%= @order.postage %></td>
+            <td>￥ <%= @order.postage.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
           <tr>
             <th>合計：　</th>
-            <td>￥ <%= @order.total %></td>
+            <td>￥ <%= @order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
           </tr>
           <tr>
             <th>支払方法：　</th>

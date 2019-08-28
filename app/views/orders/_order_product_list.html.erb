@@ -18,7 +18,7 @@
     </div>
 
     <div class="col-md-3 mt-5">
-      <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
+      <p><strong>価格：　￥ <%= orderproduct.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></strong></p><br>
       <p><strong>数量：  <%= orderproduct.quantity %></strong></p>
     </div>
   </div>
