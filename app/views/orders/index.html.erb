@@ -88,7 +88,7 @@
         </div>
       <% end %>
 
-      <% if order.status == 2 %>
+      <% if order.status == 0 %>
         <div class="col mr-5 text-right">
           <%= link_to "キャンセル",order_path(order.id, params: {status: 2}), method: :put , class: 'btn btn-danger' %>
         </div>
