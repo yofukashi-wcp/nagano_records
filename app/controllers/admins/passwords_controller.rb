@@ -17,7 +17,7 @@ append_before_action :assert_reset_token_passed, only: [:new]
 
   # GET /resource/password/edit?reset_password_token=abcdef
   def edit
-    @user = current_admin
+    @admin = current_admin
     @path = admin_password_path
   end
 
@@ -30,6 +30,7 @@ append_before_action :assert_reset_token_passed, only: [:new]
         flash[:success] = "パスワードの更新に成功しました！"
         redirect_to products_path
     else
+        @path = admin_password_path
         flash.now[:failure] = 'パスワードの更新に失敗しました！'
         render :edit
     end

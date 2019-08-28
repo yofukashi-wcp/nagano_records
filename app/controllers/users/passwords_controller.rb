@@ -22,12 +22,13 @@ class Users::PasswordsController < ApplicationController
   # ユーザーパスワード更新
   def update
         @user = current_user
-    if  @user.update(users_params)
+    if  @user.update_with_password(users_params)
         sign_in(@user, bypass: true)
         flash[:success] = "パスワードの更新に成功しました！"
         redirect_to users_path
     else
-        falsh[:failure] = "パスワードの更新に失敗しました！"
+        @path = user_password_path
+        flash[:failure] = "パスワードの更新に失敗しました！"
         render :edit
     end
   end
@@ -45,7 +46,7 @@ class Users::PasswordsController < ApplicationController
   # ストロングパラメーター追加　
   private
   def users_params
-    params.require(:user).permit(:password)
+    params.require(:user).permit(:password, :password_confirmation, :current_password)
   end
 
 end
