@@ -65,8 +65,6 @@ ja:
         signed_out: "管理者側のサインアウトを確認しました"
         email: "メールアドレス"
         password: "パスワード"
-          failure:
-            invalid :  "dame "
     shared:
       links:
         back: "戻る"

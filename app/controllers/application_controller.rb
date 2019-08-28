@@ -57,31 +57,40 @@ class ApplicationController < ActionController::Base
             genre.products.page(params[:page])
           end
 
-        when 4  # 横断検索（エンドユーザ用）
+        when 4  # フリーワード検索
           cross = []
 
-          # 全条件で検索
-          artists = Artist.find_by(name: params[:word])
+          # アーティスト名検索
+          artists = Artist.where("name like ?", "%" + params[:word] + "%")
           if artists.present?
-            artists = artists.products
-            cross += artists
+            artists.each {|artist|
+              cross += artist.products
+            }
           end
-          labels = Label.find_by(name: params[:word])
+
+          # レーベル名検索
+          labels = Label.where("name like ?", "%" + params[:word] + "%")
           if labels.present?
-            labels = labels.products
-            cross += labels
+            labels.each {|label|
+              cross += label.products
+            }
           end
-          genres = Genre.find_by(name: params[:word])
+
+          # ジャンル名検索
+          genres = Genre.where("name like ?", "%" + params[:word] + "%")
           if genres.present?
-            genres = genres.products
-            cross += genres
+            genres.each {|genre|
+              cross += genre.products
+            }
           end
-          products = Product.where(name: params[:word])
+
+          # 商品名検索
+          products = Product.where("name like ?", "%" + params[:word] + "%")
           if products.present?
             cross += products
           end
           
-          # 配列の統合と重複要素の削除
+          # 配列の重複要素の削除
           cross.uniq!
           cross = Kaminari.paginate_array(cross).page(params[:page])
 

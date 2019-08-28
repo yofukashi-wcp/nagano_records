@@ -157,6 +157,7 @@ Product.create!(
     }
   ]
 )
+
 Cart.create!(
   [
     {
@@ -167,6 +168,7 @@ Cart.create!(
     }
   ]
 )
+
 
 OrderProduct.create!(  
    [

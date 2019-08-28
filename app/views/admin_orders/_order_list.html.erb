@@ -1,0 +1,34 @@
+<table class="table table-bordered">
+    <thead class="bg-success text-white">
+        <tr>
+            <th>購入日</th>
+            <th>購入者</th>
+            <th>購入枚数</th>
+            <th>小計（送料・税込）</th>
+            <th>配送状況</th>
+            <th>詳細</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% orders.each do |order| %>
+            <tr>
+                <td><%= order.created_at %></td>
+                <td><%= order.user.last_name %><%= order.user.first_name %></td>
+                <td><%= sum_quantity(order.order_products) %></td>
+                <td>￥ <%= order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
+                <% if order.status == 0 %>
+                    <td>出荷準備中</td>
+                <% elsif order.status == 1 %>
+                    <td>出荷済み</td>
+                <% elsif order.status == 2 %>
+                    <td>キャンセル待ち</td>
+                <% else %>
+                    <td>キャンセル済み</td>
+                <% end %>
+                <td>
+                <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary btn-sm" %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
