@@ -20,12 +20,20 @@ class OrdersController < ApplicationController
     end
 
     def create
-        @address = Address.find(order_params[:address].to_i)
         @order = Order.new
         @order.user_id = current_user.id
-        @order.zip_code = @address.zip_code
-        @order.address = @address.address
-        @order.name = @address.name
+        if  params[:address].to_i != 0 
+            @address = Address.find(order_params[:address].to_i)
+            @order.zip_code = @address.zip_code
+            @order.address = @address.address
+            @order.name = @address.name
+        else
+            @order.user_id = current_user.id
+            @order.zip_code = current_user.zip_code
+            @order.address = current_user.address
+            @order.name = current_user.last_name+current_user.first_name
+        end
+
         @order.payment = order_params[:payment].to_i
         @order.phone_number = current_user.phone_number
         @order.postage = Const.find(1).value

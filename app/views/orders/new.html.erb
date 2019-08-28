@@ -46,7 +46,7 @@
                     <span class="form-check-sign">クレジットカード</span>
                   </label>
               </div>
-              <h5 style="margin-top: 30px;"><%= f.select :address, @user.addresses.collect { |p| [ p.name+p.address, p.id] }%></h5>
+              <h5 style="margin-top: 30px;"><%= f.select :address, @user.addresses.collect { |p| [ p.address, p.id] }, { :prompt => @user.address} %></h5>
               <%= flash[:notice] %>
           </div>
           <div class="col-md-5 text-right h3", style="float: left;">
