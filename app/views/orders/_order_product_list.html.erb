@@ -1,12 +1,12 @@
 <% order.order_products.each do |orderproduct| %>　
-  <div class="row shadow-lg bg-light m-5">
+  <div class="row shadow-lg bg-light mx-5">
     <div class="col-md-3 m-2">
      
         <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
     </div>
 
     <div class="col-md-5 mt-5">
-      <h3><%= orderproduct.product.name %></h3>
+      <h3><%= link_to orderproduct.product.name,product_path(orderproduct.product.id) %></h3>
       <table>
         <tbody>
           <tr>

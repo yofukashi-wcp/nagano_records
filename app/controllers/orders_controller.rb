@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
     end
 
     def new
-        @carts = Carts.all
 
     end
 
@@ -16,14 +15,6 @@ class OrdersController < ApplicationController
 
     def check 
         @order = current_user.orders.order(created_at: "DESC").last
-        case @order.payment
-                when 0 then
-                    "銀行振込"
-                when 1 then
-                    "代金引換"
-                else
-                    "クレジットカード"
-        end
     end
 
     def update

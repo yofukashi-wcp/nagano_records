@@ -24,7 +24,13 @@
               <td>￥ <%= order.total %></td>
             <tr>
               <th>支払方法：　</th>
-              <td><%= order.payment %></td>
+              <% if order.payment == 0 %>
+                    <td>銀行振込</td>
+                  <% elsif order.paymemt == 1 %>
+                    <td>代金引換</td>
+                  <% else %>
+                    <td>クレジットカード</td>
+                  <% end %>
             </tr>
           </tbody>
         </table>
@@ -35,7 +41,15 @@
           <tbody>
             <tr>
               <th>ステータス：　</th>
-              <td><%= order.status %></td>
+              <% if order.status == 0 %>
+                    <td>出荷準備中</td>
+                  <% elsif order.status == 1 %>
+                    <td>出荷済み</td>
+                  <% elsif order.status == 2 %>
+                    <td>キャンセル待ち</td>
+                  <% else %>
+                    <td>キャンセル済み</td>
+                  <% end %>
             </tr>
             <tr>
               <th>送付先：　</th>
@@ -52,12 +66,11 @@
       <% order.order_products.each do |orderproduct| %>
         <div class="row bg-light m-5">
           <div class="col-md-3 m-2">
-          
               <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
           </div>
 
           <div class="col-md-5 mt-5">
-            <h3><%= orderproduct.product.name %></h3>
+            <h3><%= link_to orderproduct.product.name,product_path(orderproduct.product.id) %></h3>
             <table>
               <tbody>
                 <tr>
