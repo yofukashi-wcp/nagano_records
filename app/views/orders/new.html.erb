@@ -1,97 +1,84 @@
 <h3>ショッピングカート</h3>
 
-    <%= form_with model: Cart, url: orders_check_path, local: true do |f| %>
-    <div class="container">
-        <div class="table-responsive">
-            <table class="table table-hover" style="table-layout:fixed;">
-                <th></th>
-                <th></th>
-                <th></th>
+  <div class="container">
+
+      <div class="row">
+        <div class="col-md-12 mx-auto mb-md-5 ">
+          <div class="shadow-lg rounded">
+              <table class="table table-hover h4" style="table-layout:fixed;">
                 <% @carts.each do |cart| %>
-                <tr>
-                    <td class="col-4 text-center">
-                        <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 100px; height: 100px; margin-top: 30px;"%>
-                    </td>
-                    <td class="col-4">
-                        <h4><%= cart.product.name %></h4><br>
-                        <h5><%= cart.product.artist.name %></h5>
-                    </td>
-                    <td class="col-4">
-                        <h4>¥ <%= cart.product.price.to_s %></h4><br>
-                        <div class="form-inline"><%= f.number_field :quantity, value:cart.quantity, class: "form-control col-2" %>点
-                            <div style= "width: 100px;"></div>
-                            <div class="text-center form-inline">
-                                
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            <% end %>
-            </table>
+                  <tr>
+                      <td class="col-4 text-center align-middle">
+                          <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 200px; height: 200px;"%>
+                      </td>
+                      <td class="col-4">
+                          <h4><%= cart.product.name %></h4><br>
+                          <h5><%= cart.product.artist.name %></h5>
+                      </td>
+                      <td class="col-4">
+                          <h4>¥ <%= cart.product.price.to_s %></h4><br>
+                          <div class="form-inline"><%= cart.quantity %>点
+                          </div>
+                      </td>
+                  </tr>
+                <% end %>
+              </table>
+          </div>
         </div>
-        <div style="text-align: right;"><h4>小計:<%= @cart_total_price %>円</h4></div>
-        <%= f.submit "購入手続きへ", class:"btn btn-success btn-lg" %>
+      </div>
+
+      <div class="row">
+      <div class="col-md-12">
+        <%= form_with model: @order, url: orders_path, local: true do |f| %>
+          <div class="col-md-6", style="float: left;">
+              <div class="text-center", style="align-top">
+                  <h3>支払い方法の設定</h3>
+                  <label class="form-check-label h5">
+                    <%= f.radio_button :payment, 0 %>
+                    <span class="form-check-sign">銀行振込</span>
+                  </label>
+                  <label class="form-check-label h5">
+                    <%= f.radio_button :payment, 1 %>
+                    <span class="form-check-sign">代金引換</span>
+                  </label>
+                  <label class="form-check-label h5">
+                    <%= f.radio_button :payment, 2 %>
+                    <span class="form-check-sign">クレジットカード</span>
+                  </label>
+              </div>
+              <h5 style="margin-top: 30px;"><%= f.select :address, @user.addresses.collect { |p| [ p.name+p.address, p.id] }%></h5>
+              <%= flash[:notice] %>
+          </div>
+          <div class="col-md-5 text-right h3", style="float: left;">
+              
+                <ul style="list-style: none;">
+                    <li>数量の合計<%= @cart_total_quantity %>(点)</li>
+                    <li>小計  :<%= @cart_total_price %>円(税込)</li>
+                    <li>送料  :<%= @const.value %>円</li>
+                    <li>合計 :<%=  @cart_total_price + @const.value %>円</li>
+                </ul>
+                <%= f.submit "注文確定", class:"btn btn-success" %>
+          </div>
         <% end %>
-    </div>
-```
+      </div>
+      
+      
+        <div class="col-md-12">
+            
+                <%= form_with model: @address, url: @path, local:true, class: "col-6" do |a| %>
+                    <h3 class="text-center">送り先住所の追加</h3>
+                    <%= a.label :"名前(宛名)" %>
+                    <%= a.text_field :name, autofocus: true, class: "form-control" %><br />
 
+                    <%= a.label :"郵便番号" %>
+                    <%= a.text_field :zip_code, class: "form-control" %><br />
 
+                    <%= a.label :"住所" %>
+                    <%= a.text_field :address, class: "form-control form-inline"  %><br />
 
-
-<table>
-<tr>
-  <td>数量の合計(点)</td>
-  <td>小計(税込)</td>
-  <td>送料 :</td>
-  <td>合計 :<td>
-</tr>
-</table>
-<div class="dropdown">
-  <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    送り先の指定
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <% @carts.each do |address| %>
-    <a class="dropdown-item" href="#"><%= address %></a>
-    <a class="dropdown-item" href="#"><%= address %></a>
-    <a class="dropdown-item" href="#"><%= address %></a>
-  <% end %>
-  </div>
+                    <div class="text-right"><%= a.submit "住所追加", class: "btn btn-success" %></div>
+                <% end %>
+        </div>
+      
+      </div>
 </div>
- <%
-=begin%>
- <div class="row">
- <div class="col-md-12">
-    <h3>新しい住所</h3>
-    <%= form_with model: @address, url: orders_check_path, local: true do |f| %>
-    <%= f.label :"名前(宛名)"%><br />
-    <%= f.text_field :name, class: "form-control"%>
-    <%= f.label :"郵便番号" %><br />
-    <%= f.text_field :zip_code, class: "form-control"%>
-    <%= f.label :"住所" %><br />
-    <%= f.text_field :address, class: "form-control"%>
-
-
-
-    <h3>支払い方法の設定</h3>
-<div class="form-check form-check-radio form-check-inline">
-    <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-        <span class="form-check-sign">銀行振込</span>
-    </label>
-    <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-        <span class="form-check-sign">代金引換</span>
-    </label>
-    <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-        <span class="form-check-sign">クレジットカード</span>
-    </label>
-</div>
-
-
-  
-<% end %>
-</div> 
-<%
-=end%>
