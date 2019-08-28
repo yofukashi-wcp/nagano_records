@@ -65,6 +65,12 @@ ja:
         signed_out: "管理者側のサインアウトを確認しました"
         email: "メールアドレス"
         password: "パスワード"
+      admin:
+        signed_in: "サインインしました"
+        signed_out: "サインアウトしました"
+      user:
+        signed_in: "サインインしました"
+        signed_out: "サインアウトしました"
     shared:
       links:
         back: "戻る"

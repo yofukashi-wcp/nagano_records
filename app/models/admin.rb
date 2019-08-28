@@ -9,4 +9,6 @@ class Admin < ApplicationRecord
   end
 
   validates :email, presence: true
+  # 新しいパスワードと確認用パスワードの一致を検証
+  validates :password, confirmation: true
 end

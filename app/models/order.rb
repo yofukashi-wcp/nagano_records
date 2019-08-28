@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   has_many :order_products
+  accepts_nested_attributes_for :order_products, allow_destroy: true
 
   validates :user_id, presence: true
   validates :zip_code, presence: true

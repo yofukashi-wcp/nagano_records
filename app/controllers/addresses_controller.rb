@@ -11,6 +11,15 @@ class AddressesController < ApplicationController
         address.save!
         redirect_to root_path
     end
+    
+    def order_create
+        address = Address.new(address_params)
+        address.user_id = current_user.id
+        if  address.save!
+            flash[:notice] =  "住所を追加しました。送り先住所を選択してください。"
+        end
+        redirect_to new_order_path
+    end
 
     def edit
         @path = address_path
@@ -34,7 +43,7 @@ class AddressesController < ApplicationController
     end
 
     private
-
+# Applicationcontroller継承の為、ストロングパラメーター設定
     def address_params
         params.require(:address).permit(:name, :zip_code, :address)
     end

@@ -27,7 +27,7 @@
               <% if user_signed_in? %>
                 <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
               <% elsif admin_signed_in? %>
-                <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path, class: "fas fa-user-cog", style: "font-size: 30px;" %>
+                <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), admin_orders_path, class: "fas fa-user-cog", style: "font-size: 30px;" %>
               <% else %>
                 <%= link_to image_tag("header.png", width: '270', height: '50', alt: "NAGANO RECORDS"), root_path %>
               <% end %>
@@ -63,7 +63,17 @@
               </div>
             </div>
       </nav>
-    </div>
+
+        <% if flash[:success] %>
+            <div class="container">
+              <%= flash[:success] %>
+            </div>
+        <% elsif flash[:failure] %>
+            <div class="container">
+              <%= flash[:failure] %>
+            </div>
+        <% end %>
+
       <%= yield %>
       <footer>
       <div class="text-center" style="line-height: 80px;">&copy; NAGANO RECORDS</div>
