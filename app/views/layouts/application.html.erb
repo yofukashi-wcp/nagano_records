@@ -33,12 +33,14 @@
               <% end %>
               <form class="form-inline mx-auto" data-background-color>
                 <div class="form-group has-white ml-5">
-                  <% if admin_signed_in? %>
-                  <% else %>
-                    <input type="text" class="col-auto form-control search", style="width: 350px;", placeholder="商品やアーティスト名などで検索">
-                    <button type="submit" class="btn btn-neutral btn-round">検索</button>
-                </div>
+                  <% unless admin_signed_in? %>
+                      <%= form_with url: products_path, method: :get, local: true do |form| %>
+                        <%= form.hidden_field :require, value: 4 %>
+                        <%= form.text_field :word, id: "searchInput", class: "form-control search", style: "width: 350px;", placeholder: "商品やアーティスト名などで検索" %>
+                        <%= form.submit "検索", class: "btn btn-neutral btn-round" %>
+                      <% end %>
                   <% end %>
+                </div>
               </form>
               <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
@@ -64,8 +66,24 @@
     </div>
       <%= yield %>
       <footer>
-      <div align="center", style="line-height: 80px;">&copy; NAGANO RECORDS</div>
+      <div class="text-center" style="line-height: 80px;">&copy; NAGANO RECORDS</div>
     </footer>
     </div>
+
+    <script>
+      // フォームの初期値を反映
+      $('#searchInput').val(getParam('word'));
+
+      // クエリパラメータ取得関数
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)")
+        var results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+    </script>
   </body>
 </html>
