@@ -93,6 +93,7 @@ Const.create!([
    ]
 )
 
+
 Artist.create!(
   [
     { id: 1, name: "平沢進" },
@@ -126,6 +127,7 @@ Order.create!(
          payment: '0',
          status: '0',
 
+
          }])
 
          Order.create!(
@@ -141,6 +143,7 @@ Order.create!(
          status: '0',
 
          }])
+
 
 Product.create!(
   [
@@ -158,6 +161,7 @@ Product.create!(
   ]
 )
 
+
 Cart.create!(
   [
     {
@@ -168,6 +172,7 @@ Cart.create!(
     }
   ]
 )
+
 
 
 OrderProduct.create!(  
@@ -183,6 +188,7 @@ OrderProduct.create!(
       
       ])
 
+
 OrderProduct.create!(  
    [
       { 
@@ -194,6 +200,7 @@ OrderProduct.create!(
 
       
       ])
+
 
 Track.create!(
   [

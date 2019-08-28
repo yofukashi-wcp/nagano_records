@@ -1,15 +1,21 @@
-<table class="table table-bordered">
+
+<table class="table table-bordered table-striped text-center">
+
     <thead class="bg-success text-white">
         <tr>
             <th>購入日</th>
             <th>購入者</th>
             <th>購入枚数</th>
+
             <th>小計（送料・税込）</th>
+
             <th>配送状況</th>
             <th>詳細</th>
         </tr>
     </thead>
     <tbody>
+
+
         <% orders.each do |order| %>
             <tr>
                 <td><%= order.created_at %></td>
@@ -32,3 +38,4 @@
         <% end %>
     </tbody>
 </table>
+

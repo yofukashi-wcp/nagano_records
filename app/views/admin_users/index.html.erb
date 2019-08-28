@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h2>全てのユーザー</h2>
+            <%= form_with url: admin_users_path, method: :get, local: true, class: "form-inline" do |f| %>
+            <%= f.text_field :search, class: "form-control",autoforcus: true, placeholder: "全てのユーザー" %>
+            <%= f.submit "検索",class: "form-control bg-light", autoforcus: true %>
+            </p>
+            <% end %>
+            <table class="table table-bordered table-hover table-sm table-striped">
+                <thead class="text-center">
+                    <tr>
+                        <th>会員番号</th>
+                        <th>名前</th>
+                        <th>メールアドレス</th>
+                        <th>電話番号</th>
+                        <th>詳細</th>
+                    </tr>
+                </thead>
+            <% @users.each do |users| %>
+                <tbody class="text-center">
+                    <tr>
+                        <td class="align-middle"><%= users.id %></td>
+                        <td class="align-middle"><%= users.last_name %><%= users.first_name %></td>
+                        <td class="align-middle"><%= users.email %></td>
+                        <td class="align-middle"><%= users.phone_number %></td>
+                        <td class="align-middle"><%= link_to "詳細", admin_user_path(users.id), class: "btn btn-primary btn-sm" %></td>
+                    </tr>
+                </tbody>
+            <% end %>
+            </table>
+            <div class="row">
+                <div class="col-md-2 mx-auto">
+                    <%= paginate @users%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

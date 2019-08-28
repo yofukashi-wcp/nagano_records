@@ -63,7 +63,17 @@
               </div>
             </div>
       </nav>
-    </div>
+
+        <% if flash[:success] %>
+            <div class="container">
+              <%= flash[:success] %>
+            </div>
+        <% elsif flash[:failure] %>
+            <div class="container">
+              <%= flash[:failure] %>
+            </div>
+        <% end %>
+
       <%= yield %>
       <footer>
       <div class="text-center" style="line-height: 80px;">&copy; NAGANO RECORDS</div>

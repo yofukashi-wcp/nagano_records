@@ -1,14 +1,31 @@
-<div class="container">
-<div class="row">
-<div class="user-info">
-    <h4><%= user.last_name %><%= user.first_name %></h4>
-    <h4><%= user.last_name_ruby %><%= user.first_name_ruby %></h4>
-    <h4><%= user.email %></h4>
-    <h4><%= user.zip_code %></h4>
-    <h4><%= user.address %></h4>
-    <h4><%= user.phone_number %></h4>
-</div>
-</div>
-</div>
 
+<table class="table-sm">
+<thead>
+</thead>
+    <tbody>
+        <tr>
+            <th><h5>名前(姓名)：　<%= user.last_name %>  <%= user.first_name %></h5></th>
+        </tr>
+
+        <tr>
+            <th><h5>名前(カタカナ)：  <%= user.last_name_ruby %>  <%= user.first_name_ruby %></h5></th>
+        </tr>
+
+        <tr>
+           <th><h5>メールアドレス：　<%= user.email %></h5></th>
+        </tr>
+
+        <tr>
+           <th><h5>郵便番号：　<%= user.zip_code %></h5></th>
+        </tr>
+
+        <tr>
+           <th><h5>住所：　<%= user.address %></h5></th>
+        </tr>
+
+        <tr>
+            <th><h5>電話番号： <%= user.phone_number %></h5></th>
+        </tr>
+    </tbody>
+</table>
 

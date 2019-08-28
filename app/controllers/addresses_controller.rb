@@ -34,7 +34,7 @@ class AddressesController < ApplicationController
     end
 
     private
-
+# Applicationcontroller継承の為、ストロングパラメーター設定
     def address_params
         params.require(:address).permit(:name, :zip_code, :address)
     end
