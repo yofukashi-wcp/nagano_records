@@ -1,23 +1,27 @@
-    <h3 style="margin-left: 100px;">ショッピングカート</h3>
+    <h3 style="margin-left: 100px;"><%= current_user.last_name+current_user.first_name+"さんのカート" %></h3>
 
-    <%= form_with model: Cart, url: new_order_path,method: :get, local: true do |f| %>
     <div class="container">
-        <div class="table-responsive shadow p-3 mb-5 bg-white rounded">
-            <table class="col-12 table-hover" style="table-layout:fixed;">
+        <div class="row no-gutters shadow p-3 mb-4 bg-white rounded offset-1" style="display: flex; width: 865px;">
+                <% if @cart.present? %>
+                <% else %>
+                <div style="margin-left: 220px;"><%= @message %></div>
+                <% end %>
                 <% @carts.each do |cart| %>
-                <tbody>
-                <tr>
-                    <td class="col-4 text-center">
+                <%= form_with model: cart, method: :patch, url: cart_path(cart), class: "cart_form form-inline" do |f| %>
+                    <div style="margin-left: 50px;">
                         <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 150px; height: 150px;"%>
-                    </td>
-                    <td class="col-4">
-                        <h4><%= cart.product.name %></h4><br>
-                        <h5><%= cart.product.artist.name %></h5>
-                    </td>
-                    <td class="col-4">
-                        <h4>¥ <%= cart.product.price.to_s %></h4><br>
-                        <div class="form-inline"><%= f.number_field :quantity, value:cart.quantity, class: "form-control col-2" %>点
-                            <div style= "width: 100px;"></div>
+                    </div>
+
+                    <div style="width: 200px; height: 100%; margin-left: 60px;">
+                        <h4><%= cart.product.name %><br>
+                        <h5><%= cart.product.artist.name %></h5></h4>
+                    </div>
+
+                    <div style="width: 220px; margin-left: 70px;">
+                        <h4>価格(税込)　¥ <%= cart.product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></h4><br>
+                        <%= f.hidden_field :product_id, value: cart.product_id %>
+                        <div class="form-inline">数量　<%= f.number_field :quantity, value:cart.quantity, min: 1, max: 99, class: "form-control cart-quantity", style: "width: 50px;" %>
+                            <div style= "width: 40px;"></div>
                             <div class="text-center form-inline">
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">削除</button>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,13 +43,19 @@
                                 </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
-                </tbody>
+                    </div>
             <% end %>
-            </table>
+            <% end %>
         </div>
-        <div style="text-align: right;"><h4>小計:　<%= @cart_total_price %>円</h4></div>
-        <div style="text-align: right;"><%= f.submit "購入手続きへ", class:"btn btn-success btn-lg" %></div>
+        <% if @cart.present? %>
+        <div style="text-align: right; margin-right: 155px;"><h4>小計:　<%= @cart_total_price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</h4></div>
+        <div style="text-align: right; margin-right: 155px;"><%= link_to "購入手続きへ", new_order_path, class:"btn btn-success btn-lg" %></div>
         <% end %>
     </div>
+
+
+    <script>
+        $('.cart-quantity').on('change', function() {
+            Rails.fire($('.cart_form')[0], 'submit');
+        });
+    </script>

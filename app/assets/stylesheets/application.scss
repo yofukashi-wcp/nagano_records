@@ -30,9 +30,9 @@
    }
 
 .wrapper{
+   display: flex;
+   flex-direction: column;
    min-height: 100vh;
-   position: relative;
-   padding-bottom: 80px;
    box-sizing: border-box;
 }
 
@@ -41,8 +41,7 @@ footer {
       height: 80px;
       background-color: #696969;
       color: white;
-      position: absolute;
-      bottom: 0;
+      margin-top: auto;
 }
 
 .rule {

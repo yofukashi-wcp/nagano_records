@@ -1,10 +1,12 @@
 class CartsController < ApplicationController
     def index
         @carts = Cart.where(user_id: current_user.id)
+        @cart = Cart.where(user_id: current_user.id)
+        @put = "put"
         cart_total_price(@carts)
-        # @cart = Cart.find_by(params[:id])
         unless @cart then
         end
+        @message = "お客様のショッピングカートに商品はありません。"
     end
 
     def create
@@ -22,7 +24,9 @@ class CartsController < ApplicationController
     end
 
     def update
-
+        cart = Cart.find(params[:id])
+        cart.update(product_params)
+        redirect_to carts_path
     end
 
     def destroy
@@ -30,7 +34,6 @@ class CartsController < ApplicationController
         @cart.destroy
         redirect_to carts_path
     end
-
 
 
     private
