@@ -1,11 +1,7 @@
-<% if alert %>
-
-<div style="text-align: center;" class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
-
-<% end %>
 <h3 class="col-6 offset-md-2" , style="padding-left: 200px; padding-top: 40px;">ログイン</h3>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
 
 
 	<div class="mx-auto container">
