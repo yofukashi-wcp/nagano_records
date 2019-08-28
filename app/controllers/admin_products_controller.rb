@@ -2,35 +2,7 @@ class AdminProductsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    if params[:word].blank?
-      # 全件表示
-      @products = Product.page(params[:page])
-    else
-      case params[:require].to_i
-      when 1  # アーティスト名検索
-        artist = Artist.find_by(name: params[:word])
-        if artist.present?
-          @products = artist.products.page(params[:page])
-        end
-      when 2  # レーベル名検索
-        label = Label.find_by(name: params[:word])
-        if label.present?
-          @products = label.products.page(params[:page])
-        end
-      when 3  # ジャンル名検索
-        genre = Genre.find_by(name: params[:word])
-        if genre.present?
-          @products = genre.products.page(params[:page])
-        end
-      else  # アーティスト名検索（デフォルト）
-        @products = Product.where(name: params[:word]).page(params[:page])
-      end
-    end
-
-    if @product.blank?
-      # 検索結果なし
-      @product = []
-    end
+    @products = search_products_data
   end
 
   def show
@@ -76,7 +48,7 @@ class AdminProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    
+
     update_info_data(@product)
     product_save_error = @product.update(products_params)
     update_track_data(@product)
@@ -93,7 +65,7 @@ class AdminProductsController < ApplicationController
   def destroy
     product = Product.find(params[:id])
     product.destroy
-    redirect_to admin_product_path
+    redirect_to admin_products_path
   end
 
   private
@@ -118,7 +90,7 @@ class AdminProductsController < ApplicationController
   def update_track_data(product)
     # 既存トラック削除
     product.tracks.each {|num|
-      unless tracks_params.key?(num['id'].to_s) 
+      unless tracks_params.key?(num['id'].to_s)
         track = Track.find(num['id'])
         track.destroy
       end
@@ -126,7 +98,7 @@ class AdminProductsController < ApplicationController
 
     # トラック追加・変更
     tracks_params.each {|key, value|
-      if product.tracks.find_by(key).nil?
+      if product.tracks.find_by(id: key).nil?
         track = Track.new(value)
         track.product_id = product.id
         track.save

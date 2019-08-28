@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:index, :create, :update, :destroy]
 
-  resources :orders, only: [:index, :new, :update]
+  resources :orders, only: [:index, :new, :create, :update]
   namespace :orders do
     get 'check'
   end

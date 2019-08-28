@@ -24,14 +24,15 @@
    src: font-url('nucleo-outline.woff2') ;
  }
 
+
  * {
     font-family: 'Lato', 'Noto Sans JP', '游ゴシック Medium', '游ゴシック体', 'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
    }
 
 .wrapper{
+   display: flex;
+   flex-direction: column;
    min-height: 100vh;
-   position: relative;
-   padding-bottom: 80px;
    box-sizing: border-box;
 }
 
@@ -40,8 +41,7 @@ footer {
       height: 80px;
       background-color: #696969;
       color: white;
-      position: absolute;
-      bottom: 0;
+      margin-top: auto;
 }
 
 .rule {
