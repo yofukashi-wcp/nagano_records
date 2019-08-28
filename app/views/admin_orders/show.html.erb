@@ -1,16 +1,16 @@
 <div class="container-fluid">
       <div class="row">
-        <div class="col ml-5">
+        <div class="col ml-3">
           <h2>注文詳細</h2>
         </div>
       </div>
     <%= form_for(@order, url: admin_order_path) do |f| %>
       <div class="row">
           <div class="col text-center">
-            <label class="btn btn-info"><%= f.radio_button :status, 0 %>出荷準備中</label>
-            <label class="btn btn-success"><%= f.radio_button :status, 1 %>出荷済み</label>
-            <label class="btn btn-warning"><%= f.radio_button :status, 2 %>キャンセル待ち</label>
-            <label class="btn btn-danger"><%= f.radio_button :status, 3 %>キャンセル</label>
+            <label class="btn btn-info btn-round"><%= f.radio_button :status, 0 %>出荷準備中</label>
+            <label class="btn btn-success btn-round"><%= f.radio_button :status, 1 %>出荷済み</label>
+            <label class="btn btn-warning btn-round"><%= f.radio_button :status, 2 %>キャンセル待ち</label>
+            <label class="btn btn-danger btn-round"><%= f.radio_button :status, 3 %>キャンセル</label>
           </div>
       </div>
 
@@ -38,7 +38,7 @@
                     <td>代金引換</td>
                   <% else %>
                     <td>クレジットカード</td>
-                  <% end %>                  
+                  <% end %>
                 </tr>
               </tbody>
             </table>
@@ -73,7 +73,7 @@
 
 
       <% @order_products.each do |orderproduct| %>
-        <div class="row shadow-lg border border-secondary m-5">
+        <div class="row shadow-lg border border-secondary mx-5 my-2">
           <div class="col-md-3 m-2">
             <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
           </div>
