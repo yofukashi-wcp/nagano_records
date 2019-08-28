@@ -26,7 +26,9 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:index, :create, :update, :destroy]
 
+
   resources :orders, only: [:index, :new, :create, :update]
+
   namespace :orders do
     get 'check'
   end
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
   resources :admin_orders, only: [:index, :show, :update]
 
   resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+  post "/order_addresses" => "addresses#order_create", as: "order_addresses"
 
   resources :consts, only: [:update]
   namespace :consts do
