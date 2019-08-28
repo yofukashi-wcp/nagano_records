@@ -73,7 +73,7 @@ class OrdersController < ApplicationController
     end
 
     def check 
-        @order = current_user.orders.order(created_at: "DESC").last
+        @order = current_user.orders.order(created_at: "ASC").last
     end
 
     def update

@@ -12,9 +12,6 @@ class Admins::SessionsController < Devise::SessionsController
   # end
 
   def create
-    if user_signed_in?
-        sign_out current_user
-    end
     super
   end
 

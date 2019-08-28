@@ -11,8 +11,13 @@ class ApplicationController < ActionController::Base
         products_path
     end
 
-    def after_log_in_path_for(resource)
+    def after_sign_in_path_for(resource)
+      case resource
+      when Admin
+        admin_orders_path
+      when User
         products_path
+      end
     end
 
     def after_sign_out_path_for(resource_or_scope)
@@ -90,8 +95,7 @@ class ApplicationController < ActionController::Base
           if products.present?
             cross += products
           end
-          
-          # 配列の重複要素の削除
+
           cross.uniq!
           cross = Kaminari.paginate_array(cross).page(params[:page])
 
