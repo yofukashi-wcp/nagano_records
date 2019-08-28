@@ -15,7 +15,7 @@
                 <td><%= order.created_at %></td>
                 <td><%= order.user.last_name %><%= order.user.first_name %></td>
                 <td><%= sum_quantity(order.order_products) %></td>
-                <td>￥ <%= order.total %></td>
+                <td>￥ <%= order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
                 <% if order.status == 0 %>
                     <td>出荷準備中</td>
                 <% elsif order.status == 1 %>

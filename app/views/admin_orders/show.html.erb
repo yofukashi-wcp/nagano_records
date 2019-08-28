@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                   <th>合計（送料込）：　</th>
-                  <td>￥ <%= @order.total %></td>
+                  <td>￥ <%= @order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
                 </tr>
                 <tr>
                   <th>支払方法：　</th>
@@ -91,7 +91,7 @@
             
           </div>
           <div class="col-md-3 mt-5">
-            <p><strong>価格：　￥ <%= orderproduct.price %></strong></p><br>
+            <p><strong>価格：　￥ <%= orderproduct.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></strong></p><br>
             <%= f.fields_for :order_products do |opf| %>
               <p><strong>数量：<%= opf.number_field :quantity, :value => orderproduct.quantity, min:0,max:10,step:1 %></strong></p>
             <% end %>
