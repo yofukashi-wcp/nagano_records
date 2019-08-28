@@ -3,7 +3,7 @@
     <div class="col-2"></div>
     <div class="col-8 mx-auto">
       <%= form_with url: admin_products_path, method: :get, local: true, class: "row" do |form| %>
-        <%= form.select :require, {"商品名": 0, "アーティスト名": 1, "レーベル名": 2, "ジャンル名": 3}, {}, id: "searchSelect", class: "col-3 form-control mx-auto" %>
+        <%= form.select :require, {"商品名": 0, "アーティスト名": 1, "レーベル名": 2, "ジャンル名": 3, "フリーワード検索": 4}, {}, id: "searchSelect", class: "col-3 form-control mx-auto" %>
         <%= form.text_field :word, id: "searchInput", class: "col-6 form-control form-control-lg mx-auto" %>
         <%= form.submit "検索", class: "col-2 btn btn-primary mx-auto", style: "margin: 0;" %>
       <% end %>

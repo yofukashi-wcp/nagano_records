@@ -27,23 +27,25 @@
               <% if user_signed_in? %>
                 <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path %>
               <% elsif admin_signed_in? %>
-                <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), root_path, class: "fas fa-user-cog", style: "font-size: 30px;" %>
+                <%= link_to image_tag("header.png", width: '260', height: '50', alt: "NAGANO RECORDS"), admin_orders_path, class: "fas fa-user-cog", style: "font-size: 30px;" %>
               <% else %>
                 <%= link_to image_tag("header.png", width: '270', height: '50', alt: "NAGANO RECORDS"), root_path %>
               <% end %>
               <form class="form-inline mx-auto" data-background-color>
                 <div class="form-group has-white ml-5">
-                  <% if admin_signed_in? %>
-                  <% else %>
-                    <input type="text" class="col-auto form-control search", style="width: 350px;", placeholder="商品やアーティスト名などで検索">
-                    <button type="submit" class="btn btn-neutral btn-round">検索</button>
-                </div>
+                  <% unless admin_signed_in? %>
+                      <%= form_with url: products_path, method: :get, local: true do |form| %>
+                        <%= form.hidden_field :require, value: 4 %>
+                        <%= form.text_field :word, id: "searchInput", class: "form-control search", style: "width: 350px;", placeholder: "商品やアーティスト名などで検索" %>
+                        <%= form.submit "検索", class: "btn btn-neutral btn-round" %>
+                      <% end %>
                   <% end %>
+                </div>
               </form>
               <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <% if user_signed_in? %>
-                      <li class="nav-item"><%= link_to "　"+current_user.last_name+current_user.first_name+"さん", users_path, class:"fas fa-user nav-link", style: "padding-right: 25px;" %></li>
+                      <li class="nav-item"><%= link_to "　"+current_user.last_name+current_user.first_name+"さん", users_path, class:"fas fa-user nav-link", style: "padding-right: 5px;" %></li>
                       <li class="nav-item"><%= link_to "　"+"カート", carts_path, class:"fas fa-shopping-cart nav-link" %></li>
                       <li class="nav-item"><%= link_to "　"+"ログアウト", destroy_user_session_path, :method => :delete, class:"fas fa-sign-out-alt nav-link" %></li>
                     <% elsif admin_signed_in? %>
@@ -61,6 +63,7 @@
               </div>
             </div>
       </nav>
+
         <% if flash[:success] %>
             <div class="container">
               <%= flash[:success] %>
@@ -70,10 +73,27 @@
               <%= flash[:failure] %>
             </div>
         <% end %>
+
       <%= yield %>
       <footer>
-      <div align="center", style="line-height: 80px;">&copy; NAGANO RECORDS</div>
+      <div class="text-center" style="line-height: 80px;">&copy; NAGANO RECORDS</div>
     </footer>
     </div>
+
+    <script>
+      // フォームの初期値を反映
+      $('#searchInput').val(getParam('word'));
+
+      // クエリパラメータ取得関数
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)")
+        var results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,81 @@
+<div class="container-fluid">
+
+  <div class="row">
+      <div class="col ml-5">
+        <h2>注文内容</h2>
+      </div>
+  </div>
+
+ <%= render 'orders/order_product_list', order: @order %>
+
+  <div class="row">
+
+  　<div class="col ml-5">
+      <h4>送り先</h4>
+      <table>
+        <tbody>        　
+          <tr>
+            <th>氏名：　</th>
+            <td><%= @order.user.last_name %> <%= @order.user.first_name %></td>
+          </tr>
+          <tr>
+            <th>郵便番号：　</th>
+            <td><%= @order.zip_code %></td>
+          </tr>
+          <tr>
+            <th>住所：　</th>
+            <td><%= @order.address %></td>
+          <tr>
+            <th>電話番号：　</th>
+            <td><%= @order.phone_number %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col ml-5">
+      <h4>詳細</h4>
+      <table>
+        <tbody>        　
+          <tr>
+            <th>数量の合計：　</th>
+            <td>　 <%= sum_quantity(@order.order_products) %></td>
+          </tr>
+          <tr>
+            <th>小計：　</th>
+            <td>￥ <%= sum_price(@order.order_products).to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
+          </tr>
+          <tr>
+            <th>送料：　</th>
+            <td>￥ <%= @order.postage.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
+          <tr>
+            <th>合計：　</th>
+            <td>￥ <%= @order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
+          </tr>
+          <tr>
+            <th>支払方法：　</th>
+            <% if @order.payment == 0 %>
+                    <td>銀行振込</td>
+                  <% elsif @order.paymemt == 1 %>
+                    <td>代金引換</td>
+                  <% else %>
+                    <td>クレジットカード</td>
+                  <% end %>
+          </tr>
+        </tbody>
+    　</table>
+    </div>　　
+
+  </div>
+
+
+  <div class="row m-5">
+   <div class="col mr-5 text-right">
+    
+   </div>
+  </div>
+  <div class="col mr-5 text-right">
+  　<%= link_to "購入履歴",orders_path, class: 'btn btn-primary btn-lg' %>
+  </div>
+
+</div>

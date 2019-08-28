@@ -29,6 +29,7 @@ class AddressesController < ApplicationController
     def update
         @address = Address.find(params[:id])
         if @address.update(address_params)
+            flash[:address] = "住所追加が完了しました！"
             redirect_to users_path
         else
             render :edit

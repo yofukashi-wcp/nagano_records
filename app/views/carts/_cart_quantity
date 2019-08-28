@@ -1,2 +1,0 @@
-
-<div class="form-inline"><%= f.number_field :quantity, value:cart.quantity,remote:true, method: :update, class: "form-control col-2" %>点</div>

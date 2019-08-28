@@ -1,54 +1,88 @@
-<div class="container mt-4">
-  <% products.each do |product| %>
-    <% if controller.controller_name == "products" %>
-      <% url_path = product_path(product) %>
-    <% else %>
-      <% url_path = admin_product_path(product) %>
-    <% end %>
+<div class="container mt-4"><div class="row">
+  <div class="lead">
+    検索結果: <%= products.present? ? products.length : 0 %>件
+  </div>
+</div></div>
 
-    <div class="row no-gutters mb-4 p-3 img-raised rounded">
-      <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "col-2 rounded", id: "jacketImage" %>
-      <div class="col-6 pl-3">
-        <%= link_to url_path do %>
-          <h3><%= product.name %></h3>
-        <% end %>
-        <table>
-          <tbody>
-            <tr>
-              <th class="pr-2 text-right">アーティスト</th>
-              <td><%= product.artist.name %></td>
-            </tr>
-            <tr>
-              <th class="pr-2 text-right">レーベル</th>
-              <td><%= product.label.name %></td>
-            </tr>
-            <tr>
-              <th class="pr-2 text-right">ジャンル</th>
-              <td><%= product.genre.name %></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-4">
-        <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
-        <p class="lead">在庫　<%= product.stock %></p>
-        <% if user_signed_in? %>
-          <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
-            <%= f.hidden_field :product_id, value: product.id %>
-            <%= f.label :quantity, "数量" %>
-            <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: "1", max: [product.stock, 99].min, value: "1" %>
-            <%= f.submit "カート追加", class: "btn btn-primary" %>
+<div class="container mt-4">
+  <% if products.present? %>
+    <% products.each do |product| %>
+      <% if controller.controller_name == "products" %>
+        <% url_path = product_path(product) %>
+      <% else %>
+        <% url_path = admin_product_path(product) %>
+      <% end %>
+
+      <div class="row no-gutters mb-4 p-3 img-raised rounded">
+        <div class="col-2">
+          <%= link_to url_path do %>
+            <%= attachment_image_tag product, :jacket_image, fallback: "no_image.png", class: "rounded", id: "jacketImage" %>
           <% end %>
-        <% else %>
-          <% unless admin_signed_in? %>
-            <%= link_to "ご購入にはログインが必要です", new_user_session_path, class: "btn btn-danger" %>
+        </div>
+        <div class="col-6 pl-4">
+          <h3><%= link_to product.name, url_path %></h3>
+          <table>
+            <tbody>
+              <tr>
+                <th class="pr-2 text-right">アーティスト</th>
+                <td><%= product.artist.name %></td>
+              </tr>
+              <tr>
+                <th class="pr-2 text-right">レーベル</th>
+                <td><%= product.label.name %></td>
+              </tr>
+              <tr>
+                <th class="pr-2 text-right">ジャンル</th>
+                <td><%= product.genre.name %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-4">
+          <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
+          <p class="lead">
+            <% if product.stock > 1 %>
+              <%= "在庫 " + product.stock.to_s %>
+            <% else %>
+              <span class="text-danger"><%= "在庫がありません" %></span>
+            <% end %>
+          </p>
+          <% if user_signed_in? %>
+            <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
+              <%= f.hidden_field :product_id, value: product.id %>
+              <%= f.label :quantity, "数量" %>
+              <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: 0, max: [product.stock, 99].min, value: [product.stock, 1].min %>
+              <%= f.submit "カート追加", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#cartSubmitModal" %>
+            <% end %>
+          <% else %>
+            <% unless admin_signed_in? %>
+              <%= link_to "ご購入にはログインが必要です", new_user_session_path, class: "btn btn-danger" %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
 
 <div class="container my-5"><div class="row"><div class="mx-auto">
-  <%= paginate products, class: "paginate" %>
+  <%= paginate products, class: "paginate" if products.present? %>
 </div></div></div>
+
+<!-- Submit Cart Modal -->
+<div class="modal fade" id="cartSubmitModal" tabindex="-1" role="dialog" aria-labelledby="cartSubmitModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartSubmitModalLabel">カートに商品を追加しました。</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <%= link_to "カートを見る", carts_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
