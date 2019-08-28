@@ -14,7 +14,7 @@ class Users::SessionsController < Devise::SessionsController
       if admin_signed_in?
           sign_out current_admin
       end
-      @message = "ログイン"
+      flash[:notice] = "ログインに失敗しました。入力フォームを確認してください。"
       super
   end
 
