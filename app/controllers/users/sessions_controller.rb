@@ -11,11 +11,11 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def create
-
       if admin_signed_in?
           sign_out current_admin
       end
-    super
+      @message = "ログイン"
+      super
   end
 
   # DELETE /resource/sign_out
