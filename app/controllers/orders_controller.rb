@@ -20,12 +20,22 @@ class OrdersController < ApplicationController
     end
 
     def create
-        @address = Address.find(order_params[:address].to_i)
+        # オーダーのレコード
         @order = Order.new
         @order.user_id = current_user.id
-        @order.zip_code = @address.zip_code
-        @order.address = @address.address
-        @order.name = @address.name
+        # 渡ってきたパラメーター(id)が0でなければ新規追加した住所が送付先住所になる処理
+        if  params[:address].to_i != 0 
+            @address = Address.find(order_params[:address].to_i)
+            @order.zip_code = @address.zip_code
+            @order.address = @address.address
+            @order.name = @address.name
+        else
+            @order.user_id = current_user.id
+            @order.zip_code = current_user.zip_code
+            @order.address = current_user.address
+            @order.name = current_user.last_name+current_user.first_name
+        end
+        
         @order.payment = order_params[:payment].to_i
         @order.phone_number = current_user.phone_number
         @order.postage = Const.find(1).value
@@ -33,6 +43,7 @@ class OrdersController < ApplicationController
         @user = current_user
         @const = Const.find(1)
         cart_total_price(@carts)
+        # 在庫数以上に購入出来なくする処理 >>>>>>>>
          a_name = []
         @carts.each do |cart|
             if cart.quantity > cart.product.stock then
@@ -43,8 +54,11 @@ class OrdersController < ApplicationController
             flash[:notice] = a_name.join(",") + "の在庫が足りない為注文できません"
             redirect_to new_order_path and return
         end
+        # ここまで========
+        # 小計と送料の合計金額
         @order.total = @cart_total_price + Const.find(1).value
         if @order.save
+            # 注文商品のレコード
             @carts.each do |cart|
                 order_product = OrderProduct.new
                 order_product.order_id = @order.id
@@ -53,6 +67,7 @@ class OrdersController < ApplicationController
                 order_product.price = cart.product.price
                 order_product.save
                 product = Product.find(cart.product.id)
+                # 商品の在庫から購入した商品数を引く処理
                 product.stock = product.stock - order_product.quantity
                 product.save
                 cart.destroy

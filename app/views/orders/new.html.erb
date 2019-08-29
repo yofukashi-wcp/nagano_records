@@ -1,84 +1,94 @@
-<h3>ショッピングカート</h3>
-
-  <div class="container">
-
-      <div class="row">
-        <div class="col-md-12 mx-auto mb-md-5 ">
-          <div class="shadow-lg rounded">
-              <table class="table table-hover h4" style="table-layout:fixed;">
-                <% @carts.each do |cart| %>
-                  <tr>
-                      <td class="col-4 text-center align-middle">
-                          <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 200px; height: 200px;"%>
-                      </td>
-                      <td class="col-4">
-                          <h4><%= cart.product.name %></h4><br>
-                          <h5><%= cart.product.artist.name %></h5>
-                      </td>
-                      <td class="col-4">
-                          <h4>¥ <%= cart.product.price.to_s %></h4><br>
-                          <div class="form-inline"><%= cart.quantity %>点
-                          </div>
-                      </td>
-                  </tr>
-                <% end %>
-              </table>
-          </div>
-        </div>
+<div class="container">
+    <div class="row">
+      <div class="col-10 mx-auto mb-5">
+      <h3><span><%= @user.last_name+@user.first_name %>さんの購入ページ</span></h3>
+            <table class="table table-hover h4 img-raised text-center" style="table-layout:fixed;">
+              <% @carts.each do |cart| %>
+                <tr>
+                    <td class=" align-middle ">
+                        <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 150px; height: 150px;"%>
+                    </td>
+                  
+                    <th class=" align-middle">
+                        <%= cart.product.name %><br />
+                        <%= cart.product.artist.name %>
+                    </th>
+                    <td class=" align-middle">
+                        ¥ <%= cart.product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円<br>
+                        <%= cart.quantity %>点   
+                    </td>
+                </tr>
+              <% end %>
+            </table>
+        
       </div>
+    </div>
 
-      <div class="row">
-      <div class="col-md-12">
-        <%= form_with model: @order, url: orders_path, local: true do |f| %>
-          <div class="col-md-6", style="float: left;">
-              <div class="text-center", style="align-top">
-                  <h3>支払い方法の設定</h3>
-                  <label class="form-check-label h5">
-                    <%= f.radio_button :payment, 0 %>
-                    <span class="form-check-sign">銀行振込</span>
-                  </label>
-                  <label class="form-check-label h5">
-                    <%= f.radio_button :payment, 1 %>
-                    <span class="form-check-sign">代金引換</span>
-                  </label>
-                  <label class="form-check-label h5">
-                    <%= f.radio_button :payment, 2 %>
-                    <span class="form-check-sign">クレジットカード</span>
-                  </label>
+    <div class="row">
+    <div class="col-10 mx-auto">
+      <%= form_with model: @order, url: orders_path, local: true do |f| %>
+        <div class="col-md-7", style="float: left;">
+            <div class="text-center">
+                <h3>支払い方法の設定</h3>
+                <label class="form-check-label">
+                  <%= f.radio_button :payment, 0 %>
+                  <span class="form-check-sign">銀行振込</span>
+                </label>
+                <label class="form-check-label">
+                  <%= f.radio_button :payment, 1 %>
+                  <span class="form-check-sign">代金引換</span>
+                </label>
+                <label class="form-check-label">
+                  <%= f.radio_button :payment, 2 %>
+                  <span class="form-check-sign">クレジットカード</span>
+                </label>
+                <h5 style="margin-top: 30px;"><%= f.select :address, @user.addresses.collect { |p| [ p.name+" "+p.address, p.id] }, { :prompt => @user.address} %></h5>
+            </div>
+            <%= flash[:notice] %>
+        </div>
+        <div class="col-5 text-right h3", style="float: left;">
+              <ul style="list-style: none;">
+                  <li>数量の合計<%= @cart_total_quantity %>(点)</li>
+                  <li>小計  :<%= @cart_total_price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円(税込)</li>
+                  <li>送料  :<%= @const.value %>円</li>
+                  <li>合計 :<%=  (@cart_total_price + @const.value).to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</li>
+              </ul>
+              <button type="button" class="btn btn-success" data-toggle ="modal" data-target="#PurchaseSubmitModalLabel">注文確定</button><br />
+        </div>
+      <% end %>
+    </div>
+      <div class="col-10 mx-auto">
+              <%= form_with model: @address, url: @path, local:true, class: "col-7" do |a| %>
+                  <h3 class="text-center">送り先住所の追加</h3>
+
+                  <%= a.label :"名前(宛名)" %>
+                  <%= a.text_field :name, class: "form-control", placeholder: "例　山田花子" %><br />
+
+                  <%= a.label :"郵便番号" %>
+                  <%= a.text_field :zip_code, class: "form-control", placeholder: "例　1234567(半角英数字)" %><br />
+
+                  <%= a.label :"住所" %>
+                  <%= a.text_field :address, class: "form-control form-inline", placeholder: "例　神奈川県横浜市青葉区元石川町5420-1(スペース無し)" %><br />
+
+                  <div class="text-right"><%= a.submit "住所追加", class: "btn btn-success" %></div>
+              <% end %>
+      </div>
+        <div class="modal fade" id="PurchaseSubmitModalLabel" tabindex="-1" role="dialog" aria-labelledby="PurchaseSubmitModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="PurchaseSubmitModalLabel_">本当に商品を購入しますか？</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <h5 style="margin-top: 30px;"><%= f.select :address, @user.addresses.collect { |p| [ p.name+p.address, p.id] }%></h5>
-              <%= flash[:notice] %>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#PurchaseSubmitModalLabel').modal('hide')">閉じる</button>
+                <br />
+                <a href="javascript:document.forms[1].submit()" class="btn btn-primary">商品を購入する</a>
+              </div>
+            </div>
           </div>
-          <div class="col-md-5 text-right h3", style="float: left;">
-              
-                <ul style="list-style: none;">
-                    <li>数量の合計<%= @cart_total_quantity %>(点)</li>
-                    <li>小計  :<%= @cart_total_price %>円(税込)</li>
-                    <li>送料  :<%= @const.value %>円</li>
-                    <li>合計 :<%=  @cart_total_price + @const.value %>円</li>
-                </ul>
-                <%= f.submit "注文確定", class:"btn btn-success" %>
-          </div>
-        <% end %>
-      </div>
-      
-      
-        <div class="col-md-12">
-            
-                <%= form_with model: @address, url: @path, local:true, class: "col-6" do |a| %>
-                    <h3 class="text-center">送り先住所の追加</h3>
-                    <%= a.label :"名前(宛名)" %>
-                    <%= a.text_field :name, autofocus: true, class: "form-control" %><br />
-
-                    <%= a.label :"郵便番号" %>
-                    <%= a.text_field :zip_code, class: "form-control" %><br />
-
-                    <%= a.label :"住所" %>
-                    <%= a.text_field :address, class: "form-control form-inline"  %><br />
-
-                    <div class="text-right"><%= a.submit "住所追加", class: "btn btn-success" %></div>
-                <% end %>
         </div>
-      
       </div>
 </div>

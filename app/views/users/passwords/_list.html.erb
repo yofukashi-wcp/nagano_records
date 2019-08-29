@@ -4,15 +4,15 @@
                     <%= form_with model: user, url: path, local: true do |f| %>
                         <div class="form-group ">
                             <%= f.label :"現在のパスワード" %>
-                            <%= f.password_field :current_password, autoforcus: true, class: "form-control form-control-lg" %>
+                            <%= f.password_field :current_password, autoforcus: true, placeholder: "現在のパスワードを入力してください", class: "form-control form-control-lg" %>
                         </div>
                         <div class="form-group">
                             <%= f.label :"新しいパスワード" %>
-                            <%= f.password_field :password, autoforcus: true, class: "form-control form-control-lg" %>
+                            <%= f.password_field :password, autoforcus: true, placeholder: "新しいパスワードを入力してください", class: "form-control form-control-lg" %>
                         </div>
                         <div class="form-group">
                             <%= f.label :"パスワードの確認" %>
-                            <%= f.password_field :password_confirmation, autoforcus: true, class: "form-control form-control-lg" %>
+                            <%= f.password_field :password_confirmation, autoforcus: true, placeholder: "新しいパスワードを入力してください", class: "form-control form-control-lg" %>
                         
                             <div class="float-right">
                                 <%= f.submit "確定", class: "btn btn-success btn-sm" %>
