@@ -1,0 +1,25 @@
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+/home/vagrant/.rbenv/versions/2.5.1/bin/ruby -r ./siteconf20190829-32402-1yca1qx.rb extconf.rb
+creating Makefile
+
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR=" clean
+make: Warning: File 'Makefile' has modification time 705 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR="
+make: Warning: File 'Makefile' has modification time 705 s in the future
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.so
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR=" install
+make: Warning: File 'Makefile' has modification time 703 s in the future
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20190829-32402-k2vp0o/byebug
+make: warning:  Clock skew detected.  Your build may be incomplete.

@@ -1,0 +1,28 @@
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/unf_ext-0.0.7.6/ext/unf_ext
+/home/vagrant/.rbenv/versions/2.5.1/bin/ruby -r ./siteconf20190829-32402-7coyco.rb extconf.rb
+checking for -lstdc++... yes
+creating Makefile
+
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/unf_ext-0.0.7.6/ext/unf_ext
+make "DESTDIR=" clean
+make: Warning: File 'Makefile' has modification time 705 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/unf_ext-0.0.7.6/ext/unf_ext
+make "DESTDIR="
+make: Warning: File 'Makefile' has modification time 705 s in the future
+compiling unf.cc
+cc1plus: warning: command line option ‘-Wimplicit-int’ is valid for C/ObjC but not for C++
+cc1plus: warning: command line option ‘-Wdeclaration-after-statement’ is valid for C/ObjC but not for C++
+cc1plus: warning: command line option ‘-Wimplicit-function-declaration’ is valid for C/ObjC but not for C++
+cc1plus: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1plus: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1plus: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+linking shared-object unf_ext.so
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /vagrant/nagano_records/vendor/bundle/ruby/2.5.0/gems/unf_ext-0.0.7.6/ext/unf_ext
+make "DESTDIR=" install
+make: Warning: File 'Makefile' has modification time 703 s in the future
+/usr/bin/install -c -m 0755 unf_ext.so ./.gem.20190829-32402-my08f0
+make: warning:  Clock skew detected.  Your build may be incomplete.
