@@ -66,7 +66,7 @@
       <% order.order_products.each do |orderproduct| %>
         <div class="row bg-light m-5">
           <div class="col-md-3 m-2">
-              <%= attachment_image_tag @product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
+              <%= attachment_image_tag orderproduct.product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
           </div>
 
           <div class="col-md-5 mt-5">
