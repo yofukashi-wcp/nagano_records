@@ -52,11 +52,11 @@
           <span class="text-danger"><%= "在庫がありません" %></span>
         <% end %>
       </p>
-      <% if user_signed_in? %>
+      <% if user_signed_in? && product.stock > 0 %>
         <%= form_with model: cart, class: "form-inline align-items-center" do |f| %>
           <%= f.hidden_field :product_id, value: product.id %>
           <%= f.label :quantity, "数量" %>
-          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: 0, max: [product.stock, 99].min, value: [product.stock, 1].min %>
+          <%= f.number_field :quantity, class: "ml-1 mr-2 form-control", min: 1, max: [product.stock, 99].min, value: 1 %>
           <%= f.submit "カート追加", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#cartSubmitModal" %>
         <% end %>
       <% else %>
