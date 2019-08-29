@@ -9,7 +9,7 @@ module OrdersHelper
     def sum_price(orderproducts)
         sum= 0
         orderproducts.each do |orderproduct|
-        sum += orderproduct.price
+        sum += orderproduct.price * orderproduct.quantity
         end
         sum
     end
