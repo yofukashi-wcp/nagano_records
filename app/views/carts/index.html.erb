@@ -56,6 +56,6 @@
 
     <script>
         $('.cart-quantity').on('change', function() {
-            Rails.fire($('.cart_form')[0], 'submit');
-        });
+            Rails.fire($(this).parents('form')[0], 'submit');
+});
     </script>
