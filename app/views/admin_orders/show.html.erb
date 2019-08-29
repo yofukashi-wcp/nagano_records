@@ -36,7 +36,7 @@
                   <th>支払方法：　</th>
                   <% if @order.payment == 0 %>
                     <td>銀行振込</td>
-                  <% elsif @order.paymemt == 1 %>
+                  <% elsif @order.payment == 1 %>
                     <td>代金引換</td>
                   <% else %>
                     <td>クレジットカード</td>
@@ -75,7 +75,7 @@
 
 
       <% @order_products.each do |orderproduct| %>
-        <div class="row shadow-lg border border-secondary mx-5 my-2">
+        <div class="row shadow-lg mx-5 my-2">
           <div class="col-md-3 m-2">
             <%= attachment_image_tag orderproduct.product, :jacket_image, fallback: "no_image.png", size: "10×10" %>
           </div>
@@ -94,13 +94,13 @@
           </div>
           <div class="col-md-3 mt-5">
             <p><strong>価格：　￥ <%= orderproduct.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></strong></p><br>
-            <%= f.fields_for :order_products do |opf| %>
               <div class="form-inline">
-                <p>
-                  <strong>数量：<%= opf.number_field :quantity, :value => orderproduct.quantity, min:0,max:99,step:1, class: "ml-1 mr-2 form-control" %></strong>
-                </p>
+                <p><strong>数量：
+                  <%= f.fields_for :order_products do |opf| %>
+                    <%= opf.number_field :quantity, :value => orderproduct.quantity, min:0,max:99,step:1, class: "ml-1 mr-2 form-control" %>
+                  <% end %>
+                </strong></p>
               </div>
-            <% end %>
           </div>
       　</div>
       <% end %>
