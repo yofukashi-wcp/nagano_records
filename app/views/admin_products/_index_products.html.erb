@@ -55,7 +55,7 @@
               <%= f.submit "カート追加", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#cartSubmitModal" %>
             <% end %>
           <% else %>
-            <% unless admin_signed_in? %>
+            <% if !user_signed_in? && !admin_signed_in? %>
               <%= link_to "ご購入にはログインが必要です", new_user_session_path, class: "btn btn-danger" %>
             <% end %>
           <% end %>
