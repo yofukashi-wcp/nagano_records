@@ -13,9 +13,9 @@
                         <%= cart.product.name %><br />
                         <%= cart.product.artist.name %>
                     </th>
-                    <td class=" align-middle">
-                        ¥ <%= cart.product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円<br>
-                        <%= cart.quantity %>点   
+                    <td class=" align-middle text-left">
+                        価格(税込) 　¥ <%= cart.product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円<br>
+                        数量 <%= cart.quantity %>点   
                     </td>
                 </tr>
               <% end %>
