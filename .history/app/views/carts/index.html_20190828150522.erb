@@ -1,0 +1,61 @@
+    <h3 style="margin-left: 100px;"><%= current_user.last_name+current_user.first_name+"さんのカート" %></h3>
+
+    <div class="container">
+        <div class="row no-gutters shadow p-3 mb-4 bg-white rounded" style="display: flex;">
+                <% if @cart.present? %>
+                <% else %>
+                <div class="text-center"><%= @message %></div>
+                <% end %>
+                <% @carts.each do |cart| %>
+                <%= form_with model: cart, method: :patch, url: cart_path(cart), class: "cart_form form-inline" do |f| %>
+                    <div class="">
+                        <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 150px; height: 150px;"%>
+                    </div>
+
+                    <div style="width: 200px; height: 100%;">
+                        <h4><%= cart.product.name %><br>
+                        <h5><%= cart.product.artist.name %></h5></h4>
+                    </div>
+
+                    <div style="width: 200px;">
+                        <h4>価格(税込)　¥ <%= cart.product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></h4><br>
+                        <%= f.hidden_field :product_id, value: cart.product_id %>
+                        <div class="form-inline">数量<%= f.number_field :quantity, value:cart.quantity, min: 1, max: 99, class: "form-control col-2 cart-quantity" %>
+                            <div style= "width: 55px;"></div>
+                            <div class="text-center form-inline">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">削除</button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">確認</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                        </div>
+                                        <div class="modal-body">本当にカートから削除しますか？</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <%= link_to  "削除", cart_path(cart.id), method: :'delete', class: "btn btn-danger"%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <% end %>
+        </div>
+        <% if @cart.present? %>
+        <div style="text-align: right;"><h4>小計:　<%= @cart_total_price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</h4></div>
+        <div style="text-align: right;"><%= link_to "購入手続きへ", new_order_path, class:"btn btn-success btn-lg" %></div>
+        <% else %>
+        <% end %>
+        <% end %>
+    </div>
+
+    <script>
+        $('.cart-quantity').on('change', function() {
+            Rails.fire($('.cart_form')[0], 'submit');
+        });
+    </script>

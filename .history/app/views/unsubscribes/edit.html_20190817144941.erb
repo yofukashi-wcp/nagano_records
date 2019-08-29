@@ -1,0 +1,11 @@
+
+<h3>退会</h3>
+
+<%= form_with (model: user, local:true) do |f| %>
+
+<div class="field">
+<%= form.label :パスワード　%>
+<%= form.password_field :password %>
+</div>
+
+<%= <%= link_to  "退会", users_unsubscribes_path(@user), method: :'destroy',"data-confirm" => "本当に削除しますか？",  %>

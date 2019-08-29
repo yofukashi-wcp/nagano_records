@@ -1,0 +1,70 @@
+<div class="container">
+        <%= flash[:adress] %>
+        <div class="row">
+
+                <div class="mx-auto">
+
+                    <div class="col-md-12 bg-primary">
+                        <div class="row">
+                            <div class="col-md-12 bg-info">
+                            <h3>マイページ</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <%= render "users/list", user: @user %>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 bg-dark text-right">
+                                    <%= link_to "編集", edit_user_registration_path(@user), class: "btn btn-success"%>
+                                    <%= link_to "パスワードの変更", edit_user_password_path(@user), class: "btn btn-warning" %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 bg-warning">
+                        <table class="table table-hover ">
+                            <thead>
+                                <th　class=""><h3>追加した住所一覧</h3></th>
+                            </thead>
+
+                            <tbody>
+                            <% @user.addresses.each do |address| %>
+
+                                <tr>
+                                    <td>〒</td>
+                                    <td><%= address.zip_code %></td>
+                                    <td><%= address.address %></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><%= link_to "編集", edit_address_path(address.id), class: "btn btn-success btn-lg" %>
+                                        <%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger btn-lg" %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center"><%= link_to "新規追加", new_address_path(@user.id), class: "btn btn-info btn-lg" %></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center"><%= link_to "購入履歴", orders_path, class: "btn btn-primary btn-lg" %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+            </div>
+        </div>
+</div>

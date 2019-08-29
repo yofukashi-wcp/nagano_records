@@ -1,0 +1,31 @@
+<h3 style="padding-left: 200px; padding-top: 20px;">ログイン</h3>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+<div class="mx-auto container">
+
+  <div class="form-group form-inline row">
+  <div class="field col-3">
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+  </div>
+
+  <div class="field col-3">
+    <%= f.label :パスワード %><br />
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <%= f.check_box :remember_me, class:"form-check-sign" %>
+      <%= f.label :このログインを記憶する %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "ログイン", class: "btn btn-success mx-auto btn-lg" %>
+  </div>
+<% end %>
+  </div>
+
+<%= render "users/shared/links" %>

@@ -1,0 +1,33 @@
+<div style="text-align: center;" class="alert alert-danger" role="alert"><%= flash[:notice] %></div>
+
+<h3 class="col-6 offset-md-2" , style="padding-left: 200px; padding-top: 40px;">ログイン</h3>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+
+	<div class="mx-auto container">
+		<div class="text-align">
+			<div class="field col-6 offset-md-3">
+				<%= f.label :メールアドレス %><br />
+				<%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-lg-offset-3 form-control form-control-lg w-100 validate[required, custom[email]]" %>
+			</div>
+
+			<div class="field col-6 offset-md-3 mt-md-3">
+				<%= f.label :パスワード %><br />
+				<%= f.password_field :password, autocomplete: "current-password", class: "col-lg-offset-3 form-control form-control-lg w-100 validate[required, manSize[6]]" %>
+			</div>
+
+			<% if devise_mapping.rememberable? %>
+				<div class="field text-right col-9">
+					<%= f.check_box :remember_me, class: "wskCheckbox", type: "checkbox" %> <%= f.label :このログインを記憶する %>
+				</div>
+			<% end %>
+		</div>
+		<div class="actions text-right col-9 mt-md-5">
+			<%= f.submit "ログイン", class: "btn btn-success mx-auto btn-lg" %>
+		</div>
+		<% end %>
+		<div class="col-9 mt-md-3 text-right">
+			<%= render "users/shared/links"%>
+		</div>
+	</div>

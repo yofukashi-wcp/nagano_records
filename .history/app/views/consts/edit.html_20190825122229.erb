@@ -1,0 +1,19 @@
+<h3 class="col-6 offset-md-2" , style="padding-left: 200px; padding-top: 75px;">送料変更</h3>
+
+    <%=form_with model: @const, url: const_path(1), local:true do |f| %>
+
+    <div class="mx-auto container">
+            <table class="table-const table-responsive company">
+                </thread>
+                <tbody>
+                    <tr>
+                        <th class="arrow_box"><%= @const.name %></th>
+                        <td><%= f.text_field :value, autofocus: true %></td>
+                    </tr>
+                </tbody>
+            </table>
+        <div class="text-right",style="width: 100%;">
+            <%= f.submit "確定", class: "btn btn-success mx-auto btn-lg" %>
+        </div>
+    </div>
+    <% end %>

@@ -1,0 +1,17 @@
+<%= form_with model: @address, url: edit_address_path, local:true do |f| %>
+<div class="mx-auto container text-align">
+
+    <div class="field col-8 offset-md-2">
+        <%= f.label :郵便番号　%><br />
+        <%= f.text_field :zip_code, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+    </div>
+    <div class="field col-8 offset-md-2">
+        <%= f.label :住所　%><br />
+        <%= f.text_field :address, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+    </div>
+    <div style="width: 100%; height: 30px;"></div>
+    <div class="text-right col-10">
+        <%= f.submit "確定", class: "btn btn-success mx-auto btn-lg"%>
+    </div>
+<% end %>
+    </div>

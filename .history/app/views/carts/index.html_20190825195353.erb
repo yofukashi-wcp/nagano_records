@@ -1,0 +1,67 @@
+    <h3>ショッピングカート</h3>
+
+<%= form_with url: new_order_path, local: true do |f| %>
+<% @carts.each do |cart| %>
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">カートを空にする</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">確認</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">本当にカートを空にしてよろしいですか？</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <%= link_to "確定", @cart, method: :delete,　class:"btn btn-success" %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <tr>
+            <td text-align: center;>
+                <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "col-2 rounded", id: "JacketImage" %>
+            </td>
+            <td>
+                <p>タイトル:<%= cart.product.name %></p><br>
+                <p>アーティスト:<%= cart.product.artist.name %></p>
+            </td>
+            <td>
+                <p>価格:<%= cart.product.price %>円</p><br>
+                <p>数量変更:<%= f.number_field :quantity %></p>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">削除</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">確認</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">本当にカートから削除しますか？</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <%= link_to  "削除", cart_path(cart.id), method: :'delete', class: "btn btn-danger"%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+        <div>小計:<%= @total_price %></div>
+        <%= f.submit "購入手続きへ", class:"btn btn-success" %>
+        <% end %>
+        <% end %>

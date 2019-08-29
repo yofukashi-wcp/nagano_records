@@ -1,0 +1,69 @@
+    <h3>ショッピングカート</h3>
+
+    <%= form_with model: Cart, url: new_order_path, local: true do |f| %>
+    <div class="container">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">カートを空にする</button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">確認</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">本当にカートを空にしてよろしいですか？</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <%= link_to "確定", @cart, method: :delete,　class:"btn btn-success" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <% @carts.each do |cart| %>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" style="table-layout:fixed;">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <tr>
+                    <td class="col-4 text-center">
+                        <%= attachment_image_tag cart.product, :jacket_image, fallback: "no_image.png",class: "rounded", style: "width: 100px; height: 100px; margin-top: 30px;"%>
+                    </td>
+                    <td class="col-4">
+                        <h4><%= cart.product.name %></h4><br>
+                        <h5><%= cart.product.artist.name %></h5>
+                    </td>
+                    <td class="col-3 text-right">
+                        <h4>¥ <%= cart.product.price.to_s %></h4><br>
+                        <p class="form-inline"><%= f.number_field :quantity, class: "form-control col-3 offset-md-2" %>点</p>
+                    </td>
+                    <td class="col-1 text-center" style="padding-top: 70px; width: 100px;">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">削除</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">確認</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">本当にカートから削除しますか？</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <%= link_to  "削除", cart_path(cart.id), method: :'delete', class: "btn btn-danger"%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: right;"><h4>小計:<%= @total_price %>円</h4></div>
+        <%= f.submit "購入手続きへ", class:"btn btn-success btn-lg" %>
+        <% end %>
+        <% end %>
+    </div>

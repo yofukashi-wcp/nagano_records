@@ -1,0 +1,20 @@
+ :phone_number, :zip_code, :address])
+
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        id: ID
+        created_at: 登録日時
+        updated_at: 更新日時
+        email: メールアドレス
+        password: パスワード
+        first_name:　名前（姓）
+        last_name: 名前（名）
+        first_name_ruby: 名前（セイ）
+        last_name_ruby: 名前（メイ）
+        phone_number: 電話番号
+        zip_code: 郵便番号
+        address: 住所

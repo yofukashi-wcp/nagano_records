@@ -1,0 +1,1 @@
+<div class="form-inline"><%= f.number_field :quantity, value:cart.quantity, class: "form-control col-2" %>点</div>

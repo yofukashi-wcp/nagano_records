@@ -1,0 +1,11 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.field_with_errors {
+    border-style: double;
+    border-color: rgb(255, 115, 115);
+    padding: 2px;
+    border-radius: 40px;
+}
+

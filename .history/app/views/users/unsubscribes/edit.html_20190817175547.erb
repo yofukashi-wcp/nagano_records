@@ -1,0 +1,13 @@
+    <h3>退会</h3>
+
+    <%= form_with url: users_unsubscribes_path, method: :delete, local:true do |f| %>
+
+    <div class="field">
+        <%= f.label :パスワード　%>
+        <%= f.password_field :password, autofocus: true, class: "col-lg-offset-3 form-control form-control-lg w-100" %>
+    </div>
+
+    <div class="unsub">
+        <%= f.submit '退会', class: "btn btn-danger mx-auto btn-lg"%>
+    </div>
+    <% end %>

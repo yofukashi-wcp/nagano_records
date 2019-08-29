@@ -1,0 +1,6 @@
+<h3 style="padding-left: 365px; padding-top: 20px;">住所編集</h3>
+<%= form_with model: @address, url: edit_address_path, local:true do |f| %>
+
+<%= render partial: "address_form" %>
+
+<%= f.submit "確定", class: "btn btn-success mx-auto btn-lg"%>

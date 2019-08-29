@@ -1,0 +1,13 @@
+    <h3>退会</h3>
+
+    <%= form_with model: @user, url: users_unsubscribes_path{ action: "destroy"}, local:true do |f| %>
+
+    <div class="field">
+        <%= f.label :パスワード　%>
+        <%= f.password_field :password %>
+    </div>
+
+    <div class="unsub">
+        <%= f.submit %>
+    </div>
+    <% end %>
