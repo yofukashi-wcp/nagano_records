@@ -73,3 +73,6 @@ gem 'rails-i18n', '~> 5.1'
 gem 'devise-i18n-views'
 gem "paranoia", "~> 2.2"
 gem "pry-rails"
+#Herokuへのデプロイの為追加しました。
+gem 'sqlite3', group: [:development, :test]
+gem 'pg', group: :production
