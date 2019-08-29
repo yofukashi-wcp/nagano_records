@@ -13,7 +13,7 @@
           <tbody>
             <tr>
               <th>注文日：　</th>
-              <td><%= order.created_at %></td>
+              <td><%= simple_time(order.created_at) %></td>
             </tr>
             <tr>
               <th>購入者：　</th>

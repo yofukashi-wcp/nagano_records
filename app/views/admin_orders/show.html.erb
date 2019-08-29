@@ -96,9 +96,13 @@
             <p><strong>価格：　￥ <%= orderproduct.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></strong></p><br>
               <div class="form-inline">
                 <p><strong>数量：
+                <!--
                   <%= f.fields_for :order_products do |opf| %>
                     <%= opf.number_field :quantity, :value => orderproduct.quantity, min:0,max:99,step:1, class: "ml-1 mr-2 form-control" %>
                   <% end %>
+                    -->
+                  <input type="hidden" name='order[order_products_attributes][][id]' value="<%= orderproduct.id %>">
+                  <input type="number" name='order[order_products_attributes][][quantity]' value="<%= orderproduct.quantity %>" min=0 max=99 step=1, class="ml-1 mr-2 form-control">
                 </strong></p>
               </div>
           </div>

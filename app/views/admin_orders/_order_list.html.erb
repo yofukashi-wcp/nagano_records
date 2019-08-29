@@ -1,44 +1,48 @@
 
 
-<table class="table table-bordered table-striped text-center">
+    <table class="table table-bordered table-striped text-center">
 
-    <thead class="bg-success text-white">
-        <tr>
-            <th>購入日</th>
-            <th>購入者</th>
-            <th>購入枚数</th>
-
-            <th>小計（送料・税込）</th>
-
-            <th>配送状況</th>
-            <th>詳細</th>
-        </tr>
-    </thead>
-    <tbody>
-
-
-        <% orders.each do |order| %>
+        <thead class="bg-success text-white">
             <tr>
-                <td><%= order.created_at %></td>
-                <td><%= order.user.last_name %><%= order.user.first_name %></td>
-                <td><%= sum_quantity(order.order_products) %></td>
-                <td>￥ <%= order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
-                <% if order.status == 0 %>
-                    <td>出荷準備中</td>
-                <% elsif order.status == 1 %>
-                    <td>出荷済み</td>
-                <% elsif order.status == 2 %>
-                    <td>キャンセル待ち</td>
-                <% else %>
-                    <td>キャンセル済み</td>
-                <% end %>
-                <td>
-                <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary btn-sm" %>
-                </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
-<%= paginate @orders, class: "paginate" %>
+                <th>購入日</th>
+                <th>購入者</th>
+                <th>購入枚数</th>
 
+                <th>小計（送料・税込）</th>
+
+                <th>配送状況</th>
+                <th>詳細</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <% orders.each do |order| %>
+                <tr>
+                    <td class="align-middle"><%= simple_time(order.created_at) %></td>
+                    <td class="align-middle"><%= order.user.last_name %><%= order.user.first_name %></td>
+                    <td class="align-middle"><%= sum_quantity(order.order_products) %></td>
+                    <td class="align-middle">￥ <%= order.total.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></td>
+                    <% if order.status == 0 %>
+                        <td class="align-middle">出荷準備中</td>
+                    <% elsif order.status == 1 %>
+                        <td class="align-middle">出荷済み</td>
+                    <% elsif order.status == 2 %>
+                        <td class="align-middle">キャンセル待ち</td>
+                    <% else %>
+                        <td class="align-middle">キャンセル済み</td>
+                    <% end %>
+                    <td class="align-middle">
+                    <%= link_to "詳細", admin_order_path(order.id) , class: "btn btn-primary btn-sm" %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+<div class="container">
+    <div class="row">
+        <%= paginate @orders, class: "paginate" %>
+    </div>
+</div>
 
