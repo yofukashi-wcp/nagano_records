@@ -2,7 +2,7 @@ class AdminProductsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @products = search_products_data
+    @products, @length = search_products_data
   end
 
   def show

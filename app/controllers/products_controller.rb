@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = search_products_data
+    @products, @length = search_products_data
 
     unless @cart = Cart.find_by(product_id: params[:id])
       @cart = Cart.new
