@@ -1,13 +1,76 @@
-User.create!([
-  {email: "test1@test.com", encrypted_password: "$2a$11$IybmAjCqNTp5UyHls3aUcuSI7WhZF.Zt2hFqwKIHxpTGiOqLm6rlq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 9, current_sign_in_at: "2019-08-28 09:48:31", last_sign_in_at: "2019-08-27 17:59:06", current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", first_name: "泰雅", last_name: "吉崎", first_name_ruby: "タイガ", last_name_ruby: "ヨシザキ", phone_number: "11111111111", zip_code: "1111111", address: "神奈川県海老名市上郷1-1-1", deleted_at: nil},
-  {email: "test2@test.com", encrypted_password: "$2a$11$j./u8hvf7Kvlgh3SOxo2Ve1hmIvXk3shdDUU85qgu7byTjI0RBkdm", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, first_name: "克昭", last_name: "菅", first_name_ruby: "カツアキ", last_name_ruby: "スガ", phone_number: "22222222222", zip_code: "2222222", address: "神奈川県海老名市上郷2-2-2", deleted_at: nil},
-  {email: "test3@test.com", encrypted_password: "$2a$11$amh88Lb8rgL2.wR35v8FYu5oMpPkRKe/S5fOW3wyTopCibCITD/fe", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, first_name: "晃弘", last_name: "内田", first_name_ruby: "アキヒロ", last_name_ruby: "ウチダ", phone_number: "33333333333", zip_code: "3333333", address: "神奈川県海老名市上郷3-3-3", deleted_at: nil},
-  {email: "test4@test.com", encrypted_password: "$2a$11$JgYY72bo3HB23c6SZliEp.wPusGvyhSDXQ4824ftY70Ah7vYo2KcK", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, first_name: "健剛", last_name: "山本", first_name_ruby: "ケンゴ", last_name_ruby: "ヤマモト", phone_number: "44444444444", zip_code: "4444444", address: "神奈川県海老名市上郷4-4-4", deleted_at: nil},
-  {email: "test5@test.com", encrypted_password: "$2a$11$E9MI6spqSUY0il5p9Ur1z.bD/ePC0uABBZHCV8ZOYT1GHIUpvnC9G", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, first_name: "洋", last_name: "大泉", first_name_ruby: "ヨウ", last_name_ruby: "オオイズミ", phone_number: "55555555555", zip_code: "5555555", address: "神奈川県海老名市上郷5-5-5", deleted_at: nil}
-])
-Admin.create!([
-  {email: "admin@test.com", encrypted_password: "$2a$11$QMkcZlJWPkP3q37Z43i5f.sgoKY6xJTwV0e4yzbipaxR4nhfbkjVm", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 10, current_sign_in_at: "2019-08-29 17:48:32", last_sign_in_at: "2019-08-28 09:46:19", current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2"}
-])
+Admin.create!(
+   [
+   {
+      email: 'admin@test.com',
+      password: '111111',
+    }
+    ]
+)
+
+User.create!(
+  [
+   {
+      id: '1',
+      email: 'test1@test.com',
+      password: '111111',
+      last_name: '吉崎',
+      first_name: '泰雅',
+      last_name_ruby: 'ヨシザキ',
+      first_name_ruby: 'タイガ',
+      phone_number: '11111111111',
+      zip_code: '1111111',
+      address: '神奈川県海老名市上郷1-1-1'
+   },
+   {
+      id: '2',
+      email: 'test2@test.com',
+      password: '222222',
+      last_name: '菅',
+      first_name: '克昭',
+      last_name_ruby: 'スガ',
+      first_name_ruby: 'カツアキ',
+      phone_number: '22222222222',
+      zip_code: '2222222',
+      address: '神奈川県海老名市上郷2-2-2'
+   },
+   {
+      id: '3',
+      email: 'test3@test.com',
+      password: '333333',
+      last_name: '内田',
+      first_name: '晃弘',
+      last_name_ruby: 'ウチダ',
+      first_name_ruby: 'アキヒロ',
+      phone_number: '33333333333',
+      zip_code: '3333333',
+      address: '神奈川県海老名市上郷3-3-3'
+   },
+   {
+      id: '4',
+      email: 'test4@test.com',
+      password: '444444',
+      last_name: '山本',
+      first_name: '健剛',
+      last_name_ruby: 'ヤマモト',
+      first_name_ruby: 'ケンゴ',
+      phone_number: '44444444444',
+      zip_code: '4444444',
+      address: '神奈川県海老名市上郷4-4-4'
+   },
+   {
+      id: '5',
+      email: 'test5@test.com',
+      password: '555555',
+      last_name: '大泉',
+      first_name: '洋',
+      last_name_ruby: 'オオイズミ',
+      first_name_ruby: 'ヨウ',
+      phone_number: '55555555555',
+      zip_code: '5555555',
+      address: '神奈川県海老名市上郷5-5-5'
+   },
+   ]
+)
 Address.create!([
   {user_id: 1, name: "藤村忠寿", zip_code: "1234567", address: "鹿児島県千日町5-8"}
 ])
