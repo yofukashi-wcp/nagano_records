@@ -1,6 +1,6 @@
 <div class="container mt-4"><div class="row">
   <div class="lead">
-    検索結果: <%= products.present? ? products.length : 0 %>件
+    検索結果: <%= products.present? ? length : 0 %>件
   </div>
 </div></div>
 
@@ -41,7 +41,7 @@
         <div class="col-4">
           <p class="lead">価格(税込)　¥ <%= product.price.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %></p>
           <p class="lead">
-            <% if product.stock > 1 %>
+            <% if product.stock > 0 %>
               <%= "在庫 " + product.stock.to_s %>
             <% else %>
               <span class="text-danger"><%= "在庫がありません" %></span>

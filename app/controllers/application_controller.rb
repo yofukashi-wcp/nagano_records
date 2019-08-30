@@ -42,25 +42,33 @@ class ApplicationController < ActionController::Base
     def search_products_data
       if params[:word].blank?
         # 全件表示
-        Product.all.page(params[:page])
+        tmp = Product.all.order(updated_at: "DESC")
+        length = tmp.length
+        return tmp.page(params[:page]), length
       else
         case params[:require].to_i
         when 1  # アーティスト名検索
           artist = Artist.find_by(name: params[:word])
           if artist.present?
-            artist.products.page(params[:page])
+            tmp = artist.products
+            length = tmp.length
+            return tmp.page(params[:page]), length
           end
 
         when 2  # レーベル名検索
           label = Label.find_by(name: params[:word])
           if label.present?
-            label.products.page(params[:page])
+            tmp = label.products
+            length = tmp.length
+            return tmp.page(params[:page]), length
           end
 
         when 3  # ジャンル名検索
           genre = Genre.find_by(name: params[:word])
           if genre.present?
-            genre.products.page(params[:page])
+            tmp = genre.products
+            length = tmp.length
+            return tmp.page(params[:page]), length
           end
 
         when 4  # フリーワード検索
@@ -97,10 +105,13 @@ class ApplicationController < ActionController::Base
           end
 
           cross.uniq!
-          cross = Kaminari.paginate_array(cross).page(params[:page])
+          length = cross.length
+          return cross = Kaminari.paginate_array(cross).page(params[:page]), length
 
         else  # 商品名検索（デフォルト）
-          Product.where(name: params[:word]).page(params[:page])
+          tmp = Product.where(name: params[:word])
+          length = tmp.length
+          return tmp.page(params[:page]), length
         end
       end
     end
