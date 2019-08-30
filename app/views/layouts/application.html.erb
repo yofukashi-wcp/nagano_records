@@ -31,17 +31,15 @@
               <% else %>
                 <%= link_to image_tag("header.png", width: '270', height: '50', alt: "NAGANO RECORDS"), root_path %>
               <% end %>
-              <form class="form-inline mx-auto" data-background-color>
-                <div class="form-group has-white ml-5">
-                  <% unless admin_signed_in? %>
-                      <%= form_with url: products_path, method: :get, local: true do |form| %>
-                        <%= form.hidden_field :require, value: 4 %>
-                        <%= form.text_field :word, id: "searchInput", class: "form-control search", style: "width: 350px;", placeholder: "商品やアーティスト名などで検索" %>
-                        <%= form.submit "検索", class: "btn btn-neutral btn-round" %>
-                      <% end %>
+                <% unless admin_signed_in? %>
+                  <%= form_with url: products_path, method: :get, local: true, class: "form-inline mx-auto" do |form| %>
+                    <div class="form-group has-white ml-5">
+                      <%= form.hidden_field :require, value: 4 %>
+                      <%= form.text_field :word, id: "searchInput", class: "form-control search", style: "width: 350px;", placeholder: "商品やアーティスト名などで検索" %>
+                      <%= form.submit "検索", class: "btn btn-neutral btn-round" %>
+                    </div>
                   <% end %>
-                </div>
-              </form>
+                  <% end %>
               <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <% if user_signed_in? %>
