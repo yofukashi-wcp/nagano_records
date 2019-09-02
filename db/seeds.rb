@@ -127,12 +127,6 @@ Label.create!([
   {name: "ワーナー・ブラザーズ・レコード"},
   {name: "fontec"}
 ])
-Order.create!([
-  {user_id: 1, zip_code: "1234567", address: "鹿児島県千日町5-8", phone_number: "11111111111", postage: 500, total: 2876, payment: 0, status: 1, name: "藤村忠寿"}
-])
-OrderProduct.create!([
-  {order_id: 1, product_id: 4, quantity: 1, price: 2376}
-])
 Product.create!([
   {name: "オーロラ", artist_id: 1, label_id: 3, genre_id: 3, price: 2376, stock: 20, jacket_image_id: "03a1962609f776fc9d752e26c4bb6670a6143bc4078db79dd2c319ec0e02", summary: "ゲスト参加はなく全て平沢進一人で創り上げた完全ソロ作品。テクノ・ポップの原点にもう一度回帰したような、デジタル主体のサウンドに抒情的なメロディーと、風を切るような劇的なヴォーカルを乗せた雄大なエレクトロ・ポップ・ナンバーと、等身大の生身の平沢進を感じさせる、ストレートな歌声を乗せた穏やかなヴォーカル・ナンバーで構成された'94年リリースのフォース・アルバム。 "},
   {name: "時空の水", artist_id: 1, label_id: 3, genre_id: 2, price: 2376, stock: 14, jacket_image_id: "4f17b5b961ad0bd841d07e6fa1a44dfbc438326b0d364b94a400e2895135", summary: "1988年12月にPモデルを「凍結」（活動休止）宣言。Pモデルとは異なった音楽世界を追求し始めた平沢進のソロ一作目（'89年9月リリース）。コルグシンセサイザーM1と平沢のエレクトリック・ギターや、様々なアコースティック楽器演奏を組み合わせた、メロディアスかつナチュラルさを追求したようなサウンドに、牧歌的とも言える抒情性溢れる歌声を披露。民謡のような旋律まで飛び出す平沢の歌世界の飛躍ぶりにみんなびっくり！ケラや戸川純がバック・コーラスで参加。"},
@@ -164,6 +158,12 @@ Product.create!([
   {name: "Deep Blue Sky & Pure White Wings", artist_id: 12, label_id: 14, genre_id: 12, price: 1500, stock: 1, jacket_image_id: "1851c2c62b97376a863d838f33048598a1042a422de5f769ab7c6a93dd71", summary: ""},
   {name: "ぼくたちの失敗〜森田童子ベスト・コレクション", artist_id: 13, label_id: 15, genre_id: 13, price: 2325, stock: 3, jacket_image_id: "a327f78e6398ee144e46c80afce43b480d2c923550f85cd2c52754cfe697", summary: ""},
   {name: "さあ、はじめよう音楽会〜高学年用クラス合唱曲集", artist_id: 14, label_id: 16, genre_id: 14, price: 3297, stock: 1, jacket_image_id: "d37c58f0524cc10962daf8ca19c03c42377b4173aa65560e43a12ab33bc0", summary: ""}
+])
+Order.create!([
+  {user_id: 1, zip_code: "1234567", address: "鹿児島県千日町5-8", phone_number: "11111111111", postage: 500, total: 2876, payment: 0, status: 1, name: "藤村忠寿"}
+])
+OrderProduct.create!([
+  {order_id: 1, product_id: 4, quantity: 1, price: 2376}
 ])
 Track.create!([
   {product_id: 4, disc: 1, number: 1, name: "ハルディン・ホテル", length: "04:32"},
